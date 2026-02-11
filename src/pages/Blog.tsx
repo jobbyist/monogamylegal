@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import PartnerCarousel from "@/components/PartnerCarousel";
 import { Shield, Users, Scale, Clock, Star, CheckCircle, Briefcase, Heart, Home, FileText, Gavel, DollarSign } from "lucide-react";
 
 const practiceAreas = [
@@ -72,6 +73,13 @@ const Blog = () => {
           </div>
         </div>
       </section>
+
+      {/* Partner Carousel */}
+      <Section>
+        <AppearOnScroll delay={0}>
+          <PartnerCarousel />
+        </AppearOnScroll>
+      </Section>
 
       {/* Trust Bar */}
       <Section>
