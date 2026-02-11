@@ -97,9 +97,9 @@ const Header = () => {
                   </ul>
 
                   <ul className="mt-12 space-y-1">
-                    <li><a href="mailto:hello@monogamy.law" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Email</a></li>
+                    <li><a href="mailto:hello@monogamy.legal" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Email</a></li>
                     <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a></li>
-                    <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Twitter</a></li>
+                    <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Facebook</a></li>
                   </ul>
                 </div>
               </div>
