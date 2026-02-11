@@ -1,123 +1,55 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "./ThemeProvider";
+import monogamyLogo from "@/assets/monogamy-logo.png";
 
 const Footer = () => {
   const { theme, setTheme } = useTheme();
+
+  const linkClass = "text-[1.4rem] text-muted-foreground hover:text-foreground transition-colors";
 
   return (
     <footer className="border-t border-border mt-24">
       <div className="py-12 px-6 md:px-[calc(18vw-10rem)]">
         <div className="max-w-[138rem] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-            {/* Column 1: Theme Toggle */}
-            <div className="flex flex-col gap-3">
-              <h3 className="text-[1.4rem] tracking-wider mb-1">
-                Select a color scheme preference
-              </h3>
-              <div className="flex gap-6">
-                <button
-                  onClick={() => setTheme("light")}
-                  className={`text-[1.4rem] font-medium transition-colors ${
-                    theme === "light"
-                      ? "text-foreground underline decoration-2 underline-offset-4"
-                      : "text-muted-foreground"
-                  }`}
-                  aria-label="Light mode"
-                >
-                  Light
-                </button>
-                <button
-                  onClick={() => setTheme("dark")}
-                  className={`text-[1.4rem] font-medium transition-colors ${
-                    theme === "dark"
-                      ? "text-foreground underline decoration-2 underline-offset-4"
-                      : "text-muted-foreground"
-                  }`}
-                  aria-label="Dark mode"
-                >
-                  Dark
-                </button>
-                <button
-                  onClick={() => setTheme("system")}
-                  className={`text-[1.4rem] font-medium transition-colors ${
-                    theme === "system"
-                      ? "text-foreground underline decoration-2 underline-offset-4"
-                      : "text-muted-foreground"
-                  }`}
-                  aria-label="System theme"
-                >
-                  Auto
-                </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16">
+            {/* Brand */}
+            <div className="lg:col-span-2 flex flex-col gap-4">
+              <img src={monogamyLogo} alt="Monogamy" className="h-[24px] w-fit dark:invert" />
+              <p className="text-[1.4rem] text-muted-foreground max-w-[30rem]">
+                Premium legal services at your fingertips. Connect with top-rated attorneys across every practice area for just $19.99/month.
+              </p>
+              <div className="flex gap-4 mt-2">
+                <button onClick={() => setTheme("light")} className={`text-[1.3rem] font-medium transition-colors ${theme === "light" ? "text-foreground underline underline-offset-4" : "text-muted-foreground"}`}>Light</button>
+                <button onClick={() => setTheme("dark")} className={`text-[1.3rem] font-medium transition-colors ${theme === "dark" ? "text-foreground underline underline-offset-4" : "text-muted-foreground"}`}>Dark</button>
+                <button onClick={() => setTheme("system")} className={`text-[1.3rem] font-medium transition-colors ${theme === "system" ? "text-foreground underline underline-offset-4" : "text-muted-foreground"}`}>Auto</button>
               </div>
             </div>
 
-            {/* Column 2: Pages */}
+            {/* Platform */}
             <nav className="flex flex-col gap-3">
-              <Link
-                to="/about"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                About
-              </Link>
-              <Link
-                to="/faq"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                FAQ
-              </Link>
-              <Link
-                to="/contact"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                Contact
-              </Link>
+              <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Platform</h4>
+              <Link to="/practice-areas" className={linkClass}>Practice Areas</Link>
+              <Link to="/how-it-works" className={linkClass}>How It Works</Link>
+              <Link to="/pricing" className={linkClass}>Pricing</Link>
+              <Link to="/faq" className={linkClass}>FAQ</Link>
             </nav>
 
-            {/* Column 3: Legal */}
+            {/* Company */}
             <nav className="flex flex-col gap-3">
-              <Link
-                to="/privacy"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                to="/terms"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                Terms & Conditions
-              </Link>
-              <p className="text-[1.4rem] text-muted-foreground">
-                © Editorial 2025
-              </p>
+              <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Company</h4>
+              <Link to="/about" className={linkClass}>About</Link>
+              <Link to="/contact" className={linkClass}>Contact</Link>
+              <Link to="/privacy" className={linkClass}>Privacy Policy</Link>
+              <Link to="/terms" className={linkClass}>Terms & Conditions</Link>
             </nav>
 
-            {/* Column 4: Social */}
+            {/* Connect */}
             <nav className="flex flex-col gap-3">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                Facebook
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                Twitter
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[1.4rem] inline-block [transition:background-position_600ms_cubic-bezier(0.45,0,0.55,1)] bg-current [background-image:linear-gradient(90deg,rgba(203,48,223,0.5)_0%,rgba(254,44,85,0.5)_46%,hsl(var(--foreground))_54%,hsl(var(--foreground))_100%)] bg-[length:220%_100%] bg-[position:100%_0] bg-clip-text text-transparent hover:bg-[position:0%_0]"
-              >
-                Instagram
-              </a>
+              <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Connect</h4>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={linkClass}>LinkedIn</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={linkClass}>Twitter</a>
+              <a href="mailto:hello@monogamy.law" className={linkClass}>hello@monogamy.law</a>
+              <p className="text-[1.3rem] text-muted-foreground mt-2">© Monogamy {new Date().getFullYear()}</p>
             </nav>
           </div>
         </div>

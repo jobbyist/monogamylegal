@@ -1,134 +1,54 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const FAQ = () => {
   const faqs = [
-    {
-      question: "What is Editorial?",
-      answer:
-        "Editorial is a design-forward content platform where creators share stories, photography, and perspectives. We combine editorial excellence with beautiful design to create an engaging reading experience.",
-    },
-    {
-      question: "How can I contribute to Editorial?",
-      answer:
-        "We're always looking for talented writers, photographers, and designers. Reach out through our Contact page with samples of your work and a brief introduction. We review all submissions and respond within 7-10 business days.",
-    },
-    {
-      question: "Is Editorial free to read?",
-      answer:
-        "Yes! All content on Editorial is free to read. We believe great stories should be accessible to everyone. We're exploring sustainable models that keep content free while supporting our creators.",
-    },
-    {
-      question: "Can I republish content from Editorial?",
-      answer:
-        "Content rights belong to individual creators. If you'd like to republish or reference an article, please reach out to us with details about your intended use, and we'll connect you with the original author.",
-    },
-    {
-      question: "How often do you publish new content?",
-      answer:
-        "We publish new articles 3-4 times per week. Quality over quantity is our mantra—each piece goes through a thorough editorial and design review before publication.",
-    },
-    {
-      question: "Do you accept sponsored content or advertising?",
-      answer:
-        "We occasionally feature sponsored content that aligns with our values and standards. All sponsored pieces are clearly labeled. We don't accept banner ads or intrusive advertising formats.",
-    },
-    {
-      question: "How do I subscribe to updates?",
-      answer:
-        "While we're building our newsletter feature, you can follow us on Twitter for regular updates. We announce new articles, featured photographers, and community highlights there.",
-    },
-    {
-      question: "What's your editorial process?",
-      answer:
-        "Each submission goes through a multi-stage review: initial screening, editorial feedback, design integration, and final approval. We work closely with contributors to ensure their vision is preserved while maintaining our quality standards.",
-    },
-    {
-      question: "Can I suggest a topic or story idea?",
-      answer:
-        "Absolutely! We love hearing ideas from our community. Send your pitch through our Contact page with a brief outline. We review all suggestions and respond to those that fit our editorial direction.",
-    },
-    {
-      question: "How do you choose featured articles?",
-      answer:
-        "Featured articles are selected based on editorial quality, visual impact, timeliness, and community engagement. We aim to showcase diverse voices and perspectives across different content categories.",
-    },
-    {
-      question: "Is there a mobile app?",
-      answer:
-        "Not yet, but our website is fully responsive and optimized for mobile reading. A native app is on our roadmap for 2025 as we continue to improve the reading experience.",
-    },
-    {
-      question: "How can I report an issue or bug?",
-      answer:
-        "Please use our Contact page to report any technical issues, broken links, or concerns. Include details about your device, browser, and the specific problem you encountered. We investigate all reports promptly.",
-    },
+    { question: "What is Monogamy?", answer: "Monogamy is a premium legal services platform that connects you with an extensive network of top-rated attorneys across every practice area for a flat monthly fee of $19.99. Think of it as having a law firm on retainer — without the retainer fees." },
+    { question: "What's included in the $19.99/month subscription?", answer: "Your membership includes unlimited attorney consultations, document review and preparation, secure messaging with your matched attorney, priority case matching, and access to our 24/7 legal resources library." },
+    { question: "How are attorneys vetted?", answer: "Every attorney in our network undergoes a rigorous vetting process including license verification, background checks, peer reviews, and client satisfaction monitoring. We only accept attorneys with strong track records and high ethical standards." },
+    { question: "What practice areas do you cover?", answer: "We cover virtually every area of law including family law, business law, real estate, estate planning, criminal defense, employment law, personal injury, tax law, immigration, intellectual property, and more." },
+    { question: "How quickly can I get matched with an attorney?", answer: "Most members are matched with a qualified attorney within 2 hours of submitting their request. For urgent matters, we offer expedited matching that can connect you within 30 minutes." },
+    { question: "Can I cancel anytime?", answer: "Yes! There are no long-term contracts or cancellation fees. You can cancel your membership at any time from your account settings." },
+    { question: "Is my information kept confidential?", answer: "Absolutely. All communications between you and your attorney are protected by attorney-client privilege. Our platform uses bank-level encryption to protect your data and documents." },
+    { question: "I'm an attorney. How can I join the network?", answer: "We're always looking for talented attorneys to join our network. Visit our Contact page or reach out to partners@monogamy.law with your credentials and practice details. We'll guide you through our onboarding process." },
+    { question: "Does Monogamy replace hiring a traditional attorney?", answer: "Monogamy provides access to legal counsel and services that can handle most legal needs. For complex litigation or specialized matters, your Monogamy attorney can continue to represent you or help you find the right specialist." },
+    { question: "What if I'm not satisfied with my matched attorney?", answer: "Your satisfaction is our priority. If you're not happy with your match, we'll reassign you to a different attorney at no extra cost. Just contact our support team." },
   ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
-      {/* Hero Section */}
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">
           <h1 className="text-[3.4rem] md:text-[4.2rem] lg:text-[6rem] font-semibold tracking-[-0.01em] leading-[1.2] md:leading-[1] mb-[2rem]">
             Frequently Asked Questions
           </h1>
           <p className="text-[1.8rem] md:text-[2rem] text-muted-foreground leading-[1.8]">
-            Everything you need to know about Editorial and how it works.
+            Everything you need to know about Monogamy and how it works.
           </p>
         </div>
       </Section>
-
-      {/* FAQ Accordion */}
       <Section>
         <div className="max-w-[80rem] w-full mx-auto">
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border-b border-border"
-              >
-                <AccordionTrigger className="text-[1.8rem] md:text-[2rem] font-medium text-left hover:no-underline py-6 w-full">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-[1.6rem] leading-[1.8] text-muted-foreground pb-6 w-full">
-                  {faq.answer}
-                </AccordionContent>
+              <AccordionItem key={index} value={`item-${index}`} className="border-b border-border">
+                <AccordionTrigger className="text-[1.8rem] md:text-[2rem] font-medium text-left hover:no-underline py-6 w-full">{faq.question}</AccordionTrigger>
+                <AccordionContent className="text-[1.6rem] leading-[1.8] text-muted-foreground pb-6 w-full">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
       </Section>
-
-      {/* Still Have Questions */}
       <Section>
         <div className="text-center max-w-[70rem] mx-auto border-t border-border pt-[4rem]">
-          <h3 className="text-[2.4rem] font-semibold mb-[1.5rem]">
-            Still have questions?
-          </h3>
-          <p className="text-[1.8rem] leading-[1.8] text-muted-foreground mb-[2rem]">
-            Can't find the answer you're looking for? Feel free to reach out to
-            our team.
-          </p>
-          <a
-            href="/contact"
-            className="inline-block px-8 py-3 text-[1.6rem] font-medium bg-foreground text-background rounded-lg hover:opacity-90 transition-opacity"
-          >
-            Contact Us
-          </a>
+          <h3 className="text-[2.4rem] font-semibold mb-[1.5rem]">Still have questions?</h3>
+          <p className="text-[1.8rem] leading-[1.8] text-muted-foreground mb-[2rem]">Can't find the answer you're looking for? Our team is happy to help.</p>
+          <a href="/contact" className="inline-block px-8 py-3 text-[1.6rem] font-medium bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">Contact Us</a>
         </div>
       </Section>
-
       <Footer />
     </div>
   );
