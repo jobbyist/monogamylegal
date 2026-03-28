@@ -1,6 +1,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const FAQ = () => {
@@ -21,6 +23,7 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.faq} />
       <Header />
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">

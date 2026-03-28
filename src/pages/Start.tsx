@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle } from "lucide-react";
 
@@ -61,6 +63,7 @@ const Start = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.start} />
       <Header />
 
       <section className="relative overflow-hidden">

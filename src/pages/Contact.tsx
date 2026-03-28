@@ -2,6 +2,8 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqaqkwzb";
@@ -45,6 +47,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.contact} />
       <Header />
       <div className="relative w-full pb-12 md:pb-20 lg:pb-32 px-6 md:px-[calc(18vw-10rem)]">
         <div className="max-w-[138rem] mx-auto flex flex-col items-center">

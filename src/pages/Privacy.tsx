@@ -1,10 +1,13 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { ArticleContent } from "@/components/ArticleComponents";
 
 const Privacy = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.privacy} />
       <Header />
 
       <div className="box-content max-w-[80rem] px-6 md:px-[calc(18vw-10rem)] mx-auto mt-[4rem] mb-[8rem]">
