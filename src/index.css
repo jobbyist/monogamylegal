@@ -207,4 +207,68 @@
   .pulse-animation {
     animation: pulse 2s ease-in-out infinite;
   }
+
+  /* Animated gradient border for secondary (outline) CTA buttons */
+  @keyframes gradientBorderShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .btn-secondary-animated {
+    position: relative;
+    background: transparent;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    z-index: 0;
+  }
+
+  .btn-secondary-animated::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, hsl(222 47% 20%), hsl(43 96% 56%), hsl(222 47% 35%), hsl(43 96% 70%));
+    background-size: 300% 300%;
+    animation: gradientBorderShift 4s ease infinite;
+    z-index: -1;
+  }
+
+  /* Glossy primary CTA buttons */
+  .btn-primary-glossy {
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-primary-glossy::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Cookie banner animation */
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .cookie-banner-enter {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+
+  /* Chat widget animation */
+  @keyframes chatOpen {
+    from { transform: scale(0.8) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .chat-open {
+    animation: chatOpen 0.25s ease-out forwards;
+  }
 }
