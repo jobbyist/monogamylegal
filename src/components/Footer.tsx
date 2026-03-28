@@ -59,10 +59,9 @@ const Footer = () => {
             <nav className="flex flex-col gap-3">
               <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Company</h4>
               <Link to="/about" className={linkClass}>About</Link>
-              <Link to="/stream" className={linkClass}>Stream</Link>
               <Link to="/contact" className={linkClass}>Contact</Link>
-              <Link to="/privacy" className={linkClass}>Privacy</Link>
-              <Link to="/terms" className={linkClass}>Terms</Link>
+              <Link to="/privacy" className={linkClass}>Privacy Policy</Link>
+              <Link to="/terms" className={linkClass}>Terms & Conditions</Link>
             </nav>
 
             {/* Connect */}
