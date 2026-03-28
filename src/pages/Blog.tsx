@@ -94,17 +94,20 @@ const Blog = () => {
               <div className="flex flex-wrap gap-4">
                 <Link
                   to="/pricing"
-                  className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+                  className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity btn-primary-glossy"
                 >
                   Start Your Membership
                 </Link>
                 <Link
                   to="/how-it-works"
-                  className="inline-block px-10 py-4 text-[1.7rem] font-semibold border-2 border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-all"
+                  className="inline-block px-10 py-4 text-[1.7rem] font-semibold rounded-lg btn-secondary-animated text-primary hover:text-primary transition-all"
                 >
                   Learn More
                 </Link>
               </div>
+              <p className="text-[1.3rem] text-muted-foreground mt-4">
+                This service is currently available in South Africa, Nigeria, and Kenya.
+              </p>
             </AppearOnScroll>
           </div>
         </div>
