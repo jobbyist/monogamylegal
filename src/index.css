@@ -271,4 +271,14 @@
   .chat-open {
     animation: chatOpen 0.25s ease-out forwards;
   }
+
+  /* Support button glow animation */
+  @keyframes supportGlow {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 0 0 hsl(var(--primary) / 0.5); }
+    50% { box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 0 0 10px hsl(var(--primary) / 0); }
+  }
+
+  .support-glow {
+    animation: supportGlow 2.5s ease-in-out infinite;
+  }
 }

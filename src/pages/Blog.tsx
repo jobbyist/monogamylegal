@@ -5,6 +5,7 @@ import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import PartnerCarousel from "@/components/PartnerCarousel";
 import AudioPlayer, { AudioEpisode } from "@/components/AudioPlayer";
+import SEO from "@/components/SEO";
 import { Shield, Users, Scale, Clock, Star, Briefcase, Heart, Home, FileText, Gavel, DollarSign } from "lucide-react";
 
 const practiceAreas = [
@@ -69,6 +70,11 @@ const featuredEpisodes: AudioEpisode[] = [
 const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Monogamy: Your on-demand legal team — without the overhead."
+        description="Your on-demand legal team — without the overhead. Connect with vetted attorneys across every practice area. Available in South Africa, Nigeria and Kenya…"
+        canonicalPath="/"
+      />
       <Header />
 
       {/* Hero */}

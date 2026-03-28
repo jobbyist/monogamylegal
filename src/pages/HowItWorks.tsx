@@ -3,11 +3,17 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
 import { UserPlus, Search, MessageSquare, CheckCircle, Shield, Lock, Clock, Award } from "lucide-react";
 
 const HowItWorks = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="How it works | Monogamy"
+        description="Access world-class legal counsel in minutes with our simple pricing options designed to suit every budget. From signup to resolution, we've made the entire process seamless…"
+        canonicalPath="/how-it-works"
+      />
       <Header />
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">

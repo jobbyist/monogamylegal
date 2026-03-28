@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
 import { CheckCircle, Zap } from "lucide-react";
 
 const currencies = [
@@ -79,8 +80,72 @@ const formatPrice = (usd: number, rate: number, symbol: string) => {
 const Pricing = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
 
+  const pricingSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Monogamy Legal Services",
+    description: "On-demand legal team subscriptions connecting you with vetted attorneys across every practice area.",
+    provider: {
+      "@type": "Organization",
+      name: "Monogamy",
+      url: "https://monogamy.legal",
+    },
+    areaServed: ["South Africa", "Nigeria", "Kenya"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Monogamy Subscription Plans",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          name: "Essential Plan",
+          description: "Affordable legal clarity, on demand. For individuals, freelancers, and early-stage founders.",
+          price: "19.99",
+          priceCurrency: "USD",
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: "19.99",
+            priceCurrency: "USD",
+            unitText: "MONTH",
+          },
+        },
+        {
+          "@type": "Offer",
+          name: "Professional Plan",
+          description: "Full-service legal support for SMEs and growing businesses.",
+          price: "49.99",
+          priceCurrency: "USD",
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: "49.99",
+            priceCurrency: "USD",
+            unitText: "MONTH",
+          },
+        },
+        {
+          "@type": "Offer",
+          name: "Enterprise Plan",
+          description: "Dedicated legal coverage for established businesses and high-growth companies.",
+          price: "129.99",
+          priceCurrency: "USD",
+          priceSpecification: {
+            "@type": "UnitPriceSpecification",
+            price: "129.99",
+            priceCurrency: "USD",
+            unitText: "MONTH",
+          },
+        },
+      ],
+    },
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Pricing plans | Monogamy"
+        description="Get started with any pricing option that suits you, from as little as $19.99 per month. No surprises. No hourly billing. Just the legal muscle you need, exactly when you need it…"
+        canonicalPath="/pricing"
+        structuredData={pricingSchema}
+      />
       <Header />
 
       <Section>

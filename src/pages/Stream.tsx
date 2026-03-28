@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import AudioPlayer, { AudioEpisode } from "@/components/AudioPlayer";
+import SEO from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 
 // ─── Auth helpers ──────────────────────────────────────────────────────────
@@ -289,6 +290,11 @@ const Stream = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="The Monologue: Law, Insights, Perspective - Curated | Monogamy"
+        description="Listen to the latest episodes of Monogamy's original audio commentary series on legal access, innovation and practice across Africa…"
+        canonicalPath="/stream"
+      />
       <Header />
 
       {showModal && (

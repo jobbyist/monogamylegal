@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { X, Send, AlertCircle, ChevronDown } from "lucide-react";
+import { X, Send, AlertCircle } from "lucide-react";
 
 interface Message {
   id: string;
@@ -80,27 +80,24 @@ const MonogamyAI = () => {
   return (
     <>
       {/* Floating button */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-6 right-6 z-[55] w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.35)] hover:scale-105 transition-all btn-primary-glossy flex items-center justify-center"
-        aria-label="Open Monogamy AI"
-      >
-        {open ? (
-          <ChevronDown className="w-6 h-6" />
-        ) : (
-          <img
-            src="/monogamyappicon.png"
-            alt="Monogamy AI"
-            className="w-9 h-9 rounded-full object-cover"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-          />
-        )}
+      <div className="fixed bottom-6 right-6 z-[55] flex items-center gap-3">
         {!open && (
-          <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-green-400 rounded-full border-2 border-background" />
+          <span className="text-[1.3rem] font-medium text-foreground bg-background/90 backdrop-blur-sm px-3 py-1.5 rounded-full border border-border shadow-md select-none pointer-events-none">
+            Support
+          </span>
         )}
-      </button>
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_24px_rgba(0,0,0,0.35)] hover:scale-105 transition-all btn-primary-glossy flex items-center justify-center relative support-glow"
+          aria-label={open ? "Close support chat" : "Open support chat"}
+        >
+          {open ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <span className="text-[2rem] font-bold leading-none select-none">?</span>
+          )}
+        </button>
+      </div>
 
       {/* Chat widget */}
       {open && (

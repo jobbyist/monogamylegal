@@ -2,11 +2,17 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
 import { Shield, Scale, Users, Zap } from "lucide-react";
 
 const About = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="About us | Monogamy"
+        description="Monogamy connects you with high-intent, pre-qualified clients across every practice area — so you can spend less on marketing and more on winning cases…"
+        canonicalPath="/about"
+      />
       <Header />
 
       <div className="box-content max-w-[64rem] px-4 md:px-[calc(18vw-10rem)] mx-auto relative mt-[4.5rem] xl:mt-[6rem]">
