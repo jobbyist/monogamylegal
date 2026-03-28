@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -20,6 +20,11 @@ import CaseStudyRedemption from "./pages/CaseStudyRedemption";
 import Start from "./pages/Start";
 import Stream from "./pages/Stream";
 import NotFound from "./pages/NotFound";
+import LandingIreland from "./pages/LandingIreland";
+import LandingGhana from "./pages/LandingGhana";
+import LandingKenya from "./pages/LandingKenya";
+import KnowledgeCenter from "./pages/KnowledgeCenter";
+import CaseStudyRedemptionNew from "./pages/CaseStudyRedemptionNew";
 
 const queryClient = new QueryClient();
 
@@ -43,9 +48,14 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/partners" element={<Partners />} />
-            <Route path="/case-study/redemption-law-group" element={<CaseStudyRedemption />} />
+            <Route path="/case-study/redemption-law-group" element={<Navigate to="/case-study/redemption" replace />} />
+            <Route path="/case-study/redemption" element={<CaseStudyRedemptionNew />} />
             <Route path="/start" element={<Start />} />
             <Route path="/stream" element={<Stream />} />
+            <Route path="/ie" element={<LandingIreland />} />
+            <Route path="/gh" element={<LandingGhana />} />
+            <Route path="/ke" element={<LandingKenya />} />
+            <Route path="/knowledge-center" element={<KnowledgeCenter />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

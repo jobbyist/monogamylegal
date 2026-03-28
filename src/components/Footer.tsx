@@ -67,6 +67,7 @@ const Footer = () => {
             {/* Connect */}
             <nav className="flex flex-col gap-3">
               <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Connect</h4>
+              <a href="https://whatsapp.com/channel/0029Vb7wLlMI7BeLb4viJx37" target="_blank" rel="noopener noreferrer" className={linkClass}>Community</a>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={linkClass}>LinkedIn</a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={linkClass}>Facebook</a>
               <a href="mailto:hello@monogamy.legal" className={linkClass}>hello@monogamy.legal</a>

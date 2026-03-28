@@ -460,4 +460,47 @@ export const PAGE_SEO: Record<string, PageSEO> = {
     canonical: SITE_URL,
     noIndex: true,
   },
+
+  landingIreland: {
+    title: `Monogamy is Coming to Ireland | Join the Founding Members Waiting List`,
+    description: "Be among the first to access Ireland's first on-demand legal subscription platform. Join the founding members waiting list for Monogamy Ireland — launching 1 May 2026.",
+    canonical: `${SITE_URL}/ie`,
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", url: `${SITE_URL}/ie`, name: "Monogamy Ireland — Founding Members Waiting List" },
+  },
+
+  landingGhana: {
+    title: `Monogamy is Coming to Ghana | Join the Founding Members Waiting List`,
+    description: "Be among the first to access Ghana's premium legal subscription platform. Join the founding members waiting list for Monogamy Ghana — launching 1 May 2026.",
+    canonical: `${SITE_URL}/gh`,
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", url: `${SITE_URL}/gh`, name: "Monogamy Ghana — Founding Members Waiting List" },
+  },
+
+  landingKenya: {
+    title: `Monogamy is Coming to Kenya | Join the Founding Members Waiting List`,
+    description: "Be among the first to access Kenya's premium on-demand legal subscription platform. Join the founding members waiting list for Monogamy Kenya — launching 1 May 2026.",
+    canonical: `${SITE_URL}/ke`,
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", url: `${SITE_URL}/ke`, name: "Monogamy Kenya — Founding Members Waiting List" },
+  },
+
+  knowledgeCenter: {
+    title: `Knowledge Center | LegalTech Insights & Resources — Monogamy`,
+    description: "Explore Monogamy's Knowledge Center: LegalTech whitepapers, market insights, attorney-client matching explainers, product roadmap, and industry stats for 2026.",
+    canonical: `${SITE_URL}/knowledge-center`,
+    jsonLd: { "@context": "https://schema.org", "@type": "WebPage", url: `${SITE_URL}/knowledge-center`, name: "Monogamy Knowledge Center" },
+  },
+
+  caseStudyRedemptionNew: {
+    title: `Case Study: Redemption Law Group | LegalTech Platform Build — Monogamy`,
+    description: "How Monogamy built redemption.legal — California's premier post-conviction relief platform for Pritpal Singh, Esq. Full-stack LegalTech case study.",
+    canonical: `${SITE_URL}/case-study/redemption`,
+    ogType: "article",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: "Case Study: Redemption Law Group",
+      description: "How Monogamy built redemption.legal — California's premier post-conviction relief platform.",
+      url: `${SITE_URL}/case-study/redemption`,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  },
 };
