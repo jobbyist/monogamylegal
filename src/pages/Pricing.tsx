@@ -45,6 +45,8 @@ const plans = [
       "Dedicated legal concierge (smart matching to best-fit lawyers)",
       "Discounted hourly rates (10–15% off) for extended work",
       "Multi-country legal access (cross-border advisory within Africa)",
+      "AI-Powered Support Chatbot & Voice Assistant",
+      "Workflow Automation (billing, email, scheduling)",
     ],
   },
   {
@@ -64,6 +66,7 @@ const plans = [
       "20% discounted rates for complex legal work",
       "Team access (up to 5 users)",
       "Quarterly legal strategy session (deep-dive with senior lawyer)",
+      "Advanced AI Toolkit (custom-trained chatbot, full automation suite)",
     ],
   },
 ];

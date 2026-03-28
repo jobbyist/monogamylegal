@@ -15,6 +15,7 @@ import Pricing from "./pages/Pricing";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Partners from "./pages/Partners";
+import AIServices from "./pages/AIServices";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/partners" element={<Partners />} />
+            <Route path="/ai-services" element={<AIServices />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
