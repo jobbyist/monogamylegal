@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import { useToast } from "@/hooks/use-toast";
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqaqkwzb";
+
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", message: "" });
@@ -12,10 +14,27 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast({ title: "Message sent!", description: "Our team will get back to you within 24 hours." });
-    setFormData({ firstName: "", lastName: "", email: "", message: "" });
-    setIsSubmitting(false);
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      if (response.ok) {
+        toast({ title: "Message sent!", description: "Our team will get back to you within 24 hours." });
+        setFormData({ firstName: "", lastName: "", email: "", message: "" });
+      } else {
+        toast({ title: "Something went wrong.", description: "Please try again or email us at hello@monogamy.law.", variant: "destructive" });
+      }
+    } catch {
+      toast({ title: "Network error.", description: "Please try again or email us at hello@monogamy.law.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,7 +64,6 @@ const Contact = () => {
               <AppearOnScroll delay={300}>
                 <div className="space-y-3 mb-8">
                   <p className="text-[1.8rem]"><a href="mailto:hello@monogamy.law" className="hover:opacity-60 transition-opacity">hello@monogamy.law</a></p>
-                  <p className="text-[1.8rem]"><a href="tel:+18005551234" className="hover:opacity-60 transition-opacity">1-800-555-1234</a></p>
                 </div>
               </AppearOnScroll>
             </div>
@@ -92,3 +110,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

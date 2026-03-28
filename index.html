@@ -24,6 +24,19 @@
   <meta property="og:description" content="Access top-rated attorneys across every practice area for $19.99/month. We also offer law firms and attorneys turnkey solutions to manage clients…">
   <meta name="twitter:description" content="Access top-rated attorneys across every practice area for $19.99/month. We also offer law firms and attorneys turnkey solutions to manage clients…">
   <link rel="icon" type="image/png" href="https://storage.googleapis.com/gpt-engineer-file-uploads/iy019M6SqjMXyibDc8dgs2v9PSx1/uploads/1770788009856-MONOGAMY_LOGO_PACK_AND_MEDIA_ASSETS.png">
+  <!-- SPA redirect handling for GitHub Pages -->
+  <script>
+    (function(l) {
+      if (l.search[1] === '/' ) {
+        var decoded = l.search.slice(1).split('&').map(function(s) {
+          return s.replace(/~and~/g, '&')
+        }).join('?');
+        window.history.replaceState(null, null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
+      }
+    }(window.location))
+  </script>
 </head>
 
   <body>

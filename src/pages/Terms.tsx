@@ -13,13 +13,13 @@ const Terms = () => {
             Terms & Conditions
           </h1>
           <p className="text-[1.6rem] text-muted-foreground">
-            Last updated: January 10, 2025
+            Last updated: March 28, 2026
           </p>
         </header>
 
         <ArticleContent>
           <p>
-            Welcome to Editorial. By accessing or using our website, you agree
+            Welcome to Monogamy. By accessing or using our website and services, you agree
             to be bound by these Terms and Conditions. Please read them
             carefully.
           </p>
@@ -31,10 +31,25 @@ const Terms = () => {
             agree to abide by the above, please do not use this service.
           </p>
 
+          <h2>Subscription Plans and Pricing</h2>
+          <p>
+            Monogamy offers three subscription plans billed monthly: Essential ($19.99/month), Professional ($49.99/month), and Enterprise ($129.99/month). Pricing is also available in South African Rand (ZAR), Nigerian Naira (NGN), and Kenyan Shilling (KES) at applicable exchange rates. All subscriptions are billed in advance and are non-refundable except as required by applicable law.
+          </p>
+          <ul>
+            <li>You may cancel your subscription at any time without penalty. Cancellation takes effect at the end of the current billing period.</li>
+            <li>Monogamy reserves the right to change pricing with at least 30 days' notice to existing subscribers.</li>
+            <li>Promotional pricing is subject to change and may not be available in all markets.</li>
+          </ul>
+
+          <h2>Geographic Availability</h2>
+          <p>
+            Monogamy's services are currently available in South Africa, Nigeria, and Kenya. We are actively expanding to additional African markets. The platform and its attorney network are subject to the legal and regulatory frameworks of each operating jurisdiction. Cross-border legal advisory (available on Professional and Enterprise plans) is subject to the applicable laws of all relevant jurisdictions.
+          </p>
+
           <h2>Use License</h2>
           <p>
             Permission is granted to temporarily download one copy of the
-            materials (information or software) on Editorial's website for
+            materials (information or software) on Monogamy's website for
             personal, non-commercial transitory viewing only. This is the grant
             of a license, not a transfer of title, and under this license you
             may not:
@@ -47,7 +62,7 @@ const Terms = () => {
             </li>
             <li>
               Attempt to decompile or reverse engineer any software contained on
-              Editorial's website
+              Monogamy's website
             </li>
             <li>
               Remove any copyright or other proprietary notations from the
@@ -61,15 +76,15 @@ const Terms = () => {
 
           <h2>Content Ownership and Copyright</h2>
           <p>
-            All content published on Editorial, including text, images, videos,
-            and graphics, is protected by copyright and owned by Editorial or
+            All content published on Monogamy, including text, images, videos,
+            audio content, and graphics, is protected by copyright and owned by Monogamy or
             the original content creators. The compilation of all content on
-            this site is the exclusive property of Editorial.
+            this site is the exclusive property of Monogamy.
           </p>
 
           <h3>User-Generated Content</h3>
           <p>
-            If you submit content to Editorial, you grant us a non-exclusive,
+            If you submit content to Monogamy, you grant us a non-exclusive,
             worldwide, royalty-free license to use, reproduce, modify, and
             display your content on our platform. You represent and warrant that
             you own or have the necessary rights to the content you submit.
@@ -77,36 +92,41 @@ const Terms = () => {
 
           <h2>Disclaimer</h2>
           <p>
-            The materials on Editorial's website are provided on an 'as is'
-            basis. Editorial makes no warranties, expressed or implied, and
+            The materials on Monogamy's website are provided on an 'as is'
+            basis. Monogamy makes no warranties, expressed or implied, and
             hereby disclaims and negates all other warranties including, without
             limitation, implied warranties or conditions of merchantability,
             fitness for a particular purpose, or non-infringement of
             intellectual property or other violation of rights.
           </p>
 
+          <h2>Not a Law Firm</h2>
+          <p>
+            Monogamy is a technology platform that facilitates connections between individuals and independent licensed attorneys. Monogamy is not a law firm and does not provide legal advice. The attorneys available through our platform are independent professionals who operate under the laws and regulations of their respective jurisdictions in South Africa, Nigeria, and Kenya.
+          </p>
+
           <h2>Limitations</h2>
           <p>
-            In no event shall Editorial or its suppliers be liable for any
+            In no event shall Monogamy or its suppliers be liable for any
             damages (including, without limitation, damages for loss of data or
             profit, or due to business interruption) arising out of the use or
-            inability to use the materials on Editorial's website.
+            inability to use the materials on Monogamy's website.
           </p>
 
           <h2>Accuracy of Materials</h2>
           <p>
-            The materials appearing on Editorial's website could include
-            technical, typographical, or photographic errors. Editorial does not
+            The materials appearing on Monogamy's website could include
+            technical, typographical, or photographic errors. Monogamy does not
             warrant that any of the materials on its website are accurate,
-            complete, or current. Editorial may make changes to the materials
+            complete, or current. Monogamy may make changes to the materials
             contained on its website at any time without notice.
           </p>
 
           <h2>Links to Third-Party Sites</h2>
           <p>
-            Editorial has not reviewed all of the sites linked to its website
+            Monogamy has not reviewed all of the sites linked to its website
             and is not responsible for the contents of any such linked site. The
-            inclusion of any link does not imply endorsement by Editorial of the
+            inclusion of any link does not imply endorsement by Monogamy of the
             site. Use of any such linked website is at the user's own risk.
           </p>
 
@@ -143,22 +163,20 @@ const Terms = () => {
 
           <h2>Modifications to Service</h2>
           <p>
-            Editorial reserves the right to modify or discontinue, temporarily
+            Monogamy reserves the right to modify or discontinue, temporarily
             or permanently, the service (or any part thereof) with or without
-            notice. Editorial shall not be liable to you or to any third party
+            notice. Monogamy shall not be liable to you or to any third party
             for any modification, suspension, or discontinuance of the service.
           </p>
 
           <h2>Governing Law</h2>
           <p>
-            These Terms and Conditions are governed by and construed in
-            accordance with the laws of the United States, and you irrevocably
-            submit to the exclusive jurisdiction of the courts in that location.
+            These Terms and Conditions are governed by and construed in accordance with the applicable laws of the jurisdiction in which the service is provided. Members in South Africa are subject to South African law, members in Nigeria are subject to Nigerian law, and members in Kenya are subject to Kenyan law, except as otherwise agreed in writing.
           </p>
 
           <h2>Changes to Terms</h2>
           <p>
-            Editorial reserves the right to revise these Terms and Conditions at
+            Monogamy reserves the right to revise these Terms and Conditions at
             any time. By using this website, you are agreeing to be bound by the
             then current version of these Terms and Conditions.
           </p>
@@ -177,7 +195,7 @@ const Terms = () => {
             contact us:
           </p>
           <ul>
-            <li>By email: legal@editorial.com</li>
+            <li>By email: <a href="mailto:hello@monogamy.law">hello@monogamy.law</a></li>
             <li>Through our contact page: <a href="/contact">/contact</a></li>
           </ul>
         </ArticleContent>

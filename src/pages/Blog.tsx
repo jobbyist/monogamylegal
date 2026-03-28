@@ -4,7 +4,8 @@ import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import PartnerCarousel from "@/components/PartnerCarousel";
-import { Shield, Users, Scale, Clock, Star, CheckCircle, Briefcase, Heart, Home, FileText, Gavel, DollarSign } from "lucide-react";
+import AudioPlayer, { AudioEpisode } from "@/components/AudioPlayer";
+import { Shield, Users, Scale, Clock, Star, Briefcase, Heart, Home, FileText, Gavel, DollarSign } from "lucide-react";
 
 const practiceAreas = [
   { icon: Briefcase, title: "Business Law", desc: "Formation, contracts, IP, and compliance" },
@@ -28,6 +29,45 @@ const testimonials = [
   { name: "Sarah M.", role: "Small Business Owner", quote: "Monogamy saved me thousands in legal fees. I got expert contract review within 24 hours.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" },
   { name: "David R.", role: "Real Estate Investor", quote: "Having an attorney on-demand for my property transactions has been a game-changer.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" },
   { name: "Maria L.", role: "Freelance Designer", quote: "I finally feel protected with proper contracts. The platform is incredibly easy to use.", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" },
+];
+
+const THUMBNAIL = "https://storage.googleapis.com/gpt-engineer-file-uploads/iy019M6SqjMXyibDc8dgs2v9PSx1/uploads/1770788009856-MONOGAMY_LOGO_PACK_AND_MEDIA_ASSETS.png";
+
+const featuredEpisodes: AudioEpisode[] = [
+  {
+    id: "ep2",
+    title: "Ep. 2: The State of Legal Access in Africa - What's Changing in 2026 (Preview)",
+    description: "The second episode of our mini podcast series, The Monologue, explores how legal access across Africa is evolving in 2026. We examine barriers historically faced by individuals and SMEs, including cost, geographic access, and lack of digitization. We then explore key trends reshaping legal accessibility: the expansion of digital legal platforms, regulatory reforms in major African markets, mobile‑first legal solutions, and the role of legal education initiatives. This narrative draws on editorial insights, expert analysis, and regional case studies from South Africa, Nigeria, and Kenya.",
+    publishDate: "Published on 2 Mar 2026",
+    duration: "24:38",
+    thumbnailUrl: THUMBNAIL,
+    isPreview: true,
+  },
+  {
+    id: "ep1",
+    title: "Episode 1: From Billable Hours to Subscription Law: The Shift Reshaping Legal Services (Preview)",
+    description: "Episode 1 breaks down the transformation of legal pricing models, from traditional billable hours to subscription‑based access. We discuss why clients are demanding pricing predictability, how law firms are responding, and what subscription models mean for legal practices in Africa. This episode draws on interviews with legal innovators, data on client preferences, and examples of successful adoption internationally. It also previews how platforms like Monogamy are helping bridge traditional practice and modern client expectations.",
+    publishDate: "Published on 2 Feb 2026",
+    duration: "31:15",
+    thumbnailUrl: THUMBNAIL,
+    isPreview: true,
+  },
+  {
+    id: "news1",
+    title: "Big Law Faces AI Disruption Faster Than Expected (Read full story at Law.com)",
+    description: "This featured audio summary from Law.com breaks down how artificial intelligence is impacting large law firms at an accelerated pace. We cover technological adoption trends, areas of disruption like document review and due diligence, ethical and regulatory questions, and how firms are restructuring practice workflows. This summary captures key data points and expert perspectives shaping this wave.",
+    publishDate: "Published on 27 Mar 2026",
+    duration: "12:04",
+    thumbnailUrl: THUMBNAIL,
+  },
+  {
+    id: "news2",
+    title: "Law Firms Rethink Billing Models as Clients Push Back on Costs (Read full story at Law.com)",
+    description: "An audio summary of how clients' demands for cost transparency and predictability are forcing law firms to rethink traditional billing practices. We highlight emerging alternatives, client expectations, and examples of early adopters.",
+    publishDate: "Published on 20 Mar 2026",
+    duration: "9:47",
+    thumbnailUrl: THUMBNAIL,
+  },
 ];
 
 const Blog = () => {
@@ -85,8 +125,8 @@ const Blog = () => {
       <Section>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center w-full max-w-[100rem] mx-auto">
           {[
-            { icon: Shield, label: "Vetted Attorneys", value: "2,500+" },
-            { icon: Users, label: "Active Members", value: "50,000+" },
+            { icon: Shield, label: "Vetted Attorneys", value: "500+" },
+            { icon: Users, label: "Active Members", value: "4,000+" },
             { icon: Star, label: "Avg. Rating", value: "4.9/5" },
             { icon: Clock, label: "Avg. Response", value: "<2 hrs" },
           ].map((stat, i) => (
@@ -153,43 +193,37 @@ const Blog = () => {
         </Section>
       </section>
 
-      {/* Pricing CTA */}
+      {/* Monogamy Brief — Podcast Section */}
       <Section>
-        <div className="w-full max-w-[80rem] mx-auto text-center">
+        <div className="w-full max-w-[110rem] mx-auto">
           <AppearOnScroll delay={0}>
-            <div>
-              <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-primary mb-4">Simple Pricing</p>
-              <h2 className="text-[2.8rem] md:text-[3.6rem] font-bold mb-6">
-                One plan. Unlimited access.
+            <div className="text-center mb-10">
+              <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-primary mb-4">Law, Insights, and Perspective - Curated.</p>
+              <h2 className="text-[2.8rem] md:text-[3.6rem] font-bold mb-4">
+                The latest from The Monologue
               </h2>
+              <p className="text-[1.7rem] text-muted-foreground max-w-[55rem] mx-auto leading-[1.7]">
+                Also available on Apple Podcasts and Spotify.
+              </p>
             </div>
           </AppearOnScroll>
-          <AppearOnScroll delay={100}>
-            <div className="max-w-[50rem] mx-auto bg-card border border-border rounded-2xl p-10 shadow-lg">
-              <p className="text-[5rem] font-bold text-foreground">$19<span className="text-[2.4rem] text-muted-foreground">.99/mo</span></p>
-              <p className="text-[1.6rem] text-muted-foreground mb-8">Everything you need, one monthly fee</p>
-              <ul className="text-left space-y-4 mb-10">
-                {[
-                  "Unlimited attorney consultations",
-                  "Access to 2,500+ vetted lawyers",
-                  "Document review & preparation",
-                  "Secure messaging & file sharing",
-                  "Priority case matching",
-                  "24/7 legal resources library",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-[1.6rem]">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {featuredEpisodes.map((episode, i) => (
+              <AppearOnScroll key={episode.id} delay={i * 100}>
+                <AudioPlayer episode={episode} />
+              </AppearOnScroll>
+            ))}
+          </div>
+
+          <AppearOnScroll delay={400}>
+            <div className="text-center mt-10">
               <Link
-                to="/pricing"
-                className="inline-block w-full py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity text-center"
+                to="/stream"
+                className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
               >
-                Start Your Membership
+                Stream Full Episodes
               </Link>
-              <p className="text-[1.3rem] text-muted-foreground mt-4">Cancel anytime. No long-term contracts.</p>
             </div>
           </AppearOnScroll>
         </div>

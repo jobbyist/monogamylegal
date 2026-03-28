@@ -178,7 +178,7 @@ const Partners = () => {
             <AppearOnScroll delay={300}>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  to="/contact"
+                  to="/start"
                   className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
                 >
                   Join the Network
@@ -396,7 +396,7 @@ const Partners = () => {
                     </ul>
 
                     <Link
-                      to="/contact"
+                      to="/start"
                       className={`w-full py-3 text-[1.5rem] font-semibold rounded-lg text-center transition-all block ${
                         plan.badge
                           ? "bg-background text-primary hover:bg-background/90"
@@ -523,7 +523,7 @@ const Partners = () => {
                 Join Africa's fastest-growing legal marketplace. Start free, scale as you grow, and keep more of what you earn.
               </p>
               <Link
-                to="/contact"
+                to="/start"
                 className="inline-block px-12 py-5 text-[1.8rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity shadow-lg"
               >
                 Start Receiving Clients

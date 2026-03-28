@@ -27,7 +27,7 @@ const PartnerCarousel = () => {
         Our Partners
       </p>
       <h2 className="text-[2.8rem] md:text-[3.6rem] font-bold text-center mb-12">
-        Trusted by leading organizations
+        Powered by the world's leading technology providers
       </h2>
       
       <Carousel
