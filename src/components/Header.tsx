@@ -100,8 +100,8 @@ const Header = () => {
 
                   <ul className="mt-12 space-y-1">
                     <li><a href="mailto:hello@monogamy.legal" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Email</a></li>
-                    <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a></li>
-                    <li><a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Facebook</a></li>
+                    <li><a href="https://linkedin.com/company/monogamylegal" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a></li>
+                    <li><a href="https://facebook.com/monogamy.legal" target="_blank" rel="noopener noreferrer" className="text-[1.6rem] text-muted-foreground hover:text-foreground transition-colors">Facebook</a></li>
                   </ul>
                 </div>
               </div>
