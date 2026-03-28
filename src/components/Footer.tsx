@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Brand */}
             <div className="lg:col-span-2 flex flex-col gap-4">
-              <img src={monogamyLogo} alt="Monogamy" className="dark:invert" style={{ width: "200px", height: "auto" }} />
+              <img src={monogamyLogo} alt="Monogamy" className="dark:invert" style={{ width: "150px", height: "auto" }} />
               <p className="text-[1.4rem] text-muted-foreground max-w-[30rem]">
                 Your on-demand legal team — without the overhead. Connect with vetted attorneys across every practice area.
               </p>
@@ -68,8 +68,8 @@ const Footer = () => {
             {/* Connect */}
             <nav className="flex flex-col gap-3">
               <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Connect</h4>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={linkClass}>LinkedIn</a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={linkClass}>Facebook</a>
+              <a href="https://linkedin.com/company/monogamylegal" target="_blank" rel="noopener noreferrer" className={linkClass}>LinkedIn</a>
+              <a href="https://facebook.com/monogamy.legal" target="_blank" rel="noopener noreferrer" className={linkClass}>Facebook</a>
               <a href="mailto:hello@monogamy.legal" className={linkClass}>hello@monogamy.legal</a>
               <p className="text-[1.3rem] text-muted-foreground mt-2">© Monogamy {new Date().getFullYear()}</p>
             </nav>
