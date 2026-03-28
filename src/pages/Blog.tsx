@@ -18,7 +18,7 @@ const practiceAreas = [
 ];
 
 const steps = [
-  { num: "01", title: "Subscribe", desc: "Join Monogamy from as little as $19.99/month and unlock unlimited access to our legal network." },
+  { num: "01", title: "Subscribe", desc: "Join Monogamy for $19.99/month and unlock unlimited access to our legal network." },
   { num: "02", title: "Match", desc: "Tell us about your legal needs and we'll connect you with the right attorney." },
   { num: "03", title: "Consult", desc: "Schedule consultations, share documents, and communicate securely." },
   { num: "04", title: "Resolve", desc: "Work with your attorney to resolve your matter with confidence." },
@@ -34,16 +34,6 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-
-      {/* Notification Bar */}
-      <div className="bg-primary text-primary-foreground text-center py-3 px-4">
-        <p className="text-[1.3rem] md:text-[1.4rem] font-medium">
-          🤖 New for Lawyers &amp; Law Firms:{" "}
-          <Link to="/ai-services" className="underline underline-offset-2 font-semibold hover:opacity-80 transition-opacity">
-            AI-Powered Client Support, Intake Tools &amp; Workflow Automation →
-          </Link>
-        </p>
-      </div>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -61,7 +51,7 @@ const Blog = () => {
             </AppearOnScroll>
             <AppearOnScroll delay={200}>
               <p className="text-[1.8rem] md:text-[2.2rem] leading-[1.7] text-muted-foreground mb-10 max-w-[60rem]">
-                Access an extensive network of top-rated legal practitioners across every practice area from just <strong className="text-foreground">$19.99/month</strong>.
+                Access an extensive network of top-rated legal practitioners across every practice area for just <strong className="text-foreground">$19.99/month</strong>.
               </p>
             </AppearOnScroll>
             <AppearOnScroll delay={300}>
@@ -79,9 +69,6 @@ const Blog = () => {
                   Learn More
                 </Link>
               </div>
-              <p className="text-[1.3rem] text-muted-foreground mt-4">
-                Available in South Africa · Nigeria · Kenya
-              </p>
             </AppearOnScroll>
           </div>
         </div>
