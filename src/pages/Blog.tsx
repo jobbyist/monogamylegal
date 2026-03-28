@@ -45,8 +45,8 @@ const Blog = () => {
             </AppearOnScroll>
             <AppearOnScroll delay={100}>
               <h1 className="text-[3.6rem] md:text-[5rem] lg:text-[7rem] font-bold tracking-[-0.02em] leading-[1.1] mb-8">
-                Your attorney,{" "}
-                <span className="text-primary">on demand.</span>
+                Your on-demand legal team —{" "}
+                <span className="text-primary">without the overhead.</span>
               </h1>
             </AppearOnScroll>
             <AppearOnScroll delay={200}>
