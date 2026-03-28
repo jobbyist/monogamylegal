@@ -118,25 +118,25 @@ const partnerLogos = [
 const testimonials = [
   {
     name: "Adaeze Okonkwo",
-    role: "Partner, Okonkwo & Associates (Lagos)",
+    role: "Partner, Okonkwo & Associates (Lagos, Nigeria 🇳🇬)",
     quote: "Monogamy tripled our inbound enquiries in the first 60 days. The clients come pre-briefed — we spend more time closing and less time explaining.",
     avatar: "AO",
   },
   {
     name: "James Mwangi",
-    role: "Solo Advocate (Nairobi)",
+    role: "Solo Advocate (Nairobi, Kenya 🇰🇪)",
     quote: "I used to spend 40% of my week on business development. Now Monogamy handles that pipeline automatically. I focus on what I'm actually good at — the law.",
     avatar: "JM",
   },
   {
     name: "Thabo Dlamini",
-    role: "Director, Dlamini Legal Group (Johannesburg)",
+    role: "Director, Dlamini Legal Group (Johannesburg, South Africa 🇿🇦)",
     quote: "The cross-border access is a game-changer. We're now handling corporate mandates from Nigeria and Kenya without a single cold call.",
     avatar: "TD",
   },
   {
-    name: "Ngozi Eze",
-    role: "Family Law Specialist (Abuja)",
+    name: "Jay Cameron",
+    role: "Family Law Specialist (Accra, Ghana)",
     quote: "I was skeptical about legal tech platforms. Monogamy changed my mind. The matching is smart, the clients are serious, and the commission is fair.",
     avatar: "NE",
   },
@@ -214,9 +214,9 @@ const Partners = () => {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center mb-16">
             {[
-              { value: "1,000s", label: "Clients on Platform" },
+              { value: "1,000+", label: "Clients on Platform" },
               { value: "95%", label: "Client Satisfaction Rate" },
-              { value: "3 Countries", label: "South Africa · Nigeria · Kenya" },
+              { value: "6 Countries", label: "USA · Ireland · South Africa · Nigeria · Ghana · Kenya" },
             ].map((stat, i) => (
               <AppearOnScroll key={i} delay={i * 100}>
                 <div className="p-8 rounded-xl border border-border bg-card shadow-sm">
