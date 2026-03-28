@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
-import SEO from "@/components/SEO";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const FAQ = () => {
@@ -20,27 +19,8 @@ const FAQ = () => {
     { question: "What if I'm not satisfied with my matched attorney?", answer: "Your satisfaction is our priority. If you're not happy with your match, we'll reassign you to a different attorney at no extra cost. Just contact our support team." },
   ];
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
-  };
-
   return (
     <div className="min-h-screen bg-background">
-      <SEO
-        title="Frequently asked questions | Monogamy"
-        description="Everything you need to know about Monogamy and how it works..."
-        canonicalPath="/faq"
-        structuredData={faqSchema}
-      />
       <Header />
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">

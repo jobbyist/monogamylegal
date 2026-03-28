@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
-import SEO from "@/components/SEO";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -155,11 +154,6 @@ const Partners = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO
-        title="Join our partner network | Monogamy"
-        description="Monogamy connects you with high-intent, pre-qualified clients across every practice area — so you can spend less on marketing and more on winning cases…"
-        canonicalPath="/partners"
-      />
       <Header />
 
       {/* ── HERO ───────────────────────────────────────────────────────────── */}

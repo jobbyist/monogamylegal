@@ -20,7 +20,6 @@ export interface AudioEpisode {
   audioUrl?: string;
   thumbnailUrl?: string;
   isPreview?: boolean;
-  link?: { url: string; label: string };
 }
 
 interface AudioPlayerProps {
@@ -302,16 +301,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
               >
                 {isExpanded ? "Show less" : "Show more"}
               </button>
-            )}
-            {episode.link && (
-              <a
-                href={episode.link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[1.3rem] text-primary hover:underline mt-2 inline-block"
-              >
-                {episode.link.label}
-              </a>
             )}
           </div>
         )}

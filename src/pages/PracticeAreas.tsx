@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
-import SEO from "@/components/SEO";
 import { Briefcase, Heart, Home, FileText, Gavel, DollarSign, Scale, Shield, Globe, Lightbulb, Car, Building2 } from "lucide-react";
 
 const areas = [
@@ -24,11 +23,6 @@ const areas = [
 const PracticeAreas = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEO
-        title="Practice areas | Monogamy"
-        description="Our network of 1000+ thoroughly vetted attorneys and law firms covers every major practice area from family law and estate planning to criminal defense, tax law and everything in between..."
-        canonicalPath="/practice-areas"
-      />
       <Header />
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">
