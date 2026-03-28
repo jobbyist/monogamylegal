@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Monogamy — Premium Legal Services On Demand</title>
+    <script>
+      // GitHub Pages SPA redirect.
+      // The site is served from the root of a custom domain (monogamy.legal),
+      // so we redirect straight to / and encode the original path in ?p=
+      // so that index.html can restore it before React mounts.
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          '//' +
+          l.hostname +
+          (l.port ? ':' + l.port : '') +
+          '/?p=' +
+          l.pathname.slice(1).replace(/&/g, '~and~') +
+          (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
