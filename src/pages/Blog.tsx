@@ -5,6 +5,8 @@ import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import PartnerCarousel from "@/components/PartnerCarousel";
 import AudioPlayer, { AudioEpisode } from "@/components/AudioPlayer";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { Shield, Users, Scale, Clock, Star, Briefcase, Heart, Home, FileText, Gavel, DollarSign } from "lucide-react";
 
 const practiceAreas = [
@@ -73,6 +75,7 @@ const featuredEpisodes: AudioEpisode[] = [
 const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.home} />
       <Header />
 
       {/* Hero */}

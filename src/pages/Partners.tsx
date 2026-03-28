@@ -4,6 +4,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -157,6 +159,7 @@ const Partners = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.partners} />
       <Header />
 
       {/* ── HERO ───────────────────────────────────────────────────────────── */}

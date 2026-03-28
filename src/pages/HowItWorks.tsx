@@ -3,11 +3,14 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { UserPlus, Search, MessageSquare, CheckCircle, Shield, Lock, Clock, Award } from "lucide-react";
 
 const HowItWorks = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.howItWorks} />
       <Header />
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">

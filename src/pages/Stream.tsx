@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import AudioPlayer, { AudioEpisode } from "@/components/AudioPlayer";
+import SEO from "@/components/SEO";
+import { PAGE_SEO } from "@/lib/seo";
 import { useToast } from "@/hooks/use-toast";
 
 // ─── Auth helpers ──────────────────────────────────────────────────────────
@@ -294,6 +296,7 @@ const Stream = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO {...PAGE_SEO.stream} />
       <Header />
 
       {showModal && (
