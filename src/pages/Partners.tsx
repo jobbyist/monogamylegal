@@ -21,6 +21,9 @@ import {
   DollarSign,
   BarChart3,
   Globe,
+  ArrowRight,
+  MapPin,
+  Scale,
 } from "lucide-react";
 
 // ─── Currency ───────────────────────────────────────────────────────────────
@@ -504,6 +507,141 @@ const Partners = () => {
                     ))}
                   </CarouselContent>
                 </Carousel>
+              </div>
+            </AppearOnScroll>
+          </div>
+        </Section>
+      </section>
+
+      {/* ── FEATURED CASE STUDY ──────────────────────────────────────────── */}
+      <section className="bg-muted">
+        <Section>
+          <div className="w-full max-w-[90rem] mx-auto">
+            <AppearOnScroll delay={0}>
+              <div className="text-center mb-12">
+                <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-primary mb-4">Featured Case Study</p>
+                <h2 className="text-[2.8rem] md:text-[3.6rem] font-bold tracking-[-0.02em] mb-4">See what's possible</h2>
+                <p className="text-[1.7rem] text-muted-foreground max-w-[55rem] mx-auto leading-[1.7]">
+                  A real-world example of how Monogamy helps legal professionals build their digital presence and attract high-value clients.
+                </p>
+              </div>
+            </AppearOnScroll>
+
+            <AppearOnScroll delay={100}>
+              <div className="bg-background rounded-2xl border border-border overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  {/* Left: content */}
+                  <div className="p-10 lg:p-14 flex flex-col justify-between">
+                    <div>
+                      <span className="inline-block text-[1.2rem] font-semibold uppercase tracking-[0.18em] bg-secondary/15 text-secondary-foreground px-4 py-1.5 rounded-full mb-6">
+                        Legaltech · California
+                      </span>
+                      <h3 className="text-[2.8rem] md:text-[3.4rem] font-bold tracking-[-0.02em] mb-4">
+                        Redemption Law Group
+                      </h3>
+                      <p className="text-[1.6rem] text-muted-foreground leading-[1.8] mb-8">
+                        Post-conviction relief services for Californians — Record Expungement,
+                        Certificate of Rehabilitation, Arrest Record Sealing and Early Probation
+                        Termination. Built and launched in 6 weeks.
+                      </p>
+
+                      {/* Key stats */}
+                      <div className="grid grid-cols-3 gap-4 mb-8">
+                        {[
+                          { value: "6 wks", label: "Delivery" },
+                          { value: "4", label: "Service pages" },
+                          { value: ".legal", label: "Domain" },
+                        ].map(({ value, label }) => (
+                          <div key={label} className="text-center bg-muted rounded-xl p-4">
+                            <p className="text-[2.4rem] font-bold text-primary leading-none mb-1">{value}</p>
+                            <p className="text-[1.2rem] text-muted-foreground">{label}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {["Webflow", "Stripe", "SEO", "AI Search", "UI/UX", "Lead Gen"].map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-[1.2rem] font-medium bg-primary/8 text-primary px-3 py-1 rounded-full border border-primary/15"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Link
+                        to="/case-study/redemption-law-group"
+                        className="inline-flex items-center justify-center gap-2 px-8 py-4 text-[1.6rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+                      >
+                        Read Full Case Study
+                        <ArrowRight className="w-5 h-5" />
+                      </Link>
+                      <a
+                        href="https://redemption.legal"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-8 py-4 text-[1.6rem] font-semibold border border-border rounded-lg hover:bg-muted transition-colors"
+                      >
+                        <Globe className="w-5 h-5" />
+                        Visit Site
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Right: site preview */}
+                  <div className="relative bg-muted lg:border-l border-border min-h-[36rem] flex flex-col">
+                    {/* Mini browser chrome */}
+                    <div className="bg-card border-b border-border px-4 py-2.5 flex items-center gap-2.5 flex-shrink-0">
+                      <div className="flex gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                      </div>
+                      <div className="flex-1 bg-muted rounded px-3 py-1 flex items-center gap-1.5 max-w-[28rem]">
+                        <Globe className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                        <span className="text-[1.2rem] text-muted-foreground truncate">redemption.legal</span>
+                      </div>
+                    </div>
+                    {/* iframe */}
+                    <div className="flex-1 relative">
+                      <iframe
+                        src="https://redemption.legal"
+                        title="Redemption Law Group site preview"
+                        className="absolute inset-0 w-full h-full border-0"
+                        loading="lazy"
+                        sandbox="allow-scripts allow-forms allow-popups"
+                        style={{ minHeight: "34rem" }}
+                      />
+                    </div>
+                    {/* Overlay CTA */}
+                    <Link
+                      to="/case-study/redemption-law-group"
+                      className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-primary text-primary-foreground text-[1.3rem] font-semibold px-4 py-2 rounded-lg shadow-lg hover:opacity-90 transition-opacity z-10"
+                    >
+                      Full Case Study <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Bottom bar */}
+                <div className="border-t border-border bg-muted px-10 lg:px-14 py-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-8">
+                  <div className="flex items-center gap-2 text-[1.4rem] text-muted-foreground">
+                    <Scale className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>Post-Conviction Relief</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[1.4rem] text-muted-foreground">
+                    <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>California, USA</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[1.4rem] text-muted-foreground sm:ml-auto">
+                    <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+                    <span className="font-medium text-foreground">Delivered in 6 weeks</span>
+                  </div>
+                </div>
               </div>
             </AppearOnScroll>
           </div>
