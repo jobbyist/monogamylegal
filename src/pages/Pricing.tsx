@@ -172,7 +172,7 @@ const Pricing = () => {
                   </ul>
 
                   <Link
-                    to="/contact"
+                    to="/start"
                     className={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
                       plan.badge
                         ? "bg-background text-primary hover:bg-background/90"

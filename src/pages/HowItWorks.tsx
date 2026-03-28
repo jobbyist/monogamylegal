@@ -28,8 +28,8 @@ const HowItWorks = () => {
       <Section>
         <div className="max-w-[90rem] w-full mx-auto space-y-16">
           {[
-            { icon: UserPlus, num: "01", title: "Create Your Account", desc: "Sign up for Monogamy in under 2 minutes. Choose your $19.99/month plan and unlock instant access to our entire legal network. No contracts, no hidden fees." },
-            { icon: Search, num: "02", title: "Describe Your Legal Need", desc: "Tell us about your situation — whether it's a contract review, a custody matter, or business formation. Our intelligent matching system finds the best attorney for your specific case." },
+            { icon: UserPlus, num: "01", title: "Create Your Account", desc: "Sign up for Monogamy in under 2 minutes. Choose from our Essential ($19.99/month), Professional ($49.99/month), or Enterprise ($129.99/month) plan and unlock instant access to our legal network. Plans are also available in ZAR, NGN, and KES." },
+            { icon: Search, num: "02", title: "Describe Your Legal Need", desc: "Tell us about your situation — whether it's a contract review, a custody matter, or business formation. Our intelligent matching system finds the best attorney for your specific case across South Africa, Nigeria, and Kenya." },
             { icon: MessageSquare, num: "03", title: "Connect & Consult", desc: "Schedule a consultation with your matched attorney via our secure platform. Share documents, ask questions, and discuss strategy — all within our encrypted environment." },
             { icon: CheckCircle, num: "04", title: "Resolve With Confidence", desc: "Work with your attorney to achieve the best possible outcome. Track progress, access documents, and communicate seamlessly until your matter is resolved." },
           ].map((step, i) => (
@@ -79,7 +79,7 @@ const HowItWorks = () => {
         <div className="text-center max-w-[60rem] mx-auto">
           <h2 className="text-[2.8rem] font-bold mb-6">Ready to get started?</h2>
           <p className="text-[1.8rem] text-muted-foreground mb-8">Join thousands of members who've transformed how they handle legal matters.</p>
-          <Link to="/pricing" className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">Start Your Membership — $19.99/mo</Link>
+          <Link to="/pricing" className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity">View Pricing Plans</Link>
         </div>
       </Section>
       <Footer />

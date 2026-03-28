@@ -15,6 +15,8 @@ import Pricing from "./pages/Pricing";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Partners from "./pages/Partners";
+import Start from "./pages/Start";
+import Stream from "./pages/Stream";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +40,8 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/partners" element={<Partners />} />
+            <Route path="/start" element={<Start />} />
+            <Route path="/stream" element={<Stream />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
