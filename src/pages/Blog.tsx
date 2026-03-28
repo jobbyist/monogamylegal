@@ -54,15 +54,19 @@ const featuredEpisodes: AudioEpisode[] = [
   },
   {
     id: "news1",
-    title: "The Silent Killer … or the Best Coach You've Never Had? AI and Professional Development in Law Firms (Read full story at Law.com)",
-    description: "This featured audio summary is based on a recently published article by Marcie Borgal Shunk (president and founder of The Tilt Institute). Based on reporting from Law.com.",
+    title: "Big Law Faces AI Disruption Faster Than Expected (Read full story at Law.com)",
+    description: "This featured audio summary from Law.com breaks down how artificial intelligence is impacting large law firms at an accelerated pace. We cover technological adoption trends, areas of disruption like document review and due diligence, ethical and regulatory questions, and how firms are restructuring practice workflows. This summary captures key data points and expert perspectives shaping this wave.",
     publishDate: "Published on 27 Mar 2026",
     duration: "12:04",
     thumbnailUrl: THUMBNAIL,
-    link: {
-      url: "https://www.law.com/thelegalintelligencer/2026/03/18/the-silent-killer--or-the-best-coach-youve-never-had-ai-and-professional-development-in-law-firms/",
-      label: "Read full story at Law.com",
-    },
+  },
+  {
+    id: "news2",
+    title: "Law Firms Rethink Billing Models as Clients Push Back on Costs (Read full story at Law.com)",
+    description: "An audio summary of how clients' demands for cost transparency and predictability are forcing law firms to rethink traditional billing practices. We highlight emerging alternatives, client expectations, and examples of early adopters.",
+    publishDate: "Published on 20 Mar 2026",
+    duration: "9:47",
+    thumbnailUrl: THUMBNAIL,
   },
 ];
 
@@ -199,7 +203,7 @@ const Blog = () => {
             <div className="text-center mb-10">
               <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-primary mb-4">Law, Insights, and Perspective - Curated.</p>
               <h2 className="text-[2.8rem] md:text-[3.6rem] font-bold mb-4">
-                The Monologue
+                The latest from The Monologue
               </h2>
               <p className="text-[1.7rem] text-muted-foreground max-w-[55rem] mx-auto leading-[1.7]">
                 Also available on Apple Podcasts and Spotify.

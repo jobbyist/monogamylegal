@@ -62,16 +62,21 @@ const allEpisodes: AudioEpisode[] = [
   },
   {
     id: "news1",
-    title: "The Silent Killer … or the Best Coach You've Never Had? AI and Professional Development in Law Firms (Read full story at Law.com)",
+    title: "Big Law Faces AI Disruption Faster Than Expected (Read full story at Law.com)",
     description:
-      "This featured audio summary is based on a recently published article by Marcie Borgal Shunk (president and founder of The Tilt Institute). Based on reporting from Law.com.",
+      "This featured audio summary from Law.com breaks down how artificial intelligence is impacting large law firms at an accelerated pace. We cover technological adoption trends, areas of disruption like document review and due diligence, ethical and regulatory questions, and how firms are restructuring practice workflows.",
     publishDate: "Published on 27 Mar 2026",
     duration: "12:04",
     thumbnailUrl: THUMBNAIL,
-    link: {
-      url: "https://www.law.com/thelegalintelligencer/2026/03/18/the-silent-killer--or-the-best-coach-youve-never-had-ai-and-professional-development-in-law-firms/",
-      label: "Read full story at Law.com",
-    },
+  },
+  {
+    id: "news2",
+    title: "Law Firms Rethink Billing Models as Clients Push Back on Costs (Read full story at Law.com)",
+    description:
+      "An audio summary of how clients' demands for cost transparency and predictability are forcing law firms to rethink traditional billing practices. We highlight emerging alternatives, client expectations, and examples of early adopters.",
+    publishDate: "Published on 20 Mar 2026",
+    duration: "9:47",
+    thumbnailUrl: THUMBNAIL,
   },
   // Additional episodes
   {
