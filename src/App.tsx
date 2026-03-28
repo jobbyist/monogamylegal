@@ -5,8 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ScrollToTop from "@/components/ScrollToTop";
-import CookieBanner from "@/components/CookieBanner";
-import MonogamyAI from "@/components/MonogamyAI";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -46,8 +44,6 @@ const App = () => (
             <Route path="/stream" element={<Stream />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <CookieBanner />
-          <MonogamyAI />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>
