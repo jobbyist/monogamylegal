@@ -36,6 +36,7 @@ const Header = () => {
             <Link to="/practice-areas" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Practice Areas</Link>
             <Link to="/how-it-works" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">How It Works</Link>
             <Link to="/about" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">About</Link>
+            <Link to="/partners" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">For Lawyers</Link>
             <Link to="/contact" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Contact</Link>
             <Link
               to="/pricing"
@@ -79,6 +80,7 @@ const Header = () => {
                       { to: "/how-it-works", label: "How It Works" },
                       { to: "/pricing", label: "Pricing" },
                       { to: "/about", label: "About" },
+                      { to: "/partners", label: "For Lawyers" },
                       { to: "/contact", label: "Contact" },
                       { to: "/faq", label: "FAQ" },
                     ].map((item, i) => (

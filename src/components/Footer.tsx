@@ -14,9 +14,9 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Brand */}
             <div className="lg:col-span-2 flex flex-col gap-4">
-              <img src={monogamyLogo} alt="Monogamy" className="h-[24px] w-fit dark:invert" />
+              <img src={monogamyLogo} alt="Monogamy" className="dark:invert" style={{ width: "200px", height: "auto" }} />
               <p className="text-[1.4rem] text-muted-foreground max-w-[30rem]">
-                Premium legal services at your fingertips. Connect with top-rated attorneys across every practice area for just $19.99/month.
+                Your on-demand legal team — without the overhead. Connect with vetted attorneys across every practice area.
               </p>
               <div className="flex flex-wrap gap-3 mt-2">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-muted border border-border rounded-lg">
@@ -51,6 +51,7 @@ const Footer = () => {
               <Link to="/practice-areas" className={linkClass}>Practice Areas</Link>
               <Link to="/how-it-works" className={linkClass}>How It Works</Link>
               <Link to="/pricing" className={linkClass}>Pricing</Link>
+              <Link to="/partners" className={linkClass}>For Lawyers</Link>
               <Link to="/faq" className={linkClass}>FAQ</Link>
             </nav>
 
