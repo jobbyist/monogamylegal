@@ -38,6 +38,10 @@ const PracticeAreas = () => {
               <p className="text-[1.8rem] md:text-[2rem] text-muted-foreground leading-[1.8]">
                 Our network of 2,500+ attorneys covers every major practice area.
               </p>
+              {/* SEO addition: internal linking between high-intent pages. */}
+              <p className="text-[1.5rem] text-muted-foreground leading-[1.8] mt-4">
+                See <Link to="/how-it-works" className="text-primary hover:underline">how Monogamy works</Link> and compare <Link to="/pricing" className="text-primary hover:underline">pricing plans</Link> for your legal needs.
+              </p>
             </div>
           </AppearOnScroll>
         </div>

@@ -10,14 +10,15 @@
 
 export const SITE_NAME = "Monogamy";
 export const SITE_URL = "https://monogamy.legal";
-export const SITE_TAGLINE = "Premium Legal Services On Demand";
+export const SITE_TAGLINE = "Your on-demand legal team — without the overhead.";
 export const TWITTER_HANDLE = "@monogamy_law";
+export const DEFAULT_LOCALE = "en_ZA";
 
 export const DEFAULT_OG_IMAGE =
   "https://storage.googleapis.com/gpt-engineer-file-uploads/iy019M6SqjMXyibDc8dgs2v9PSx1/social-images/social-1770788034077-GRAVITAS_PORTFOLIO_(Hi-Red_Banners).jpeg";
 
 export const LOGO_URL =
-  "https://storage.googleapis.com/gpt-engineer-file-uploads/iy019M6SqjMXyibDc8dgs2v9PSx1/uploads/1770788009856-MONOGAMY_LOGO_PACK_AND_MEDIA_ASSETS.png";
+  "https://monogamy.legal/monogamyappicon.png";
 
 /** Canonical page metadata used by the SEO component. */
 export interface PageSEO {
@@ -40,33 +41,23 @@ export interface PageSEO {
 // ─── JSON-LD helpers ─────────────────────────────────────────────────────────
 
 const organization = {
+  "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
   url: SITE_URL,
-  logo: {
-    "@type": "ImageObject",
-    url: LOGO_URL,
-    width: 200,
-    height: 60,
-  },
+  logo: LOGO_URL,
   description:
-    "Monogamy is a premium legal services platform connecting individuals and businesses with vetted attorneys across Africa for a flat monthly subscription.",
+    "Monogamy is an on-demand legal services platform in South Africa, Nigeria, and Kenya. We connect people and businesses with vetted attorneys across major practice areas.",
   sameAs: [
-    "https://www.linkedin.com/company/monogamylegal",
-    "https://www.facebook.com/monogamylegal",
-    "https://twitter.com/monogamy_law",
+    "https://facebook.com/monogamy.legal",
+    "https://linkedin.com/company/monogamylegal",
+    "https://whatsapp.com/channel/0029Vb7wLlMI7BeLb4viJx37",
   ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer support",
-    email: "hello@monogamy.law",
-  },
-  areaServed: ["ZA", "NG", "KE"],
-  foundingDate: "2024",
 };
 
 const webSite = {
+  "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   name: SITE_NAME,
@@ -81,6 +72,9 @@ const webSite = {
     "query-input": "required name=search_term_string",
   },
 };
+
+// Global SEO schema injected on every page by the reusable SEO component.
+export const GLOBAL_STRUCTURED_DATA = [organization, webSite];
 
 function breadcrumb(items: Array<{ name: string; url: string }>) {
   return {
@@ -106,9 +100,9 @@ function breadcrumb(items: Array<{ name: string; url: string }>) {
 
 export const PAGE_SEO: Record<string, PageSEO> = {
   home: {
-    title: `${SITE_NAME} — ${SITE_TAGLINE} | From $19.99/month`,
+    title: "Monogamy: Your on-demand legal team — without the overhead.",
     description:
-      "Access top-rated attorneys across every practice area for $19.99/month. Vetted lawyers in South Africa, Nigeria, and Kenya available within 2 hours. No hourly billing.",
+      "Your on-demand legal team — without the overhead. Connect with vetted attorneys across every practice area. Available in South Africa, Nigeria and Kenya.",
     canonical: SITE_URL,
     jsonLd: [
       { "@context": "https://schema.org", ...organization },
@@ -128,9 +122,9 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   about: {
-    title: `About Monogamy | Democratizing Legal Access in Africa`,
+    title: "About us | Monogamy",
     description:
-      "Monogamy was founded to democratize access to justice through technology. Learn our mission, values, and how we connect people with vetted attorneys across Africa.",
+      "Monogamy connects you with high-intent, pre-qualified clients across every practice area — so you can spend less on marketing and more on winning cases.",
     canonical: `${SITE_URL}/about`,
     jsonLd: [
       { "@context": "https://schema.org", ...organization },
@@ -148,9 +142,9 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   practiceAreas: {
-    title: `Practice Areas | Monogamy Legal Services`,
+    title: "Practice areas | Monogamy",
     description:
-      "From family law and business law to criminal defense and estate planning — access expert attorneys across every legal practice area for $19.99/month.",
+      "Our network of 1000+ thoroughly vetted attorneys and law firms covers every major practice area from family law and estate planning to criminal defense, tax law and everything in between.",
     canonical: `${SITE_URL}/practice-areas`,
     jsonLd: {
       "@context": "https://schema.org",
@@ -166,9 +160,9 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   howItWorks: {
-    title: `How It Works | Monogamy Legal Services`,
+    title: "How it works | Monogamy",
     description:
-      "Get matched with a vetted attorney in 4 simple steps. Subscribe, describe your legal need, consult securely, and resolve your matter with confidence.",
+      "Access world-class legal counsel in minutes with our simple pricing options designed to suit every budget. From signup to resolution, we've made the entire process seamless.",
     canonical: `${SITE_URL}/how-it-works`,
     jsonLd: {
       "@context": "https://schema.org",
@@ -207,57 +201,27 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   pricing: {
-    title: `Pricing Plans | Monogamy Legal Services — From $19.99/month`,
+    title: "Pricing plans & features | Monogamy",
     description:
-      "Simple, transparent legal subscription plans. Essential from $19.99/mo for individuals, Professional from $49.99/mo for SMEs, Enterprise from $129.99/mo for businesses. No surprises.",
+      "Get started with any pricing option that suits you, from as little as $19.99 per month. No surprises. No hourly billing. Just the legal muscle you need, exactly when you need it.",
     canonical: `${SITE_URL}/pricing`,
     jsonLd: {
       "@context": "https://schema.org",
-      "@type": "WebPage",
+      "@type": "Service",
+      name: "Monogamy Legal Subscription Plans",
+      serviceType: "On-demand legal services membership",
+      provider: { "@id": `${SITE_URL}/#organization` },
+      areaServed: ["South Africa", "Nigeria", "Kenya"],
       url: `${SITE_URL}/pricing`,
-      name: "Monogamy Pricing Plans",
       description:
-        "Choose a Monogamy subscription plan starting from $19.99/month. Plans available in USD, ZAR, NGN, and KES.",
-      breadcrumb: breadcrumb([
-        { name: "Pricing", url: `${SITE_URL}/pricing` },
-      ]),
-      mainEntity: {
-        "@type": "ItemList",
-        name: "Monogamy Subscription Plans",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Essential Plan",
-            description:
-              "2 consultations/month, document review, legal templates. From $19.99/month.",
-            url: `${SITE_URL}/pricing`,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Professional Plan",
-            description:
-              "5 priority consultations, faster response, custom document drafts. From $49.99/month.",
-            url: `${SITE_URL}/pricing`,
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Enterprise Plan",
-            description:
-              "Unlimited consultations, dedicated account manager, team access. From $129.99/month.",
-            url: `${SITE_URL}/pricing`,
-          },
-        ],
-      },
+        "Subscription plans with vetted attorneys across major practice areas for individuals, startups, and enterprises.",
     },
   },
 
   contact: {
     title: `Contact Monogamy | Get in Touch`,
     description:
-      "Have questions about Monogamy? Contact our support team. Attorneys and law firms can reach us at partners@monogamy.law to join our network.",
+      "Whether you're a prospective member, an attorney looking to join our network, or have a general inquiry — we're here to help.",
     canonical: `${SITE_URL}/contact`,
     jsonLd: {
       "@context": "https://schema.org",
@@ -271,99 +235,28 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   faq: {
-    title: `FAQ | Frequently Asked Questions — Monogamy`,
+    title: "Frequently asked questions | Monogamy",
     description:
-      "Get answers about Monogamy's legal subscription service, attorney network, pricing plans, operating countries, and how attorney-client confidentiality works.",
+      "Everything you need to know about Monogamy and how it works.",
     canonical: `${SITE_URL}/faq`,
-    jsonLd: {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      url: `${SITE_URL}/faq`,
-      name: "Monogamy — Frequently Asked Questions",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What is Monogamy?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Monogamy is a premium legal services platform that connects you with an extensive network of top-rated attorneys across every practice area for a flat monthly subscription. We currently serve members in South Africa, Nigeria, and Kenya.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What subscription plans are available?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "We offer three plans: Essential ($19.99/month) for individuals and freelancers, Professional ($49.99/month) for SMEs and growing startups, and Enterprise ($129.99/month) for established businesses. Pricing is also available in ZAR, NGN, and KES.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How are attorneys vetted?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Every attorney in our network undergoes a rigorous vetting process including license verification, background checks, peer reviews, and client satisfaction monitoring. We only accept attorneys with strong track records and high ethical standards.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What practice areas do you cover?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "We cover virtually every area of law including family law, business law, real estate, estate planning, criminal defense, employment law, personal injury, tax law, immigration, intellectual property, and more.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Which countries do you operate in?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Monogamy currently operates in South Africa, Nigeria, and Kenya. Our Professional and Enterprise plans include multi-country legal access for cross-border advisory within Africa.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Can I cancel anytime?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. There are no long-term contracts or cancellation fees. You can cancel your membership at any time from your account settings.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is my information kept confidential?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "All communications between you and your attorney are protected by attorney-client privilege. Our platform uses bank-level encryption to protect your data and documents.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How quickly can I get matched with an attorney?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Essential members receive responses within 24–48 hours, Professional members within 12–24 hours, and Enterprise members receive same-day responses with priority queue access.",
-          },
-        },
-      ],
-    },
+    jsonLd: undefined,
   },
 
   partners: {
-    title: `Partner with Monogamy | Join Our Attorney Network in Africa`,
+    title: "Join our partner network | Monogamy",
     description:
-      "Lawyers and law firms: join Monogamy's network and get a steady pipeline of pre-qualified clients across South Africa, Nigeria, and Kenya. Free to start, scale as you grow.",
+      "Monogamy connects you with high-intent, pre-qualified clients across every practice area — so you can spend less on marketing and more on winning cases.",
     canonical: `${SITE_URL}/partners`,
     jsonLd: {
       "@context": "https://schema.org",
-      "@type": "WebPage",
+      "@type": "Service",
+      name: "Monogamy Partner Network for Attorneys",
+      serviceType: "Client acquisition and legal marketplace service",
+      provider: { "@id": `${SITE_URL}/#organization` },
       url: `${SITE_URL}/partners`,
-      name: "Partner with Monogamy — Lawyer Network",
       description:
-        "Attorneys and law firms can join the Monogamy network to receive pre-qualified client leads, reduce overhead, and grow their practice across Africa.",
-      breadcrumb: breadcrumb([
-        { name: "Partners", url: `${SITE_URL}/partners` },
-      ]),
+        "Monogamy connects attorneys and law firms with high-intent, pre-qualified clients across major practice areas in Africa.",
+      areaServed: ["South Africa", "Nigeria", "Kenya"],
     },
   },
 
@@ -442,9 +335,9 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   stream: {
-    title: `The Monologue Podcast | Legal Insights by Monogamy`,
+    title: "The Monologue: Law. Insights. Perspective - Curated | Monogamy",
     description:
-      "Stream The Monologue — Monogamy's podcast on legal services, AI in law, and access to justice across Africa. Available on Apple Podcasts and Spotify.",
+      "Listen to the latest episodes of Monogamy's original audio commentary series on legal access, innovation and practice across Africa.",
     canonical: `${SITE_URL}/stream`,
     jsonLd: {
       "@context": "https://schema.org",

@@ -3,6 +3,8 @@ import {
   SITE_NAME,
   TWITTER_HANDLE,
   DEFAULT_OG_IMAGE,
+  DEFAULT_LOCALE,
+  GLOBAL_STRUCTURED_DATA,
   type PageSEO,
 } from "@/lib/seo";
 
@@ -25,18 +27,25 @@ const SEO = ({
   jsonLd,
   noIndex = false,
 }: PageSEO) => {
+  // SEO addition: inject global Organization + WebSite schema on every route.
   const jsonLdArray = jsonLd
     ? Array.isArray(jsonLd)
       ? jsonLd
       : [jsonLd]
     : [];
+  const mergedJsonLd = [...GLOBAL_STRUCTURED_DATA, ...jsonLdArray];
 
   return (
-    <Helmet>
+    <Helmet htmlAttributes={{ lang: "en-ZA" }}>
       {/* Primary */}
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
+      {/* SEO addition: regional hints for South Africa */}
+      <meta name="language" content="en-ZA" />
+      <meta name="geo.region" content="ZA" />
+      <meta name="geo.placename" content="South Africa" />
+      <meta name="content-language" content="en-ZA" />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}
@@ -48,7 +57,7 @@ const SEO = ({
       <meta property="og:image" content={ogImage} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:locale" content="en_US" />
+      <meta property="og:locale" content={DEFAULT_LOCALE} />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -58,7 +67,7 @@ const SEO = ({
       <meta name="twitter:image" content={ogImage} />
 
       {/* JSON-LD structured data */}
-      {jsonLdArray.map((schema, i) => (
+      {mergedJsonLd.map((schema, i) => (
         <script key={i} type="application/ld+json">
           {JSON.stringify(schema)}
         </script>

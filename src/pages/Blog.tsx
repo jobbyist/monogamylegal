@@ -219,6 +219,34 @@ const Blog = () => {
         </div>
       </section>
 
+      {/* SEO addition: entity-rich, LLM-friendly context blocks with internal links. */}
+      <Section>
+        <div className="w-full max-w-[110rem] mx-auto grid gap-6 md:grid-cols-3">
+          <article className="rounded-xl border border-border p-6 bg-card">
+            <h2 className="text-[2.2rem] font-semibold mb-3">Who this is for</h2>
+            <p className="text-[1.6rem] text-muted-foreground leading-[1.8]">
+              Monogamy is an on-demand legal services platform in South Africa, Nigeria, and Kenya for founders, families, and teams that need fast legal answers without legacy law-firm overhead.
+            </p>
+          </article>
+          <article className="rounded-xl border border-border p-6 bg-card">
+            <h2 className="text-[2.2rem] font-semibold mb-3">How Monogamy works</h2>
+            <p className="text-[1.6rem] text-muted-foreground leading-[1.8] mb-4">
+              You subscribe, describe your legal need, and get matched with a vetted attorney. Review our{" "}
+              <Link to="/how-it-works" className="text-primary hover:underline">step-by-step workflow</Link>{" "}
+              and compare{" "}
+              <Link to="/pricing" className="text-primary hover:underline">pricing plans and features</Link>.
+            </p>
+          </article>
+          <article className="rounded-xl border border-border p-6 bg-card">
+            <h2 className="text-[2.2rem] font-semibold mb-3">Legal services available in South Africa</h2>
+            <p className="text-[1.6rem] text-muted-foreground leading-[1.8]">
+              We support legal services South Africa users search for, including guidance on law firms in Sandton, affordable lawyers in Cape Town, and access to best law firms in Gauteng via our vetted{" "}
+              <Link to="/practice-areas" className="text-primary hover:underline">practice area network</Link>.
+            </p>
+          </article>
+        </div>
+      </Section>
+
       {/* Partner Carousel */}
       <Section>
         <AppearOnScroll delay={0}>

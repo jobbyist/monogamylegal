@@ -97,6 +97,10 @@ const Pricing = () => {
               <p className="text-[1.8rem] md:text-[2rem] text-muted-foreground leading-[1.8] mb-8">
                 No surprises. No hourly billing. Just the legal muscle you need, exactly when you need it.
               </p>
+              {/* SEO addition: AI-search friendly internal links across core pages. */}
+              <p className="text-[1.5rem] text-muted-foreground leading-[1.8] mb-6">
+                Compare plans, review supported <Link to="/practice-areas" className="text-primary hover:underline">practice areas</Link>, and see <Link to="/how-it-works" className="text-primary hover:underline">how Monogamy works</Link> before you choose a membership.
+              </p>
               <div className="flex items-center justify-center gap-3 flex-wrap">
                 <span className="text-[1.4rem] text-muted-foreground font-medium">Currency:</span>
                 <div className="flex flex-wrap gap-2">
