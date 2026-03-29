@@ -1,9 +1,16 @@
+import { type FormEvent, useMemo, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
 import SEO from "@/components/SEO";
 import { PAGE_SEO } from "@/lib/seo";
-import { FileText, Video, BarChart3, ShieldCheck, Scale, Globe2 } from "lucide-react";
+import {
+  getDeliveryLog,
+  handleBookingWebhook,
+  retryFailedDelivery,
+  type BookingWebhookPayload,
+} from "@/lib/bookingNotifications";
+import { FileText, Video, BarChart3, ShieldCheck, Scale, Globe2, RefreshCcw, MailWarning } from "lucide-react";
 
 const resources = [
   { title: "2026 Whitepaper", status: "Coming Soon", description: "Monogamy's annual thesis on legaltech infrastructure, consumer access, and AI-ready legal operations." },
@@ -20,7 +27,55 @@ const cornerstoneContent = [
   "Trust & safety in legal AI: model governance, citation expectations, and human-in-the-loop quality controls.",
 ];
 
+const initialWebhook: BookingWebhookPayload = {
+  bookingId: `bk-${Math.random().toString(36).slice(2, 8)}`,
+  appointmentAt: new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString().slice(0, 16),
+  timezone: "America/New_York",
+  rescheduleUrl: "https://monogamy.law/booking/reschedule/sample-booking-id",
+  client: {
+    name: "Jordan Client",
+    email: "jordan.client@example.com",
+  },
+  attorney: {
+    name: "Avery Counsel",
+    email: "avery.counsel@example.com",
+  },
+  practiceArea: "Employment",
+};
+
+const statusPillStyles: Record<string, string> = {
+  delivered: "bg-emerald-500/10 text-emerald-600",
+  queued: "bg-slate-500/10 text-slate-600",
+  retrying: "bg-amber-500/10 text-amber-700",
+  failed: "bg-rose-500/10 text-rose-700",
+};
+
 const KnowledgeCenter = () => {
+  const [webhook, setWebhook] = useState(initialWebhook);
+  const [deliveryLog, setDeliveryLog] = useState(getDeliveryLog());
+
+  const failures = useMemo(() => deliveryLog.filter((item) => item.status === "failed" || item.status === "retrying"), [deliveryLog]);
+
+  const refreshLogs = () => setDeliveryLog(getDeliveryLog());
+
+  const onTriggerWebhook = (e: FormEvent) => {
+    e.preventDefault();
+    handleBookingWebhook({
+      ...webhook,
+      appointmentAt: new Date(webhook.appointmentAt).toISOString(),
+    });
+    refreshLogs();
+  };
+
+  const onRetry = (id: string) => {
+    retryFailedDelivery(id);
+    refreshLogs();
+  };
+
+  const onChange = (field: keyof BookingWebhookPayload, value: string) => {
+    setWebhook((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEO {...PAGE_SEO.knowledgeCenter} />
@@ -53,6 +108,88 @@ const KnowledgeCenter = () => {
           </div>
         </Section>
       </section>
+
+      <Section>
+        <div className="max-w-[108rem] mx-auto">
+          <h2 className="text-[3rem] font-bold mb-8">Booking webhooks → email templates</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <form onSubmit={onTriggerWebhook} className="border border-border rounded-2xl p-8 bg-card space-y-4">
+              <p className="text-[1.5rem] text-muted-foreground">Trigger booking confirmation, 24h reminder, and pre-consult checklist for both client and assigned attorney.</p>
+              <div>
+                <label className="block text-[1.4rem] font-medium mb-2">Booking ID</label>
+                <input value={webhook.bookingId} onChange={(e) => onChange("bookingId", e.target.value)} className="w-full h-11 px-3 rounded-lg border border-border bg-background text-[1.5rem]" required />
+              </div>
+              <div>
+                <label className="block text-[1.4rem] font-medium mb-2">Appointment time</label>
+                <input type="datetime-local" value={webhook.appointmentAt} onChange={(e) => onChange("appointmentAt", e.target.value)} className="w-full h-11 px-3 rounded-lg border border-border bg-background text-[1.5rem]" required />
+              </div>
+              <div>
+                <label className="block text-[1.4rem] font-medium mb-2">Timezone</label>
+                <input value={webhook.timezone} onChange={(e) => onChange("timezone", e.target.value)} placeholder="America/New_York" className="w-full h-11 px-3 rounded-lg border border-border bg-background text-[1.5rem]" required />
+              </div>
+              <div>
+                <label className="block text-[1.4rem] font-medium mb-2">Reschedule URL</label>
+                <input type="url" value={webhook.rescheduleUrl} onChange={(e) => onChange("rescheduleUrl", e.target.value)} className="w-full h-11 px-3 rounded-lg border border-border bg-background text-[1.5rem]" required />
+              </div>
+              <button type="submit" className="w-full h-12 rounded-lg bg-primary text-primary-foreground text-[1.6rem] font-semibold">Process webhook</button>
+            </form>
+
+            <div className="border border-border rounded-2xl p-8 bg-card">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-[2rem] font-semibold flex items-center gap-2"><MailWarning className="w-5 h-5 text-primary" /> Delivery failures</h3>
+                <button onClick={refreshLogs} className="text-[1.3rem] flex items-center gap-1 text-muted-foreground hover:text-foreground"><RefreshCcw className="w-4 h-4" />Refresh</button>
+              </div>
+              {failures.length === 0 ? (
+                <p className="text-[1.5rem] text-muted-foreground">No failures. Failed or retrying deliveries will appear here for admin visibility.</p>
+              ) : (
+                <ul className="space-y-3 max-h-[34rem] overflow-y-auto pr-1">
+                  {failures.map((item) => (
+                    <li key={item.id} className="border border-border rounded-xl p-4">
+                      <p className="text-[1.5rem] font-medium">{item.template.replaceAll("_", " ")} · {item.audience}</p>
+                      <p className="text-[1.4rem] text-muted-foreground">{item.recipientEmail}</p>
+                      <p className="text-[1.3rem] text-muted-foreground">Attempt {item.attempts} · {item.lastError ?? "No error"}</p>
+                      <button onClick={() => onRetry(item.id)} className="mt-3 text-[1.3rem] px-3 py-1 rounded-lg bg-primary/10 text-primary">Retry now</button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-6 border border-border rounded-2xl p-6 bg-card overflow-x-auto">
+            <h3 className="text-[2rem] font-semibold mb-4">Recent delivery log</h3>
+            <table className="w-full min-w-[86rem] text-left">
+              <thead>
+                <tr className="text-[1.3rem] uppercase tracking-wide text-muted-foreground border-b border-border">
+                  <th className="py-2 pr-3">Template</th>
+                  <th className="py-2 pr-3">Audience</th>
+                  <th className="py-2 pr-3">Recipient</th>
+                  <th className="py-2 pr-3">Scheduled</th>
+                  <th className="py-2 pr-3">Timezone</th>
+                  <th className="py-2 pr-3">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {deliveryLog.slice(0, 14).map((item) => (
+                  <tr key={item.id} className="border-b border-border/60 text-[1.4rem]">
+                    <td className="py-3 pr-3">{item.template.replaceAll("_", " ")}</td>
+                    <td className="py-3 pr-3">{item.audience}</td>
+                    <td className="py-3 pr-3">{item.recipientEmail}</td>
+                    <td className="py-3 pr-3">{new Date(item.scheduledFor).toLocaleString()}</td>
+                    <td className="py-3 pr-3">{item.timezone}</td>
+                    <td className="py-3 pr-3"><span className={`px-2 py-1 rounded-full text-[1.2rem] uppercase ${statusPillStyles[item.status]}`}>{item.status}</span></td>
+                  </tr>
+                ))}
+                {deliveryLog.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="py-5 text-[1.5rem] text-muted-foreground">No webhook deliveries yet.</td>
+                  </tr>
+                ) : null}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Section>
 
       <Section>
         <div className="max-w-[108rem] mx-auto">

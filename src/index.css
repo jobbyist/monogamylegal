@@ -207,4 +207,29 @@
   .pulse-animation {
     animation: pulse 2s ease-in-out infinite;
   }
+
+
+  @keyframes conciergeGlow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 hsl(var(--secondary) / 0.45), 0 12px 28px hsl(222 60% 12% / 0.35);
+      transform: translateY(0px);
+    }
+    50% {
+      box-shadow: 0 0 0 12px hsl(var(--secondary) / 0), 0 18px 36px hsl(222 60% 12% / 0.4);
+      transform: translateY(-2px);
+    }
+  }
+
+  @keyframes conciergeOrbPulse {
+    0%, 100% { filter: drop-shadow(0 0 0.25rem hsl(var(--secondary) / 0.45)); }
+    50% { filter: drop-shadow(0 0 0.8rem hsl(var(--secondary) / 0.75)); }
+  }
+
+  .concierge-fab {
+    animation: conciergeGlow 2.6s ease-in-out infinite;
+  }
+
+  .concierge-fab__orb {
+    animation: conciergeOrbPulse 2.1s ease-in-out infinite;
+  }
 }
