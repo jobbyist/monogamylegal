@@ -76,9 +76,25 @@ const FAQ = () => {
     },
   ];
 
+  // SEO addition: FAQPage schema must match visible FAQ content exactly.
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: "https://monogamy.legal/faq",
+    name: "Monogamy — Frequently Asked Questions",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <SEO {...PAGE_SEO.faq} />
+      <SEO {...PAGE_SEO.faq} jsonLd={faqSchema} />
       <Header />
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">

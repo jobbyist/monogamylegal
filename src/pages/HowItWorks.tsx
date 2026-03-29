@@ -23,6 +23,10 @@ const HowItWorks = () => {
               <p className="text-[1.8rem] md:text-[2rem] text-muted-foreground leading-[1.8]">
                 From signup to resolution, we've made the process seamless.
               </p>
+              {/* SEO addition: reinforce content graph for search crawlers and LLM retrieval. */}
+              <p className="text-[1.5rem] text-muted-foreground leading-[1.8] mt-4">
+                Explore <Link to="/pricing" className="text-primary hover:underline">pricing options</Link> and browse <Link to="/practice-areas" className="text-primary hover:underline">legal practice areas</Link> to pick the right plan for your legal matter.
+              </p>
             </div>
           </AppearOnScroll>
         </div>
