@@ -196,6 +196,30 @@ const Pricing = () => {
       </Section>
 
       <Section>
+        <div className="w-full max-w-[95rem] mx-auto rounded-2xl border border-primary/20 bg-primary/5 p-8 md:p-12">
+          <AppearOnScroll delay={0}>
+            <div className="text-left md:text-center">
+              <p className="text-[1.3rem] font-semibold uppercase tracking-[0.18em] text-primary mb-3">New: Concierge for Firms</p>
+              <h2 className="text-[2.6rem] md:text-[3.2rem] font-bold leading-tight mb-4">
+                White-label AI intake assistant for attorneys and law firms
+              </h2>
+              <p className="text-[1.65rem] text-muted-foreground leading-[1.7] mb-6">
+                Deploy a personalized chatbot that handles client onboarding, FAQ triage, Cal.com consultation booking, and billing/invoice reminders while remaining compliant by sharing legal information—not legal advice.
+              </p>
+              <div className="flex flex-wrap items-center justify-start md:justify-center gap-3">
+                <a href="mailto:hello@monogamy.law?subject=Firm%20AI%20Assistant%20Setup" className="inline-block px-7 py-3 text-[1.5rem] font-semibold rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition-all">
+                  Schedule a Demo
+                </a>
+                <Link to="/contact" className="inline-block px-7 py-3 text-[1.5rem] font-semibold rounded-lg border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all">
+                  Talk to Solutions Team
+                </Link>
+              </div>
+            </div>
+          </AppearOnScroll>
+        </div>
+      </Section>
+
+      <Section>
         <div className="text-center max-w-[60rem] mx-auto">
           <AppearOnScroll delay={0}>
             <div>
