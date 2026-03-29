@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, type ReactNode } from "react";
 import {
   Play,
   Pause,
@@ -14,12 +14,13 @@ import {
 export interface AudioEpisode {
   id: string;
   title: string;
-  description: string;
+  description: ReactNode;
   publishDate: string;
   duration: string; // e.g. "28:14"
   audioUrl?: string;
   thumbnailUrl?: string;
   isPreview?: boolean;
+  isFeatured?: boolean;
 }
 
 interface AudioPlayerProps {
@@ -236,6 +237,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     episode.thumbnailUrl ||
     "https://storage.googleapis.com/gpt-engineer-file-uploads/iy019M6SqjMXyibDc8dgs2v9PSx1/uploads/1770788009856-MONOGAMY_LOGO_PACK_AND_MEDIA_ASSETS.png";
 
+  const descriptionText = typeof episode.description === "string" ? episode.description : "";
+
   return (
     <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
       {episode.audioUrl && (
@@ -259,7 +262,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
           {/* Title & meta */}
           <div className="flex-1 min-w-0">
-            <h3 className={`font-semibold leading-[1.3] mb-1 ${compact ? "text-[1.5rem]" : "text-[1.6rem]"} line-clamp-2`}>
+            <h3 className={`font-semibold leading-[1.3] mb-2 ${compact ? "text-[1.5rem]" : "text-[1.6rem]"} line-clamp-2`}>
               {episode.title}
             </h3>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[1.2rem] text-muted-foreground">
@@ -270,6 +273,14 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
                 <>
                   <span>·</span>
                   <span className="text-primary font-medium">Preview</span>
+                </>
+              )}
+              {episode.isFeatured && (
+                <>
+                  <span>·</span>
+                  <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[1.1rem] font-semibold uppercase tracking-[0.08em] text-primary">
+                    Featured Badge
+                  </span>
                 </>
               )}
             </div>
@@ -291,10 +302,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         {/* Description (collapsible) */}
         {!compact && (
           <div className="mb-4">
-            <p className={`text-[1.3rem] text-muted-foreground leading-[1.6] ${isExpanded ? "" : "line-clamp-2"}`}>
+            <div className={`text-[1.3rem] text-muted-foreground leading-[1.6] whitespace-pre-line ${isExpanded ? "" : "line-clamp-4"}`}>
               {episode.description}
-            </p>
-            {episode.description.length > 100 && (
+            </div>
+            {descriptionText.length > 180 && (
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="text-[1.2rem] text-primary mt-1 hover:underline"
@@ -305,7 +316,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           </div>
         )}
 
-        {/* Progress bar */}
         <div
           ref={progressRef}
           onClick={handleProgressClick}
@@ -322,95 +332,85 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           />
         </div>
 
-        {/* Time display */}
-        <div className="flex justify-between text-[1.1rem] text-muted-foreground mb-4">
+        <div className="flex items-center justify-between text-[1.1rem] text-muted-foreground mb-4">
           <span>{formatTime(currentTime)}</span>
-          <span>{episode.duration}</span>
+          <span>{formatTime(duration)}</span>
         </div>
 
-        {/* Controls row */}
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          {/* Left: playback controls */}
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleRewind}
-              className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-              aria-label="Rewind 15 seconds"
-              title="−15s"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
+        <div className="flex items-center gap-2 md:gap-3 mb-4 flex-wrap">
+          <button
+            onClick={togglePlay}
+            className="h-10 w-10 rounded-full bg-primary text-primary-foreground inline-flex items-center justify-center hover:opacity-90 transition-opacity"
+            aria-label={isPlaying ? "Pause" : "Play"}
+          >
+            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+          </button>
 
-            <button
-              onClick={togglePlay}
-              className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm"
-              aria-label={isPlaying ? "Pause" : "Play"}
-            >
-              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-            </button>
+          <button
+            onClick={handleRewind}
+            className="h-9 w-9 rounded-full border border-border inline-flex items-center justify-center hover:bg-muted transition-colors"
+            aria-label="Rewind 15 seconds"
+          >
+            <RotateCcw className="w-4 h-4" />
+          </button>
 
+          <button
+            onClick={handleFastForward}
+            className="h-9 w-9 rounded-full border border-border inline-flex items-center justify-center hover:bg-muted transition-colors"
+            aria-label="Forward 15 seconds"
+          >
+            <FastForward className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={cycleSpeed}
+            className="h-9 px-3 rounded-full border border-border inline-flex items-center justify-center hover:bg-muted transition-colors text-[1.2rem]"
+            aria-label="Change playback speed"
+          >
+            <Gauge className="w-4 h-4 mr-1" />
+            {speed}x
+          </button>
+
+          <div className="flex items-center gap-2 ml-auto min-w-[140px]">
             <button
-              onClick={handleFastForward}
-              className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-              aria-label="Fast forward 15 seconds"
-              title="+15s"
+              onClick={toggleMute}
+              className="h-8 w-8 rounded-full inline-flex items-center justify-center hover:bg-muted transition-colors"
+              aria-label={isMuted ? "Unmute" : "Mute"}
             >
-              <FastForward className="w-4 h-4" />
+              {isMuted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </button>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={isMuted ? 0 : volume}
+              onChange={handleVolumeChange}
+              className="w-full accent-primary"
+              aria-label="Volume"
+            />
           </div>
+        </div>
 
-          {/* Right: volume, speed, plays, download */}
-          <div className="flex items-center gap-3 flex-wrap">
-            {/* Volume */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={toggleMute}
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label={isMuted ? "Unmute" : "Mute"}
-              >
-                {isMuted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-              </button>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step={0.05}
-                value={isMuted ? 0 : volume}
-                onChange={handleVolumeChange}
-                className="w-16 h-1 accent-primary cursor-pointer"
-                aria-label="Volume"
-              />
-            </div>
-
-            {/* Playback speed */}
+        <div className="flex items-center justify-between text-[1.15rem] text-muted-foreground">
+          <span>
+            {playCount} {playCount === 1 ? "play" : "plays"}
+          </span>
+          {pwaInstalled ? (
             <button
-              onClick={cycleSpeed}
-              className="flex items-center gap-1 text-[1.2rem] text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded hover:bg-muted"
-              aria-label="Playback speed"
-              title="Change speed"
+              className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors"
+              onClick={() => {
+                if (episode.audioUrl) window.open(episode.audioUrl, "_blank", "noopener,noreferrer");
+              }}
+              disabled={!episode.audioUrl}
+              title={episode.audioUrl ? "Download audio" : "Audio unavailable"}
             >
-              <Gauge className="w-3.5 h-3.5" />
-              <span>{speed}×</span>
+              <Download className="w-4 h-4" />
+              Download
             </button>
-
-            {/* Play count */}
-            <span className="text-[1.2rem] text-muted-foreground" title="Play count">
-              {playCount} {playCount === 1 ? "play" : "plays"}
-            </span>
-
-            {/* Download — only when PWA is installed */}
-            {pwaInstalled && episode.audioUrl && (
-              <a
-                href={episode.audioUrl}
-                download
-                className="text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Download episode"
-                title="Download for offline listening"
-              >
-                <Download className="w-4 h-4" />
-              </a>
-            )}
-          </div>
+          ) : (
+            <span className="opacity-70">Install app to download</span>
+          )}
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@ const allEpisodes: AudioEpisode[] = [
   },
   {
     id: "news1",
-    title: "Big Law Faces AI Disruption Faster Than Expected (Read full story at Law.com)",
+    title: "Architects of Law: The Rise of the Legal Engineer In The Era of Artificial Intelligence (AI)",
     description:
       "This featured audio summary from Law.com breaks down how artificial intelligence is impacting large law firms at an accelerated pace. We cover technological adoption trends, areas of disruption like document review and due diligence, ethical and regulatory questions, and how firms are restructuring practice workflows.",
     publishDate: "Published on 27 Mar 2026",
@@ -294,6 +294,25 @@ const Stream = () => {
 
   const isLoggedIn = !!user;
 
+  const episodes = allEpisodes.map((episode) => {
+    if (episode.id !== "news1") return episode;
+
+    return {
+      ...episode,
+      title: "Architects of Law: The Rise of the Legal Engineer In The Era of Artificial Intelligence (AI)",
+      description: (
+        <>
+          This featured audio summary features original commentary based on reporting from the Legaltech News publication at Law.com.{"\n\n"}
+          Read the full article titled “Demand for Legal Engineers Skyrockets in the AI Age“ on <a href="https://www.law.com/legaltechnews/2026/03/26/demand-for-legal-engineers-skyrockets-in-the-ai-age/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Law.com</a>,{"\n\n"}
+          OR{"\n\n"}
+          <button type="button" onClick={() => setShowModal(true)} className="text-primary hover:underline">Login/Sign Up</button> to listen to the full episode.
+        </>
+      ),
+      audioUrl: "/stream/audio1.mp3",
+      isFeatured: true,
+    };
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <SEO {...PAGE_SEO.stream} />
@@ -374,7 +393,7 @@ const Stream = () => {
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {allEpisodes.map((episode, i) => (
+            {episodes.map((episode, i) => (
               <AppearOnScroll key={episode.id} delay={i * 75}>
                 <AudioPlayer
                   episode={episode}
