@@ -50,6 +50,22 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
+## Production Configuration
+
+Create a `.env` file before building or deploying. You can start from `.env.example`:
+
+```sh
+cp .env.example .env
+```
+
+Set the following required runtime variables:
+
+- `VITE_CALCOM_URL`: Public scheduling URL opened from the floating support button.
+- `VITE_SUPPORT_EMAIL`: Support inbox shown on the Contact page and used in error copy.
+- `VITE_API_BASE_URL`: Base URL for API requests (Contact form posts to `${VITE_API_BASE_URL}/contact`).
+
+In production builds, the app validates these variables on startup and throws immediately if any are missing.
+
 ## What technologies are used for this project?
 
 This project is built with:
