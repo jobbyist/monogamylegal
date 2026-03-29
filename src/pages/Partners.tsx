@@ -577,7 +577,7 @@ const Partners = () => {
 
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Link
-                        to="/case-study/redemption-law-group"
+                        to="/case-study/redemption"
                         className="inline-flex items-center justify-center gap-2 px-8 py-4 text-[1.6rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
                       >
                         Read Full Case Study
@@ -622,7 +622,7 @@ const Partners = () => {
                     </div>
                     {/* Overlay CTA */}
                     <Link
-                      to="/case-study/redemption-law-group"
+                      to="/case-study/redemption"
                       className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-primary text-primary-foreground text-[1.3rem] font-semibold px-4 py-2 rounded-lg shadow-lg hover:opacity-90 transition-opacity z-10"
                     >
                       Full Case Study <ArrowRight className="w-4 h-4" />

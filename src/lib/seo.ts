@@ -371,7 +371,7 @@ export const PAGE_SEO: Record<string, PageSEO> = {
     title: `Case Study: Redemption Law Group | Monogamy`,
     description:
       "Discover how Redemption Law Group scaled their client base and reduced overhead by partnering with the Monogamy legal subscription platform.",
-    canonical: `${SITE_URL}/case-study/redemption-law-group`,
+    canonical: `${SITE_URL}/case-study/redemption`,
     ogType: "article",
     jsonLd: {
       "@context": "https://schema.org",
@@ -379,16 +379,52 @@ export const PAGE_SEO: Record<string, PageSEO> = {
       headline: "Case Study: Redemption Law Group",
       description:
         "How Redemption Law Group scaled their practice using the Monogamy platform.",
-      url: `${SITE_URL}/case-study/redemption-law-group`,
+      url: `${SITE_URL}/case-study/redemption`,
       publisher: { "@id": `${SITE_URL}/#organization` },
       breadcrumb: breadcrumb([
         { name: "Case Studies", url: `${SITE_URL}/partners` },
         {
           name: "Redemption Law Group",
-          url: `${SITE_URL}/case-study/redemption-law-group`,
+          url: `${SITE_URL}/case-study/redemption`,
         },
       ]),
     },
+  },
+
+
+  knowledgeCenter: {
+    title: `Knowledge Center | Monogamy LegalTech Intelligence`,
+    description:
+      "Explore Monogamy's Knowledge Center with legaltech documentation, product roadmap updates, market insights, and jurisdiction-specific guidance for the US, South Africa, and Nigeria.",
+    canonical: `${SITE_URL}/knowledge-center`,
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      url: `${SITE_URL}/knowledge-center`,
+      name: "Monogamy Knowledge Center",
+      breadcrumb: breadcrumb([{ name: "Knowledge Center", url: `${SITE_URL}/knowledge-center` }]),
+    },
+  },
+
+  irelandLanding: {
+    title: `Monogamy Ireland | Founding Members Waiting List`,
+    description:
+      "Join Monogamy's founding members waiting list in Ireland. Clients and attorneys get early access and launch updates before May 2026.",
+    canonical: `${SITE_URL}/ie`,
+  },
+
+  ghanaLanding: {
+    title: `Monogamy Ghana | Founding Members Waiting List`,
+    description:
+      "Join Monogamy's founding members waiting list in Ghana. Clients and attorneys get early access and launch updates before May 2026.",
+    canonical: `${SITE_URL}/gh`,
+  },
+
+  kenyaLanding: {
+    title: `Monogamy Kenya | Founding Members Waiting List`,
+    description:
+      "Join Monogamy's founding members waiting list in Kenya. Clients and attorneys get early access and launch updates before May 2026.",
+    canonical: `${SITE_URL}/ke`,
   },
 
   start: {
