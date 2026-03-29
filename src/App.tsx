@@ -20,6 +20,10 @@ import CaseStudyRedemption from "./pages/CaseStudyRedemption";
 import Start from "./pages/Start";
 import Stream from "./pages/Stream";
 import NotFound from "./pages/NotFound";
+import KnowledgeCenter from "./pages/KnowledgeCenter";
+import IrelandLanding from "./pages/IrelandLanding";
+import GhanaLanding from "./pages/GhanaLanding";
+import KenyaLanding from "./pages/KenyaLanding";
 
 const queryClient = new QueryClient();
 
@@ -43,7 +47,12 @@ const App = () => (
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/partners" element={<Partners />} />
+            <Route path="/case-study/redemption" element={<CaseStudyRedemption />} />
             <Route path="/case-study/redemption-law-group" element={<CaseStudyRedemption />} />
+            <Route path="/knowledge-center" element={<KnowledgeCenter />} />
+            <Route path="/ie" element={<IrelandLanding />} />
+            <Route path="/gh" element={<GhanaLanding />} />
+            <Route path="/ke" element={<KenyaLanding />} />
             <Route path="/start" element={<Start />} />
             <Route path="/stream" element={<Stream />} />
             <Route path="*" element={<NotFound />} />

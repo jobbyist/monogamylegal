@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
@@ -19,6 +20,9 @@ import {
   MapPin,
   Calendar,
   User,
+  MessageCircleMore,
+  Star,
+  Headphones,
 } from "lucide-react";
 
 // ── Problem bullets ────────────────────────────────────────────────────────────
@@ -89,6 +93,14 @@ const solutions = [
   },
 ];
 
+
+const comments = [
+  { id: 1, author: "Nadia K.", role: "Paid Member", text: "This is one of the clearest legaltech case studies I've read. The funnel strategy is practical and easy to replicate.", sentiment: "positive" },
+  { id: 2, author: "Monica R.", role: "Attorney", text: "Loved the breakdown of the 6-week delivery model and how Webflow customisation was handled under pressure.", sentiment: "positive" },
+  { id: 3, author: "Ayo T.", role: "Paid Member", text: "The SEO + AI search section is excellent. More screenshots of ranking gains would make it even stronger.", sentiment: "constructive" },
+  { id: 4, author: "David L.", role: "Client", text: "Helpful explanation of Stripe integration and onboarding flow. Very actionable insights.", sentiment: "positive" },
+];
+
 // ── Project metadata ───────────────────────────────────────────────────────────
 const metadata = [
   { icon: User, label: "Client", value: "Redemption Law Group" },
@@ -99,6 +111,29 @@ const metadata = [
 ];
 
 const CaseStudyRedemption = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [hasSubscription, setHasSubscription] = useState(false);
+  const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem("monogamy_demo_logged_in") === "true");
+    setHasSubscription(localStorage.getItem("monogamy_demo_paid_member") === "true");
+    setRating(Number(localStorage.getItem("monogamy_case_study_rating") || 0));
+  }, []);
+
+  const canRate = isLoggedIn && hasSubscription;
+
+  const setPersistedFlag = (key: string, value: boolean, setter: (value: boolean) => void) => {
+    localStorage.setItem(key, String(value));
+    setter(value);
+  };
+
+  const handleRating = (value: number) => {
+    if (!canRate) return;
+    setRating(value);
+    localStorage.setItem("monogamy_case_study_rating", String(value));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEO {...PAGE_SEO.caseStudyRedemption} />
@@ -452,6 +487,77 @@ const CaseStudyRedemption = () => {
           </div>
         </div>
       </Section>
+
+
+      {/* ── OPTIONAL ADD-ONS EXPERIENCE ─────────────────────────────────────────── */}
+      <section className="bg-muted">
+        <Section>
+          <div className="w-full max-w-[90rem] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="bg-background border border-border rounded-2xl p-8">
+                <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-primary mb-4">Member Interactions</p>
+                <h3 className="text-[2.4rem] font-bold mb-4">Rate this case study</h3>
+                <p className="text-[1.5rem] text-muted-foreground leading-[1.7] mb-5">Ratings are persistent and available only to active, logged-in paid members.</p>
+
+                <div className="flex flex-wrap gap-3 mb-6">
+                  <button onClick={() => setPersistedFlag("monogamy_demo_logged_in", !isLoggedIn, setIsLoggedIn)} className={`px-4 py-2 rounded-lg border text-[1.3rem] ${isLoggedIn ? "bg-primary text-primary-foreground border-primary" : "border-border"}`}>
+                    {isLoggedIn ? "Logged In" : "Log In"}
+                  </button>
+                  <button onClick={() => setPersistedFlag("monogamy_demo_paid_member", !hasSubscription, setHasSubscription)} className={`px-4 py-2 rounded-lg border text-[1.3rem] ${hasSubscription ? "bg-primary text-primary-foreground border-primary" : "border-border"}`}>
+                    {hasSubscription ? "Paid Subscription Active" : "Activate Paid Subscription"}
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <button key={value} onClick={() => handleRating(value)} aria-label={`Rate ${value} star${value > 1 ? "s" : ""}`} className="transition-transform hover:scale-110">
+                      <Star className={`w-7 h-7 ${value <= rating ? "fill-yellow-400 text-yellow-400" : "text-muted-foreground"}`} />
+                    </button>
+                  ))}
+                </div>
+                <p className="text-[1.4rem] mt-3 text-muted-foreground">
+                  {canRate ? `Your rating: ${rating || 0}/5` : "Log in and activate a paid subscription to submit a rating."}
+                </p>
+              </div>
+
+              <div className="bg-background border border-border rounded-2xl p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <Headphones className="w-6 h-6 text-primary" />
+                  <h3 className="text-[2.4rem] font-bold">Listen to this article</h3>
+                </div>
+                <p className="text-[1.5rem] text-muted-foreground mb-5 leading-[1.7]">Play the transcribed audio version for on-the-go listening.</p>
+                <audio controls className="w-full">
+                  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+                </audio>
+              </div>
+            </div>
+
+            <div className="mt-8 bg-background border border-border rounded-2xl p-8">
+              <h3 className="text-[2.4rem] font-bold mb-5">Community discussion</h3>
+              <div className="space-y-5">
+                {comments.map((comment) => (
+                  <article key={comment.id} className="border border-border rounded-xl p-5">
+                    <div className="flex items-center justify-between gap-3 mb-3">
+                      <div>
+                        <p className="text-[1.6rem] font-semibold">{comment.author}</p>
+                        <p className="text-[1.3rem] text-muted-foreground">{comment.role}</p>
+                      </div>
+                      <span className={`text-[1.2rem] px-3 py-1 rounded-full ${comment.sentiment === "constructive" ? "bg-amber-100 text-amber-700" : "bg-green-100 text-green-700"}`}>
+                        {comment.sentiment === "constructive" ? "Constructive" : "Positive"}
+                      </span>
+                    </div>
+                    <p className="text-[1.5rem] text-muted-foreground leading-[1.7]">{comment.text}</p>
+                    <div className="mt-3 flex gap-4">
+                      <button className="text-[1.3rem] text-primary inline-flex items-center gap-1 hover:underline"><MessageCircleMore className="w-4 h-4" /> Reply as Monogamy Admin</button>
+                      <button className="text-[1.3rem] text-primary hover:underline">Reply as Paid Member</button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Section>
+      </section>
 
       {/* ── CTA ───────────────────────────────────────────────────────────────── */}
       <section className="bg-primary text-primary-foreground">

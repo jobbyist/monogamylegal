@@ -54,7 +54,7 @@
 
   <!-- Case studies -->
   <url>
-    <loc>https://monogamy.legal/case-study/redemption-law-group</loc>
+    <loc>https://monogamy.legal/case-study/redemption</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -64,6 +64,28 @@
     <loc>https://monogamy.legal/start</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://monogamy.legal/knowledge-center</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://monogamy.legal/ie</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://monogamy.legal/gh</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://monogamy.legal/ke</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- Contact -->

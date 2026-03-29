@@ -60,6 +60,7 @@ const Footer = () => {
               <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Company</h4>
               <Link to="/about" className={linkClass}>About</Link>
               <Link to="/contact" className={linkClass}>Contact</Link>
+              <Link to="/knowledge-center" className={linkClass}>Knowledge Center</Link>
               <Link to="/privacy" className={linkClass}>Privacy Policy</Link>
               <Link to="/terms" className={linkClass}>Terms & Conditions</Link>
             </nav>
@@ -69,6 +70,7 @@ const Footer = () => {
               <h4 className="text-[1.3rem] font-semibold uppercase tracking-wider text-foreground mb-1">Connect</h4>
               <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={linkClass}>LinkedIn</a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={linkClass}>Facebook</a>
+              <a href="https://whatsapp.com/channel/0029Vb7wLlMI7BeLb4viJx37" target="_blank" rel="noopener noreferrer" className={linkClass}>Community</a>
               <a href="mailto:hello@monogamy.legal" className={linkClass}>hello@monogamy.legal</a>
               <p className="text-[1.3rem] text-muted-foreground mt-2">© Monogamy {new Date().getFullYear()}</p>
             </nav>
