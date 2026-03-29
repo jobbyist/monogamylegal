@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "@/components/ScrollToTop";
+import FloatingSupportButton from "@/components/FloatingSupportButton";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -57,6 +58,7 @@ const App = () => (
             <Route path="/stream" element={<Stream />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <FloatingSupportButton />
         </BrowserRouter>
       </TooltipProvider>
     </ThemeProvider>

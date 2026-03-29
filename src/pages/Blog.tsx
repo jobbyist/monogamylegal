@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Section from "@/components/Section";
@@ -7,7 +8,86 @@ import PartnerCarousel from "@/components/PartnerCarousel";
 import AudioPlayer, { AudioEpisode } from "@/components/AudioPlayer";
 import SEO from "@/components/SEO";
 import { PAGE_SEO } from "@/lib/seo";
-import { Shield, Users, Scale, Clock, Star, Briefcase, Heart, Home, FileText, Gavel, DollarSign } from "lucide-react";
+import { Shield, Users, Scale, Clock, Star, Briefcase, Heart, Home, FileText, Gavel, DollarSign, X, Mail, Lock, User } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+
+
+const AUTH_KEY = "monogamy_stream_user";
+
+function setStoredUser(user: { name: string; email: string }) {
+  try {
+    localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+  } catch {
+    // ignore
+  }
+}
+
+interface AuthModalProps {
+  onClose: () => void;
+  onAuth: (user: { name: string; email: string }) => void;
+}
+
+const AuthModal: React.FC<AuthModalProps> = ({ onClose, onAuth }) => {
+  const { toast } = useToast();
+  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const inputClass =
+    "w-full text-[1.6rem] h-[48px] px-4 bg-background border border-border rounded-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-muted-foreground";
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) return;
+    if (mode === "signup" && !name) return;
+    setLoading(true);
+    await new Promise((r) => setTimeout(r, 800));
+    const user = { name: mode === "signup" ? name : email.split("@")[0], email };
+    setStoredUser(user);
+    onAuth(user);
+    toast({ title: mode === "login" ? "Welcome back!" : "Account created!", description: "You now have access to The Monologue." });
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    const onEsc = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", onEsc);
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onEsc);
+      document.body.style.overflow = original;
+    };
+  }, [onClose]);
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="relative bg-card border border-border rounded-2xl shadow-2xl w-full max-w-[44rem] p-8 md:p-10">
+        <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors" aria-label="Close">
+          <X className="w-5 h-5" />
+        </button>
+        <div className="text-center mb-8">
+          <div className="text-[4rem] mb-3">🎙️</div>
+          <h2 className="text-[2.4rem] font-bold mb-2">{mode === "login" ? "Sign in to listen" : "Create an account"}</h2>
+          <p className="text-[1.5rem] text-muted-foreground">Full episodes of The Monologue are available to members only.</p>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {mode === "signup" && <div className="relative"><User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><input type="text" value={name} onChange={(e) => setName(e.target.value)} required className={inputClass + " pl-10"} placeholder="Full name" /></div>}
+          <div className="relative"><Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className={inputClass + " pl-10"} placeholder="Email address" /></div>
+          <div className="relative"><Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" /><input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className={inputClass + " pl-10"} placeholder="Password" /></div>
+          <button type="submit" disabled={loading} className="w-full h-[52px] text-[1.7rem] font-semibold bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed mt-2">
+            {loading ? "Please wait…" : mode === "login" ? "Sign In" : "Create Account"}
+          </button>
+        </form>
+        <p className="text-center text-[1.4rem] text-muted-foreground mt-6">
+          {mode === "login" ? <>Don't have an account? <button onClick={() => setMode("signup")} className="text-primary hover:underline font-medium">Sign up</button></> : <>Already have an account? <button onClick={() => setMode("login")} className="text-primary hover:underline font-medium">Sign in</button></>}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const practiceAreas = [
   { icon: Briefcase, title: "Business Law", desc: "Formation, contracts, IP, and compliance" },
@@ -35,7 +115,7 @@ const testimonials = [
 
 const THUMBNAIL = "https://storage.googleapis.com/gpt-engineer-file-uploads/iy019M6SqjMXyibDc8dgs2v9PSx1/uploads/1770788009856-MONOGAMY_LOGO_PACK_AND_MEDIA_ASSETS.png";
 
-const featuredEpisodes: AudioEpisode[] = [
+const getFeaturedEpisodes = (onLoginRequired: () => void): AudioEpisode[] => [
   {
     id: "ep2",
     title: "Ep. 2: The State of Legal Access in Africa - What's Changing in 2026 (Preview)",
@@ -56,11 +136,23 @@ const featuredEpisodes: AudioEpisode[] = [
   },
   {
     id: "news1",
-    title: "Big Law Faces AI Disruption Faster Than Expected (Read full story at Law.com)",
-    description: "This featured audio summary from Law.com breaks down how artificial intelligence is impacting large law firms at an accelerated pace. We cover technological adoption trends, areas of disruption like document review and due diligence, ethical and regulatory questions, and how firms are restructuring practice workflows. This summary captures key data points and expert perspectives shaping this wave.",
+    title: "Architects of Law: The Rise of the Legal Engineer In The Era of Artificial Intelligence (AI)",
+    description: (
+      <>
+        This featured audio summary features original commentary based on reporting from the Legaltech News publication at Law.com.
+
+Read the full article titled “Demand for Legal Engineers Skyrockets in the AI Age“ on <a href="https://www.law.com/legaltechnews/2026/03/26/demand-for-legal-engineers-skyrockets-in-the-ai-age/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Law.com</a>,
+
+OR
+
+<button type="button" onClick={onLoginRequired} className="text-primary hover:underline">Login/Sign Up</button> to listen to the full episode.
+      </>
+    ),
     publishDate: "Published on 27 Mar 2026",
     duration: "12:04",
     thumbnailUrl: THUMBNAIL,
+    audioUrl: "/stream/audio1.mp3",
+    isFeatured: true,
   },
   {
     id: "news2",
@@ -73,10 +165,20 @@ const featuredEpisodes: AudioEpisode[] = [
 ];
 
 const Blog = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleAuth = () => {
+    setShowModal(false);
+  };
+
+  const featuredEpisodes = getFeaturedEpisodes(() => setShowModal(true));
+
   return (
     <div className="min-h-screen bg-background">
       <SEO {...PAGE_SEO.home} />
       <Header />
+
+      {showModal && <AuthModal onClose={() => setShowModal(false)} onAuth={handleAuth} />}
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -203,7 +305,7 @@ const Blog = () => {
             <div className="text-center mb-10">
               <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-primary mb-4">Law, Insights, and Perspective - Curated.</p>
               <h2 className="text-[2.8rem] md:text-[3.6rem] font-bold mb-4">
-                The latest from The Monologue
+                The Monologue
               </h2>
               <p className="text-[1.7rem] text-muted-foreground max-w-[55rem] mx-auto leading-[1.7]">
                 Also available on Apple Podcasts and Spotify.
@@ -214,7 +316,7 @@ const Blog = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {featuredEpisodes.map((episode, i) => (
               <AppearOnScroll key={episode.id} delay={i * 100}>
-                <AudioPlayer episode={episode} />
+                <AudioPlayer episode={episode} onLoginRequired={() => setShowModal(true)} />
               </AppearOnScroll>
             ))}
           </div>
