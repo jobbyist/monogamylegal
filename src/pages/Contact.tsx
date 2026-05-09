@@ -3,24 +3,21 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AppearOnScroll from "@/components/AppearOnScroll";
 import SEO from "@/components/SEO";
-import { useToast } from "@/hooks/use-toast";
-import { appConfig } from "@/lib/config";
 import { PAGE_SEO } from "@/lib/seo";
+import { useToast } from "@/hooks/use-toast";
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqaqkwzb";
 
 const Contact = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const contactEndpoint = `${appConfig.apiBaseUrl}/contact`;
-  const supportEmail = appConfig.supportEmail;
-  const supportEmailFallbackText = supportEmail || "our support team";
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await fetch(contactEndpoint, {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
@@ -33,10 +30,10 @@ const Contact = () => {
         toast({ title: "Message sent!", description: "Our team will get back to you within 24 hours." });
         setFormData({ firstName: "", lastName: "", email: "", message: "" });
       } else {
-        toast({ title: "Something went wrong.", description: `Please try again or email us at ${supportEmailFallbackText}.`, variant: "destructive" });
+        toast({ title: "Something went wrong.", description: "Please try again or email us at hello@monogamy.law.", variant: "destructive" });
       }
     } catch {
-      toast({ title: "Network error.", description: `Please try again or email us at ${supportEmailFallbackText}.`, variant: "destructive" });
+      toast({ title: "Network error.", description: "Please try again or email us at hello@monogamy.law.", variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
@@ -69,13 +66,7 @@ const Contact = () => {
               </AppearOnScroll>
               <AppearOnScroll delay={300}>
                 <div className="space-y-3 mb-8">
-                  <p className="text-[1.8rem]">
-                    {supportEmail ? (
-                      <a href={`mailto:${supportEmail}`} className="hover:opacity-60 transition-opacity">{supportEmail}</a>
-                    ) : (
-                      <span>Contact our support team via the form.</span>
-                    )}
-                  </p>
+                  <p className="text-[1.8rem]"><a href="mailto:hello@monogamy.law" className="hover:opacity-60 transition-opacity">hello@monogamy.law</a></p>
                 </div>
               </AppearOnScroll>
             </div>
@@ -122,3 +113,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

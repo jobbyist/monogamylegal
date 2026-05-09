@@ -564,31 +564,29 @@ const CaseStudyRedemption = () => {
         <Section>
           <div className="w-full max-w-[80rem] mx-auto text-center">
             <AppearOnScroll delay={0}>
-              <div>
-                <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-secondary mb-4">
-                  Work with us
-                </p>
-                <h2 className="text-[2.8rem] md:text-[4rem] lg:text-[5.2rem] font-bold tracking-[-0.02em] mb-6">
-                  Ready to build your legaltech platform?
-                </h2>
-                <p className="text-[1.8rem] text-primary-foreground/80 mb-10 max-w-[55rem] mx-auto leading-[1.7]">
-                  Whether you're a solo practitioner or a growing firm, Monogamy
-                  can help you design, build and grow your digital presence.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link
-                    to="/partners"
-                    className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-secondary text-foreground rounded-lg hover:opacity-90 transition-opacity shadow-lg"
-                  >
-                    Join as a Partner
-                  </Link>
-                  <Link
-                    to="/contact"
-                    className="inline-block px-10 py-4 text-[1.7rem] font-semibold border border-white/30 text-primary-foreground rounded-lg hover:bg-white/10 transition-colors"
-                  >
-                    Get in Touch
-                  </Link>
-                </div>
+              <p className="text-[1.4rem] font-semibold uppercase tracking-[0.2em] text-secondary mb-4">
+                Work with us
+              </p>
+              <h2 className="text-[2.8rem] md:text-[4rem] lg:text-[5.2rem] font-bold tracking-[-0.02em] mb-6">
+                Ready to build your legaltech platform?
+              </h2>
+              <p className="text-[1.8rem] text-primary-foreground/80 mb-10 max-w-[55rem] mx-auto leading-[1.7]">
+                Whether you're a solo practitioner or a growing firm, Monogamy
+                can help you design, build and grow your digital presence.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  to="/partners"
+                  className="inline-block px-10 py-4 text-[1.7rem] font-semibold bg-secondary text-foreground rounded-lg hover:opacity-90 transition-opacity shadow-lg"
+                >
+                  Join as a Partner
+                </Link>
+                <Link
+                  to="/contact"
+                  className="inline-block px-10 py-4 text-[1.7rem] font-semibold border border-white/30 text-primary-foreground rounded-lg hover:bg-white/10 transition-colors"
+                >
+                  Get in Touch
+                </Link>
               </div>
             </AppearOnScroll>
           </div>

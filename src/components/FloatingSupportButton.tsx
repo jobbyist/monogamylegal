@@ -1,104 +1,146 @@
-import { type FormEvent, useState } from "react";
-import { Loader2, MessageSquareText, TriangleAlert } from "lucide-react";
-import { requestConciergeResponse } from "@/lib/conciergeClient";
-import {
-  conciergeNextActions,
-  type ConciergeResponse,
-} from "@/lib/conciergeTypes";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useMemo, useState } from "react";
+import { Bot, CalendarCheck2, CircleDollarSign, Scale, Sparkles } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
+const CAL_COM_LINK = "https://cal.com";
+
+const clientIntakeSteps = [
+  "Collects your contact details and matter type in under 90 seconds",
+  "Shares general legal information and sets expectations",
+  "Routes urgent matters to priority attorney review",
+  "Books consultations through Cal.com and sends confirmations",
+  "Supports billing and invoice reminders before appointments",
+];
+
+const firmUpsellPoints = [
+  "Branded AI assistant for your firm website and intake channels",
+  "Jurisdiction-aware guardrails to avoid direct legal advice",
+  "Automated qualification, consultation scheduling, and reminders",
+  "Client-ready responses for FAQs, timelines, fees, and onboarding",
+];
 
 const FloatingSupportButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [prompt, setPrompt] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [response, setResponse] = useState<ConciergeResponse | null>(null);
+  const [mode, setMode] = useState<"client" | "firm">("client");
 
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      const nextResponse = await requestConciergeResponse({ prompt });
-      setResponse(nextResponse);
-    } catch {
-      setError("We couldn't fetch a concierge response. Please try again.");
-    } finally {
-      setLoading(false);
+  const assistantMessage = useMemo(() => {
+    if (mode === "firm") {
+      return "I can help your firm deploy a personalized AI support agent that handles intake, FAQ responses, Cal.com scheduling, and billing nudges—while staying compliant with non-legal-advice guardrails.";
     }
-  };
 
-  const showEscalationCTA =
-    response?.next_action === conciergeNextActions.escalateToAttorney &&
-    response.escalation_contact;
+    return "Hi, I’m Concierge — Your Dedicated Assistant. I can answer general law-related questions, guide your onboarding, and help you book a consultation. I do not provide legal advice.";
+  }, [mode]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {isOpen ? (
-        <section className="w-[min(92vw,24rem)] rounded-2xl border border-border bg-card p-4 text-card-foreground shadow-xl">
-          <header className="mb-3 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <MessageSquareText className="h-5 w-5 text-primary" />
-              <h3 className="text-sm font-semibold">Monogamy Concierge</h3>
+    <Dialog>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          aria-label="Open Concierge AI support"
+          className="concierge-fab fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full bg-primary px-4 py-3 text-primary-foreground shadow-[0_14px_40px_rgba(0,0,0,0.35)] transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/35"
+        >
+          <span className="concierge-fab__orb relative flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-[0_10px_24px_rgba(0,0,0,0.25)]">
+            <Bot className="h-7 w-7" />
+          </span>
+          <span className="pr-2 text-left leading-tight">
+            <span className="block text-[1.3rem] opacity-90">Concierge</span>
+            <span className="block text-[1.55rem] font-semibold">Your Dedicated Assistant</span>
+          </span>
+        </button>
+      </DialogTrigger>
+
+      <DialogContent className="max-w-[74rem] max-h-[85vh] overflow-y-auto rounded-2xl p-0">
+        <DialogHeader className="border-b border-border p-6 pb-4">
+          <DialogTitle className="flex items-center gap-3 text-[2.1rem]">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+              <Sparkles className="h-5 w-5" />
+            </span>
+            Concierge - Your Dedicated Assistant
+          </DialogTitle>
+          <DialogDescription className="text-[1.5rem] leading-relaxed">
+            AI-powered client support for onboarding, intake, scheduling, and billing workflows.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="grid gap-6 p-6 md:grid-cols-[1fr_1.1fr]">
+          <aside className="rounded-xl border border-border bg-muted/30 p-5">
+            <div className="mb-4 flex flex-wrap gap-2">
+              <button
+                type="button"
+                onClick={() => setMode("client")}
+                className={`rounded-full px-4 py-2 text-[1.35rem] font-semibold transition ${
+                  mode === "client" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground border border-border"
+                }`}
+              >
+                Client Help
+              </button>
+              <button
+                type="button"
+                onClick={() => setMode("firm")}
+                className={`rounded-full px-4 py-2 text-[1.35rem] font-semibold transition ${
+                  mode === "firm" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground border border-border"
+                }`}
+              >
+                For Attorneys & Firms
+              </button>
             </div>
-            <Button type="button" variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
-              Close
-            </Button>
-          </header>
 
-          <form onSubmit={onSubmit} className="space-y-3">
-            <Input
-              value={prompt}
-              onChange={(event) => setPrompt(event.target.value)}
-              placeholder="Ask a legal information question"
-              aria-label="Ask concierge"
-            />
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Get guidance"}
-            </Button>
-          </form>
+            <p className="rounded-lg border border-border bg-background p-4 text-[1.45rem] leading-relaxed">
+              {assistantMessage}
+            </p>
 
-          {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
+            <p className="mt-4 text-[1.25rem] text-muted-foreground">
+              Compliance note: Concierge provides legal information only and cannot replace advice from a licensed attorney.
+            </p>
+          </aside>
 
-          {response ? (
-            <div className="mt-4 space-y-2 rounded-xl border border-border/70 bg-muted/30 p-3 text-sm">
-              <p className="font-medium">Intent: {response.intent}</p>
-              <p>{response.answer}</p>
-              <p className="text-xs text-muted-foreground">{response.disclaimer}</p>
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Next action: {response.next_action}
-              </p>
-
-              {showEscalationCTA ? (
+          <section className="space-y-5">
+            {mode === "client" ? (
+              <>
+                <h3 className="text-[1.8rem] font-semibold">What Concierge can do right now</h3>
+                <ul className="space-y-3">
+                  {clientIntakeSteps.map((item) => (
+                    <li key={item} className="flex items-start gap-3 rounded-lg border border-border bg-card p-3 text-[1.4rem] leading-relaxed">
+                      <Scale className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
                 <a
-                  className="mt-1 inline-flex items-center gap-2 rounded-md bg-destructive px-3 py-2 text-xs font-semibold text-destructive-foreground"
-                  href={response.escalation_contact.href}
+                  href={CAL_COM_LINK}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-[1.45rem] font-semibold text-primary-foreground hover:opacity-90"
                 >
-                  <TriangleAlert className="h-3.5 w-3.5" />
-                  {response.escalation_contact.label}
+                  <CalendarCheck2 className="h-4 w-4" />
+                  Book a Consultation via Cal.com
                 </a>
-              ) : null}
-            </div>
-          ) : null}
-        </section>
-      ) : null}
-
-      <button
-        type="button"
-        onClick={() => setIsOpen((value) => !value)}
-        aria-label="AI chatbot support"
-        className="flex items-center gap-3"
-      >
-        <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-primary text-[2.8rem] font-bold text-primary-foreground shadow-[0_12px_28px_rgba(0,0,0,0.25)] before:absolute before:inset-0 before:animate-ping before:rounded-full before:bg-primary/40 before:content-['']">
-          <span className="relative">?</span>
-        </span>
-        <span className="rounded-full border border-border bg-card/95 px-4 py-2 text-[1.4rem] font-semibold text-foreground shadow-md">
-          Support
-        </span>
-      </button>
-    </div>
+              </>
+            ) : (
+              <>
+                <h3 className="text-[1.8rem] font-semibold">Launch your firm’s personalized AI support agent</h3>
+                <ul className="space-y-3">
+                  {firmUpsellPoints.map((item) => (
+                    <li key={item} className="flex items-start gap-3 rounded-lg border border-border bg-card p-3 text-[1.4rem] leading-relaxed">
+                      <CircleDollarSign className="mt-1 h-4 w-4 shrink-0 text-primary" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="rounded-lg border border-primary/30 bg-primary/5 p-4 text-[1.35rem] leading-relaxed">
+                  <p className="font-semibold">Upsell path:</p>
+                  <p>
+                    Start with Concierge intake automation, then upgrade to a white-labeled firm assistant with custom workflows, practice-area playbooks, and CRM integrations.
+                  </p>
+                </div>
+                <a href="mailto:hello@monogamy.law?subject=Concierge%20for%20our%20law%20firm" className="inline-flex items-center gap-2 rounded-lg border border-primary px-5 py-3 text-[1.45rem] font-semibold text-primary hover:bg-primary hover:text-primary-foreground">
+                  Request Firm Demo
+                </a>
+              </>
+            )}
+          </section>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
