@@ -145,7 +145,7 @@ const KnowledgeCenter = () => {
                 <ul className="space-y-3 max-h-[34rem] overflow-y-auto pr-1">
                   {failures.map((item) => (
                     <li key={item.id} className="border border-border rounded-xl p-4">
-                      <p className="text-[1.5rem] font-medium">{item.template.replaceAll("_", " ")} · {item.audience}</p>
+                      <p className="text-[1.5rem] font-medium">{String(item.template).replace(/_/g, " ")} · {item.audience}</p>
                       <p className="text-[1.4rem] text-muted-foreground">{item.recipientEmail}</p>
                       <p className="text-[1.3rem] text-muted-foreground">Attempt {item.attempts} · {item.lastError ?? "No error"}</p>
                       <button onClick={() => onRetry(item.id)} className="mt-3 text-[1.3rem] px-3 py-1 rounded-lg bg-primary/10 text-primary">Retry now</button>
