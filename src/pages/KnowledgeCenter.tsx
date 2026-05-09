@@ -172,7 +172,7 @@ const KnowledgeCenter = () => {
               <tbody>
                 {deliveryLog.slice(0, 14).map((item) => (
                   <tr key={item.id} className="border-b border-border/60 text-[1.4rem]">
-                    <td className="py-3 pr-3">{item.template.replaceAll("_", " ")}</td>
+                    <td className="py-3 pr-3">{String(item.template).replace(/_/g, " ")}</td>
                     <td className="py-3 pr-3">{item.audience}</td>
                     <td className="py-3 pr-3">{item.recipientEmail}</td>
                     <td className="py-3 pr-3">{new Date(item.scheduledFor).toLocaleString()}</td>
