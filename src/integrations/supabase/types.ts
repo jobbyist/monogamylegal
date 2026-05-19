@@ -14,16 +14,312 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attorney_profiles: {
+        Row: {
+          accepting_clients: boolean
+          bar_number: string | null
+          bio: string | null
+          created_at: string
+          firm_name: string | null
+          headshot_url: string | null
+          hourly_rate: number | null
+          id: string
+          is_verified: boolean
+          jurisdictions: string[]
+          practice_areas: string[]
+          updated_at: string
+          years_experience: number | null
+        }
+        Insert: {
+          accepting_clients?: boolean
+          bar_number?: string | null
+          bio?: string | null
+          created_at?: string
+          firm_name?: string | null
+          headshot_url?: string | null
+          hourly_rate?: number | null
+          id: string
+          is_verified?: boolean
+          jurisdictions?: string[]
+          practice_areas?: string[]
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Update: {
+          accepting_clients?: boolean
+          bar_number?: string | null
+          bio?: string | null
+          created_at?: string
+          firm_name?: string | null
+          headshot_url?: string | null
+          hourly_rate?: number | null
+          id?: string
+          is_verified?: boolean
+          jurisdictions?: string[]
+          practice_areas?: string[]
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Relationships: []
+      }
+      case_matches: {
+        Row: {
+          attorney_id: string
+          case_id: string
+          created_at: string
+          id: string
+          note: string | null
+          status: Database["public"]["Enums"]["match_status"]
+        }
+        Insert: {
+          attorney_id: string
+          case_id: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          status?: Database["public"]["Enums"]["match_status"]
+        }
+        Update: {
+          attorney_id?: string
+          case_id?: string
+          created_at?: string
+          id?: string
+          note?: string | null
+          status?: Database["public"]["Enums"]["match_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_matches_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          assigned_attorney_id: string | null
+          client_id: string
+          created_at: string
+          description: string
+          id: string
+          jurisdiction: string | null
+          practice_area: string
+          status: Database["public"]["Enums"]["case_status"]
+          title: string
+          updated_at: string
+          urgency: Database["public"]["Enums"]["case_urgency"]
+        }
+        Insert: {
+          assigned_attorney_id?: string | null
+          client_id: string
+          created_at?: string
+          description: string
+          id?: string
+          jurisdiction?: string | null
+          practice_area: string
+          status?: Database["public"]["Enums"]["case_status"]
+          title: string
+          updated_at?: string
+          urgency?: Database["public"]["Enums"]["case_urgency"]
+        }
+        Update: {
+          assigned_attorney_id?: string | null
+          client_id?: string
+          created_at?: string
+          description?: string
+          id?: string
+          jurisdiction?: string | null
+          practice_area?: string
+          status?: Database["public"]["Enums"]["case_status"]
+          title?: string
+          updated_at?: string
+          urgency?: Database["public"]["Enums"]["case_urgency"]
+        }
+        Relationships: []
+      }
+      earnings: {
+        Row: {
+          amount: number
+          attorney_id: string
+          case_id: string | null
+          currency: string
+          description: string | null
+          earned_at: string
+          id: string
+        }
+        Insert: {
+          amount: number
+          attorney_id: string
+          case_id?: string | null
+          currency?: string
+          description?: string | null
+          earned_at?: string
+          id?: string
+        }
+        Update: {
+          amount?: number
+          attorney_id?: string
+          case_id?: string | null
+          currency?: string
+          description?: string | null
+          earned_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "earnings_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body: string
+          case_id: string
+          created_at: string
+          id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          case_id: string
+          created_at?: string
+          id?: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          case_id?: string
+          created_at?: string
+          id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          current_period_end: string | null
+          external_id: string | null
+          id: string
+          provider: Database["public"]["Enums"]["subscription_provider"]
+          status: Database["public"]["Enums"]["subscription_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_period_end?: string | null
+          external_id?: string | null
+          id?: string
+          provider: Database["public"]["Enums"]["subscription_provider"]
+          status?: Database["public"]["Enums"]["subscription_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_period_end?: string | null
+          external_id?: string | null
+          id?: string
+          provider?: Database["public"]["Enums"]["subscription_provider"]
+          status?: Database["public"]["Enums"]["subscription_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "client" | "attorney" | "admin"
+      case_status:
+        | "submitted"
+        | "matched"
+        | "in_progress"
+        | "closed"
+        | "cancelled"
+      case_urgency: "low" | "normal" | "high" | "urgent"
+      match_status: "proposed" | "accepted" | "declined" | "completed"
+      subscription_provider: "paypal" | "paystack"
+      subscription_status:
+        | "pending"
+        | "active"
+        | "past_due"
+        | "cancelled"
+        | "expired"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +446,25 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["client", "attorney", "admin"],
+      case_status: [
+        "submitted",
+        "matched",
+        "in_progress",
+        "closed",
+        "cancelled",
+      ],
+      case_urgency: ["low", "normal", "high", "urgent"],
+      match_status: ["proposed", "accepted", "declined", "completed"],
+      subscription_provider: ["paypal", "paystack"],
+      subscription_status: [
+        "pending",
+        "active",
+        "past_due",
+        "cancelled",
+        "expired",
+      ],
+    },
   },
 } as const
