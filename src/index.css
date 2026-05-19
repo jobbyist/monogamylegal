@@ -209,27 +209,45 @@
   }
 
 
-  @keyframes conciergeGlow {
-    0%, 100% {
-      box-shadow: 0 0 0 0 hsl(var(--secondary) / 0.45), 0 12px 28px hsl(222 60% 12% / 0.35);
-      transform: translateY(0px);
-    }
-    50% {
-      box-shadow: 0 0 0 12px hsl(var(--secondary) / 0), 0 18px 36px hsl(222 60% 12% / 0.4);
-      transform: translateY(-2px);
-    }
+  @property --concierge-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  @keyframes conciergeBorderSpin {
+    to { --concierge-angle: 360deg; }
   }
 
   @keyframes conciergeOrbPulse {
-    0%, 100% { filter: drop-shadow(0 0 0.25rem hsl(var(--secondary) / 0.45)); }
-    50% { filter: drop-shadow(0 0 0.8rem hsl(var(--secondary) / 0.75)); }
+    0%, 100% { filter: drop-shadow(0 0 0.25rem rgba(59, 130, 246, 0.45)); }
+    50% { filter: drop-shadow(0 0 0.8rem rgba(249, 115, 22, 0.7)); }
   }
 
   .concierge-fab {
-    animation: conciergeGlow 2.6s ease-in-out infinite;
+    position: relative;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    isolation: isolate;
+  }
+
+  .concierge-fab::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--concierge-angle), #3b82f6, #f97316, #3b82f6);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: conciergeBorderSpin 4s linear infinite;
+    z-index: -1;
   }
 
   .concierge-fab__orb {
     animation: conciergeOrbPulse 2.1s ease-in-out infinite;
+    background: linear-gradient(135deg, #3b82f6, #f97316) !important;
+    color: #ffffff !important;
   }
 }
