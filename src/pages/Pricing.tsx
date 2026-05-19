@@ -178,16 +178,26 @@ const Pricing = () => {
                     ))}
                   </ul>
 
-                  <Link
-                    to="/start"
-                    className={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
-                      plan.badge
-                        ? "bg-background text-primary hover:bg-background/90"
-                        : "bg-primary text-primary-foreground hover:opacity-90"
-                    }`}
-                  >
-                    Get Started
-                  </Link>
+                  {plan.cta === "subscribe" ? (
+                    <SubscribeButtons
+                      buttonClass={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
+                        plan.badge
+                          ? "bg-background text-primary hover:bg-background/90"
+                          : "bg-primary text-primary-foreground hover:opacity-90"
+                      }`}
+                    />
+                  ) : (
+                    <Link
+                      to="/start"
+                      className={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
+                        plan.badge
+                          ? "bg-background text-primary hover:bg-background/90"
+                          : "bg-primary text-primary-foreground hover:opacity-90"
+                      }`}
+                    >
+                      Get Started
+                    </Link>
+                  )}
                 </div>
               </AppearOnScroll>
             ))}
