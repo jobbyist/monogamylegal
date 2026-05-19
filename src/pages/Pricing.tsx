@@ -179,7 +179,7 @@ const Pricing = () => {
                     ))}
                   </ul>
 
-                  {plan.cta === "subscribe" ? (
+                  {plan.priceUSD === 19.99 ? (
                     <SubscribeButtons
                       buttonClass={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
                         plan.badge
