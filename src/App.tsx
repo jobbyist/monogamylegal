@@ -7,6 +7,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingSupportButton from "@/components/FloatingSupportButton";
+import { AuthProvider } from "@/hooks/useAuth";
+import RequireAuth from "@/components/RequireAuth";
 import Blog from "./pages/Blog";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
@@ -25,6 +27,10 @@ import KnowledgeCenter from "./pages/KnowledgeCenter";
 import IrelandLanding from "./pages/IrelandLanding";
 import GhanaLanding from "./pages/GhanaLanding";
 import KenyaLanding from "./pages/KenyaLanding";
+import Auth from "./pages/Auth";
+import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
+import AttorneyPortal from "./pages/AttorneyPortal";
 
 const queryClient = new QueryClient();
 
@@ -32,38 +38,44 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="monogamy-theme">
-        <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Blog />} />
-            <Route path="/practice-areas" element={<PracticeAreas />} />
-            <Route path="/how-it-works" element={<HowItWorks />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/case-study/redemption" element={<CaseStudyRedemption />} />
-            <Route path="/case-study/redemption-law-group" element={<CaseStudyRedemption />} />
-            <Route path="/knowledge-center" element={<KnowledgeCenter />} />
-            <Route path="/ie" element={<IrelandLanding />} />
-            <Route path="/gh" element={<GhanaLanding />} />
-            <Route path="/ke" element={<KenyaLanding />} />
-            <Route path="/start" element={<Start />} />
-            <Route path="/stream" element={<Stream />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <FloatingSupportButton />
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
-</HelmetProvider>
+        <AuthProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<Blog />} />
+                <Route path="/practice-areas" element={<PracticeAreas />} />
+                <Route path="/how-it-works" element={<HowItWorks />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/partners" element={<Partners />} />
+                <Route path="/case-study/redemption" element={<CaseStudyRedemption />} />
+                <Route path="/case-study/redemption-law-group" element={<CaseStudyRedemption />} />
+                <Route path="/knowledge-center" element={<KnowledgeCenter />} />
+                <Route path="/ie" element={<IrelandLanding />} />
+                <Route path="/gh" element={<GhanaLanding />} />
+                <Route path="/ke" element={<KenyaLanding />} />
+                <Route path="/start" element={<Start />} />
+                <Route path="/stream" element={<Stream />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/dashboard" element={<RequireAuth requireSubscription><Dashboard /></RequireAuth>} />
+                <Route path="/attorney" element={<RequireAuth requireRole="attorney"><AttorneyPortal /></RequireAuth>} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <FloatingSupportButton />
+            </BrowserRouter>
+          </TooltipProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
+  </HelmetProvider>
 );
 
 export default App;
