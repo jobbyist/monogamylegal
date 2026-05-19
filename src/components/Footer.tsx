@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Brand */}
             <div className="lg:col-span-2 flex flex-col gap-4">
-              <img src={monogamyLogo} alt="Monogamy" className="dark:invert" style={{ width: "150px", height: "auto" }} />
+              <img src={monogamyLogo} alt="Monogamy" className="h-[28px] w-auto dark:invert" />
               <p className="text-[1.4rem] text-muted-foreground max-w-[30rem]">
                 Your on-demand legal team — without the overhead. Connect with vetted attorneys across every practice area.
               </p>
