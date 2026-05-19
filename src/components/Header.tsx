@@ -41,12 +41,24 @@ const Header = () => {
             <Link to="/about" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">About</Link>
             <Link to="/partners" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">For Lawyers</Link>
             <Link to="/contact" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Contact</Link>
-            <Link
-              to="/pricing"
-              className="text-[1.5rem] font-medium px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <Link
+                to={isAttorney ? "/attorney" : "/dashboard"}
+                className="text-[1.5rem] font-medium px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+              >
+                {isAttorney ? "Attorney Portal" : "Dashboard"}
+              </Link>
+            ) : (
+              <>
+                <Link to="/auth" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Sign in</Link>
+                <Link
+                  to="/pricing"
+                  className="text-[1.5rem] font-medium px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
 
           <Sheet>
