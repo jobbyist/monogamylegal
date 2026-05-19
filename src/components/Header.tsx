@@ -7,9 +7,12 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import monogamyLogo from "@/assets/monogamy-logo.png";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { user, roles } = useAuth();
+  const isAttorney = roles.includes("attorney") || roles.includes("admin");
 
   useEffect(() => {
     const handleScroll = () => {
