@@ -36,13 +36,13 @@ const FloatingSupportButton = () => {
         <button
           type="button"
           aria-label="Open Concierge AI support"
-          className="concierge-fab fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full bg-primary px-4 py-3 text-primary-foreground shadow-[0_14px_40px_rgba(0,0,0,0.35)] transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/35"
+          className="concierge-fab fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-full px-4 py-3 shadow-[0_14px_40px_rgba(0,0,0,0.18)] transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/30"
         >
-          <span className="concierge-fab__orb relative flex h-14 w-14 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-[0_10px_24px_rgba(0,0,0,0.25)]">
+          <span className="concierge-fab__orb relative flex h-14 w-14 items-center justify-center rounded-full shadow-[0_10px_24px_rgba(0,0,0,0.18)]">
             <Bot className="h-7 w-7" />
           </span>
           <span className="pr-2 text-left leading-tight">
-            <span className="block text-[1.3rem] opacity-90">Concierge</span>
+            <span className="block text-[1.3rem] opacity-70">Concierge</span>
             <span className="block text-[1.55rem] font-semibold">Your Dedicated Assistant</span>
           </span>
         </button>
