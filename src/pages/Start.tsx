@@ -185,10 +185,12 @@ const Start = () => {
                   </AppearOnScroll>
 
                   <AppearOnScroll delay={375}>
-                    <button type="submit" disabled={isSubmitting} className="w-full text-[1.8rem] font-semibold h-[56px] bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-                      {isSubmitting ? "Submitting…" : "Submit Enquiry"}
-                    </button>
-                    <p className="text-[1.3rem] text-muted-foreground text-center mt-3">No payment required now. We'll guide you through the next steps.</p>
+                    <div>
+                      <button type="submit" disabled={isSubmitting} className="w-full text-[1.8rem] font-semibold h-[56px] bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                        {isSubmitting ? "Submitting…" : "Submit Enquiry"}
+                      </button>
+                      <p className="text-[1.3rem] text-muted-foreground text-center mt-3">No payment required now. We'll guide you through the next steps.</p>
+                    </div>
                   </AppearOnScroll>
                 </form>
               )}
