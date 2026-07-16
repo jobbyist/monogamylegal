@@ -36,7 +36,7 @@ const Terms = () => {
 
           <h2>Subscription Plans and Pricing</h2>
           <p>
-            Monogamy offers three subscription plans billed monthly: Essential ($19.99/month), Professional ($49.99/month), and Enterprise ($129.99/month). Pricing is also available in South African Rand (ZAR), Nigerian Naira (NGN), and Kenyan Shilling (KES) at applicable exchange rates. All subscriptions are billed in advance and are non-refundable except as required by applicable law.
+            Monogamy offers three subscription plans billed monthly: Essential (R349/month), Professional (R899/month), and Enterprise (R2,399/month). Pricing is also available in Nigerian Naira (NGN) and Kenyan Shilling (KES) at applicable exchange rates. The Enterprise plan requires a minimum 3-month commitment. All subscriptions are billed in advance and are non-refundable except as required by applicable law.
           </p>
           <ul>
             <li>You may cancel your subscription at any time without penalty. Cancellation takes effect at the end of the current billing period.</li>
@@ -103,9 +103,25 @@ const Terms = () => {
             intellectual property or other violation of rights.
           </p>
 
-          <h2>Not a Law Firm</h2>
+          <h2>Disclaimer of Liability — Not a Law Firm</h2>
           <p>
-            Monogamy is a technology platform that facilitates connections between individuals and independent licensed attorneys. Monogamy is not a law firm and does not provide legal advice. The attorneys available through our platform are independent professionals who operate under the laws and regulations of their respective jurisdictions in South Africa, Nigeria, and Kenya.
+            <strong>Monogamy is a legal technology platform, not a law firm.</strong> We do not provide legal advice, legal representation, or legal counsel. All legal services, including legal advice, custom contract approvals, document reviews, and representation, are provided strictly by independent, licensed legal practitioners who are part of our verified attorney network.
+          </p>
+          <p>
+            Monogamy's software platform does not assume professional liability for legal documents or advice. Professional indemnity and legal responsibility rest solely with the independent, signing partner attorney who reviews, approves, and delivers legal work to clients. Each attorney maintains their own professional indemnity insurance in accordance with the requirements of their respective jurisdiction and bar association.
+          </p>
+
+          <h2>Service Level Agreements (SLA)</h2>
+          <p>
+            Standard response and turnaround times vary by subscription tier:
+          </p>
+          <ul>
+            <li><strong>Essential Plan:</strong> AI contract analysis is instant. Human attorney diagnostic chat responses are typically provided within 48 hours of request.</li>
+            <li><strong>Professional Plan:</strong> Attorney-verified template customizations are reviewed and returned within 24 hours. Attorney consultations are scheduled within 24 hours.</li>
+            <li><strong>Enterprise Plan:</strong> Priority response queue with attorney review and approval within 12 hours. Dedicated account manager available during business hours.</li>
+          </ul>
+          <p>
+            These are target timeframes and may vary based on complexity, attorney availability, and volume. Urgent matters may be expedited on a case-by-case basis.
           </p>
 
           <h2>Limitations</h2>

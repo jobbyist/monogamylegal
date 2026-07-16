@@ -75,6 +75,13 @@ const Footer = () => {
               <p className="text-[1.3rem] text-muted-foreground mt-2">© Monogamy {new Date().getFullYear()}</p>
             </nav>
           </div>
+
+          {/* Compliance Disclaimer */}
+          <div className="col-span-full mt-8 pt-8 border-t border-border">
+            <p className="text-[1.3rem] text-muted-foreground leading-relaxed">
+              <strong>Important Legal Notice:</strong> Monogamy is a technology provider, not a law firm. All legal advice, custom contract approvals, and representation are provided strictly by independent, licensed legal practitioners on our network. We do not assume professional liability for documents; professional indemnity rests solely with the signing partner attorney who approves the work.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

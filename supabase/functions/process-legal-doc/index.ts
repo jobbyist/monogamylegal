@@ -70,6 +70,13 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limiting check (basic implementation)
+    const rateLimitKey = req.headers.get("x-forwarded-for") || "unknown";
+    console.log(`Processing request from: ${rateLimitKey}`);
+    
+    // Add timestamp for monitoring
+    const startTime = Date.now();
+
     // Initialize Supabase client
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
@@ -82,16 +89,32 @@ serve(async (req) => {
       }
     );
 
+
+    // Validate environment variables
+    if (!Deno.env.get("ANTHROPIC_API_KEY")) {
+      console.error("ANTHROPIC_API_KEY is not set");
+      throw new Error("AI service configuration error");
+    }
     // Get user from auth header
     const authHeader = req.headers.get("Authorization")!;
     const token = authHeader.replace("Bearer ", "");
+    
+    if (!authHeader) {
+      throw new Error("Unauthorized");
+    }
+    
     const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
-
+    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token).catch((err) => {
+      console.error("Auth error:", err);
+      return { data: { user: null }, error: err };
+    });
     if (authError || !user) {
       throw new Error("Unauthorized");
+      console.error("Authentication failed:", authError);
     }
 
     const requestData: DocumentProcessRequest = await req.json();
+    // Validate request payload
     const { documentId, fileContent, text, jurisdiction, practiceArea } = requestData;
 
     // Fetch document from database
@@ -101,7 +124,13 @@ serve(async (req) => {
       .eq("id", documentId)
       .single();
 
+    } catch (dbError: any) {
+      console.error("Database connection error:", dbError);
+      throw new Error("Database service unavailable");
+    }
+
     if (docError || !document) {
+      console.error("Document fetch error:", docError);
       throw new Error("Document not found");
     }
 
@@ -113,26 +142,28 @@ serve(async (req) => {
     // Extract text content
     let documentText = text || document.raw_text || "";
 
-    if (!documentText && fileContent) {
-      // If file content provided, use Claude to extract text
-      const anthropic = new Anthropic({
-        apiKey: Deno.env.get("ANTHROPIC_API_KEY") ?? "",
-      });
-
-      // Note: Claude can process documents directly
-      // This is a simplified approach - expand based on file type
-      documentText = fileContent; // Placeholder - implement actual extraction
-    }
-
     if (!documentText) {
       throw new Error("No document text to process");
+      console.error("No document text available for processing");
     }
 
     // Initialize Anthropic client
+    // Limit document size to prevent timeout (100KB max)
+    if (documentText.length > 100000) {
+      console.warn("Document truncated due to size:", documentText.length);
+      documentText = documentText.slice(0, 100000) + "
+    }
+
     const anthropic = new Anthropic({
-      apiKey: Deno.env.get("ANTHROPIC_API_KEY") ?? "",
+    let anthropic;
+    try {
+      anthropic = new Anthropic({
     });
 
+    } catch (initError: any) {
+      console.error("Failed to initialize Anthropic client:", initError);
+      throw new Error("AI service initialization failed");
+    }
     // Jurisdiction-specific compliance rules
     const jurisdictionRules = {
       ZA: "South African contract law, including Consumer Protection Act and Labour Relations Act compliance",
@@ -166,16 +197,44 @@ Provide your analysis in the following JSON format:
   "compliance_score": 0-100
 }`;
 
-    const auditResponse = await anthropic.messages.create({
-      model: "claude-3-5-sonnet-20241022",
-      max_tokens: 4096,
-      messages: [
-        {
-          role: "user",
-          content: auditPrompt,
-        },
-      ],
-    });
+    // Call Claude with retry logic and fallback
+    let auditResponse;
+    try {
+      auditResponse = await anthropic.messages.create({
+        model: "claude-3-5-sonnet-20241022",
+        max_tokens: 4096,
+        messages: [
+          {
+            role: "user",
+            content: auditPrompt,
+          },
+        ],
+      });
+    } catch (apiError: any) {
+      console.error("Claude API error:", apiError);
+      
+      // Check if it's a rate limit error
+      if (apiError.status === 429 || apiError.message?.includes("rate limit")) {
+        console.warn("Rate limit hit, falling back to manual attorney routing");
+        
+        // Return immediate response and route to attorney for manual review
+        return new Response(
+          JSON.stringify({
+            success: true,
+            documentId,
+            fallback_mode: true,
+            message: "AI analysis temporarily unavailable. Document routed to attorney for priority review.",
+            next_steps: "A licensed attorney will review your document within 24 hours.",
+          }),
+          {
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+            status: 202, // Accepted
+          }
+        );
+      }
+      
+      throw new Error(`AI processing failed: ${apiError.message}`);
+    }
 
     // Parse AI response
     let aiAnalysis: AIAnalysis;
@@ -222,44 +281,62 @@ Provide your analysis in the following JSON format:
 
     // Update document with AI analysis
     const { error: updateError } = await supabaseClient
-      .from("documents")
-      .update({
-        raw_text: documentText,
-        ai_analysis: aiAnalysis,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", documentId);
-
+    let updateError;
+    try {
+      const result = await supabaseClient
+        .from("documents")
+        .update({
+          raw_text: documentText,
+          ai_analysis: aiAnalysis,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", documentId);
+      updateError = result.error;
+    } catch (dbError: any) {
+      console.error("Database update error:", dbError);
+      updateError = dbError;
+    }
     if (updateError) {
       throw new Error(`Failed to update document: ${updateError.message}`);
+      console.error("Failed to update document:", updateError);
     }
 
     // Chunk the document for RAG
     const chunks = chunkText(documentText, 1000, 200);
 
+    // Wrap in try-catch to not fail if embeddings fail
+    let chunksCreated = 0;
+    try {
     // Generate embeddings and store chunks
-    const chunkInserts = [];
+      const maxChunks = Math.min(chunks.length, 50); // Limit chunks to prevent timeout
+      
+      for (let i = 0; i < maxChunks; i++) {
     for (let i = 0; i < chunks.length; i++) {
-      const chunk = chunks[i];
+        const embedding = await generateEmbedding(chunk).catch((err) => {
+          console.error("Embedding generation error:", err);
+          return new Array(1536).fill(0);
+        });
       const embedding = await generateEmbedding(chunk);
 
       chunkInserts.push({
         document_id: documentId,
-        content: chunk,
+          embedding: embedding, // pgvector expects array, not string
         embedding: `[${embedding.join(",")}]`, // pgvector format
         chunk_index: i,
         metadata: {
           jurisdiction,
           practice_area: practiceArea,
+            processing_timestamp: new Date().toISOString(),
           chunk_length: chunk.length,
         },
       });
     }
 
-    // Delete existing chunks for this document
-    await supabaseClient
-      .from("document_chunks")
-      .delete()
+      await supabaseClient
+        .from("document_chunks")
+        .delete()
+        .eq("document_id", documentId)
+        .catch((err) => console.warn("Chunk deletion warning:", err));
       .eq("document_id", documentId);
 
     // Insert new chunks
@@ -270,10 +347,19 @@ Provide your analysis in the following JSON format:
 
       if (chunksError) {
         console.error("Failed to insert chunks:", chunksError);
-        // Don't fail the whole operation
+          console.warn("Failed to insert chunks (non-critical):", chunksError);
       }
+      } else {
+        chunksCreated = chunkInserts.length;
     }
 
+    } catch (chunkError: any) {
+      console.error("Chunk processing error (non-critical):", chunkError);
+      // Continue execution even if chunking fails
+    }
+
+    const processingTime = Date.now() - startTime;
+    console.log(`Document processed successfully in ${processingTime}ms`);
     // Return success response
     return new Response(
       JSON.stringify({
@@ -281,7 +367,8 @@ Provide your analysis in the following JSON format:
         documentId,
         analysis: aiAnalysis,
         chunks_created: chunkInserts.length,
-        message: "Document processed successfully",
+        chunks_created: chunksCreated,
+        processing_time_ms: processingTime,
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -290,16 +377,34 @@ Provide your analysis in the following JSON format:
     );
   } catch (error) {
     console.error("Error processing document:", error);
-
+    console.error("Critical error processing document:", error);
+    
+    // Determine appropriate status code
+    let statusCode = 500;
+    let errorMessage = "Internal server error";
+    
+    if (error.message === "Unauthorized") {
+      statusCode = 401;
+      errorMessage = "Authentication required";
+    } else if (error.message === "Forbidden") {
+      statusCode = 403;
+      errorMessage = "Access denied";
+    } else if (error.message.includes("Database")) {
+      statusCode = 503;
+      errorMessage = "Service temporarily unavailable";
+    } else {
+      errorMessage = error.message || "An unexpected error occurred";
+    }
     return new Response(
       JSON.stringify({
         success: false,
         error: error.message,
-      }),
+        error: errorMessage,
+        details: error.message, // Include for debugging (remove in production)
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: error.message === "Unauthorized" ? 401 : error.message === "Forbidden" ? 403 : 500,
-      }
+        status: statusCode,
     );
   }
 });

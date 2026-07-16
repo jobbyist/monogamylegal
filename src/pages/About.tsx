@@ -38,12 +38,12 @@ const About = () => {
         </AppearOnScroll>
         <AppearOnScroll delay={150}>
           <p className="text-[1.8rem] leading-[1.8] text-foreground mb-6">
-            Monogamy was founded on a simple belief: everyone deserves access to quality legal representation, regardless of their budget. Traditional legal services are prohibitively expensive, creating a justice gap that leaves millions without adequate representation.
+            Monogamy is a legal technology platform built on a simple belief: everyone deserves access to quality legal representation. We use proprietary, advanced AI pipelines to handle 95% of the heavy lifting, which is then reviewed, customized, and finalized by licensed, independent partner attorneys. You get top-tier legal protection at a fraction of standard billable rates.
           </p>
         </AppearOnScroll>
         <AppearOnScroll delay={300}>
           <p className="text-[1.8rem] leading-[1.8] text-foreground mb-6">
-            We've built a platform that connects individuals and businesses with a curated network of top-rated attorneys across every practice area — from family law and estate planning to business formation and criminal defense.
+            Traditional legal services are prohibitively expensive, creating a justice gap that leaves millions without adequate representation. Our technology platform connects individuals and businesses with a curated network of independent, licensed attorneys across South Africa, Kenya, and Nigeria — covering every practice area from family law to corporate compliance.
           </p>
         </AppearOnScroll>
         <AppearOnScroll delay={450}>

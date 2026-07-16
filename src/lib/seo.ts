@@ -100,9 +100,9 @@ function breadcrumb(items: Array<{ name: string; url: string }>) {
 
 export const PAGE_SEO: Record<string, PageSEO> = {
   home: {
-    title: "Monogamy: Your on-demand legal team — without the overhead.",
+    title: "Online Legal Services South Africa | Affordable Legal Contracts Kenya Nigeria | Monogamy",
     description:
-      "Your on-demand legal team — without the overhead. Connect with vetted attorneys across every practice area. Available in South Africa, Nigeria and Kenya.",
+      "Access affordable online legal services in South Africa, Kenya, and Nigeria. AI-powered contract analysis + licensed attorney review from R349/month. Get prenuptial agreements, business contracts, and legal advice online.",
     canonical: SITE_URL,
     jsonLd: [
       { "@context": "https://schema.org", ...organization },
@@ -201,9 +201,9 @@ export const PAGE_SEO: Record<string, PageSEO> = {
   },
 
   pricing: {
-    title: "Pricing plans & features | Monogamy",
+    title: "Legal Services Pricing South Africa Kenya Nigeria | From R349/month | Monogamy",
     description:
-      "Get started with any pricing option that suits you, from as little as $19.99 per month. No surprises. No hourly billing. Just the legal muscle you need, exactly when you need it.",
+      "Transparent legal services pricing in South Africa (R349-R2399/month), Kenya, and Nigeria. Essential, Professional, and Enterprise plans for individuals and businesses. No hourly billing, cancel anytime.",
     canonical: `${SITE_URL}/pricing`,
     jsonLd: {
       "@context": "https://schema.org",

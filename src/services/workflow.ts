@@ -56,6 +56,15 @@ export class DocumentWorkflow {
     practiceArea: string
   ): Promise<WorkflowResult> {
     try {
+      // Input validation
+      if (!templateId || !clientId || !jurisdiction) {
+        return {
+          success: false,
+          message: 'Missing required parameters',
+          error: 'templateId, clientId, and jurisdiction are required',
+        };
+      }
+
       // Fetch template
       const { data: template, error: templateError } = await supabase
         .from('templates')
@@ -65,11 +74,15 @@ export class DocumentWorkflow {
         .single();
 
       if (templateError || !template) {
+        console.error('Template fetch error:', templateError);
         return {
           success: false,
-          message: 'Template not found',
+          message: 'Template not found or unavailable',
           error: templateError?.message,
         };
+      } catch (fetchError: any) {
+        console.error('Supabase query error:', fetchError);
+        return { success: false, message: 'Database connection error', error: fetchError.message };
       }
 
       // Process template with variables
@@ -99,6 +112,7 @@ export class DocumentWorkflow {
 
       if (insertError || !document) {
         return {
+        console.error('Document insert error:', insertError);
           success: false,
           message: 'Failed to create document',
           error: insertError?.message,
@@ -111,6 +125,7 @@ export class DocumentWorkflow {
         data: { documentId: document.id, document },
       };
     } catch (error: any) {
+      console.error('Unexpected error in createDraft:', error);
       return {
         success: false,
         message: 'Error creating draft',
@@ -125,6 +140,14 @@ export class DocumentWorkflow {
    */
   static async submitForReview(documentId: string): Promise<WorkflowResult> {
     try {
+      // Input validation
+      if (!documentId) {
+        return {
+          success: false,
+          message: 'Document ID is required',
+        };
+      }
+
       // Fetch document
       const { data: document, error: docError } = await supabase
         .from('documents')
@@ -132,7 +155,13 @@ export class DocumentWorkflow {
         .eq('id', documentId)
         .single();
 
+      } catch (fetchError: any) {
+        console.error('Document fetch error:', fetchError);
+        return { success: false, message: 'Failed to fetch document', error: fetchError.message };
+      }
+
       if (docError || !document) {
+        console.error('Document not found:', docError);
         return {
           success: false,
           message: 'Document not found',
@@ -153,9 +182,13 @@ export class DocumentWorkflow {
         document.practice_area,
         document.jurisdiction
       );
-
+      ).catch((error) => {
+        console.error('Attorney matching error:', error);
+        return null;
+      });
       if (!matchedAttorney) {
         return {
+        console.warn('No available attorneys for:', document.practice_area, document.jurisdiction);
           success: false,
           message: 'No available attorneys found for this practice area and jurisdiction',
         };
@@ -172,6 +205,7 @@ export class DocumentWorkflow {
         .eq('id', documentId);
 
       if (updateError) {
+        console.error('Document update error:', updateError);
         return {
           success: false,
           message: 'Failed to update document status',
@@ -188,6 +222,7 @@ export class DocumentWorkflow {
         data: { attorneyId: matchedAttorney.id },
       };
     } catch (error: any) {
+      console.error('Unexpected error in submitForReview:', error);
       return {
         success: false,
         message: 'Error submitting for review',
@@ -228,6 +263,7 @@ export class DocumentWorkflow {
           success: false,
           message: 'Not authorized to approve this document',
         };
+        console.warn('Invalid document status for approval:', document.status);
       }
 
       // Verify document is in correct state
@@ -255,6 +291,7 @@ export class DocumentWorkflow {
         .eq('id', documentId);
 
       if (updateError) {
+        console.error('Document approval error:', updateError);
         return {
           success: false,
           message: 'Failed to approve document',
@@ -268,6 +305,7 @@ export class DocumentWorkflow {
         data: { documentId },
       };
     } catch (error: any) {
+      console.error('Unexpected error in approveDocument:', error);
       return {
         success: false,
         message: 'Error approving document',
@@ -307,7 +345,8 @@ export class DocumentWorkflow {
 
       // Generate watermarked PDF
       const pdfResult = await this.generateWatermarkedPDF(document);
-
+      const pdfResult = await this.generateWatermarkedPDF(document).catch((error) => ({
+        success: false, message: 'PDF generation failed', error: error.message }));
       if (!pdfResult.success) {
         return pdfResult;
       }
@@ -324,6 +363,7 @@ export class DocumentWorkflow {
 
       if (updateError) {
         return {
+        console.error('Document send error:', updateError);
           success: false,
           message: 'Failed to update document status',
           error: updateError.message,
@@ -342,6 +382,7 @@ export class DocumentWorkflow {
         },
       };
     } catch (error: any) {
+      console.error('Unexpected error in sendToClient:', error);
       return {
         success: false,
         message: 'Error sending document to client',
@@ -357,13 +398,24 @@ export class DocumentWorkflow {
     practiceArea: string | null,
     jurisdiction: CountryCode | null
   ): Promise<AttorneyProfile | null> {
-    const { data: attorneys } = await supabase
-      .from('attorney_profiles')
-      .select('*')
-      .eq('verified', true)
-      .eq('accepting_clients', true);
+    try {
+      const { data: attorneys, error } = await supabase
+        .from('attorney_profiles')
+        .select('*')
+        .eq('verified', true)
+        .eq('accepting_clients', true);
 
-    if (!attorneys || attorneys.length === 0) {
+      if (error) {
+        console.error('Attorney query error:', error);
+        return null;
+      }
+
+      if (!attorneys || attorneys.length === 0) {
+        console.warn('No attorneys available in database');
+        return null;
+      }
+    } catch (error: any) {
+      console.error('Unexpected error in findMatchingAttorney:', error);
       return null;
     }
 
@@ -393,6 +445,7 @@ export class DocumentWorkflow {
    * Generate watermarked PDF and upload to Supabase Storage
    */
   private static async generateWatermarkedPDF(document: any): Promise<WorkflowResult> {
+    try {
     // TODO: Implement PDF generation with watermark
     // Use libraries like pdfkit, jsPDF, or server-side generation
     // Add watermark: "MONOGAMY.LEGAL - Verified Attorney Approved"
@@ -408,6 +461,10 @@ export class DocumentWorkflow {
       success: true,
       message: 'PDF generated',
       data: { filePath, downloadUrl },
+    } catch (error: any) {
+      console.error('PDF generation error:', error);
+      return { success: false, message: 'Failed to generate PDF', error: error.message };
+    }
     };
   }
 

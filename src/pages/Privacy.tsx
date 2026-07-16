@@ -23,8 +23,7 @@ const Privacy = () => {
         <ArticleContent>
           <p>
             At Monogamy, we take your privacy seriously. This Privacy Policy
-            explains how we collect, use, disclose, and safeguard your
-            information when you visit our website and use our legal services platform. Monogamy currently operates in South Africa, Nigeria, and Kenya, and complies with applicable data protection legislation in each jurisdiction, including the Protection of Personal Information Act (POPIA) in South Africa, the Nigeria Data Protection Act (NDPA), and the Data Protection Act 2019 in Kenya.
+            explains how we collect, use, disclose, and safeguard your information when you visit our website and use our legal technology platform. <strong>Monogamy is a technology provider, not a law firm.</strong> We facilitate connections between clients and independent, licensed attorneys. We currently operate in South Africa, Nigeria, and Kenya, and comply with applicable data protection legislation in each jurisdiction, including the Protection of Personal Information Act (POPIA) in South Africa, the Nigeria Data Protection Act (NDPA), and the Data Protection Act 2019 in Kenya.
           </p>
 
           <h2>Information We Collect</h2>
@@ -64,7 +63,7 @@ const Privacy = () => {
           <ul>
             <li>Provide, maintain, and improve our services</li>
             <li>Process subscription payments and manage your account</li>
-            <li>Match you with suitable attorneys in your jurisdiction (South Africa, Nigeria, or Kenya)</li>
+            <li>Facilitate connections with independent, licensed attorneys in your jurisdiction (South Africa, Nigeria, or Kenya)</li>
             <li>Send you newsletters and updates (with your consent)</li>
             <li>Respond to your comments, questions, and requests</li>
             <li>Analyze usage patterns and trends</li>
