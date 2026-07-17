@@ -35,9 +35,10 @@ const Header = () => {
             <img src={monogamyLogo} alt="Monogamy" className="h-[28px] dark:invert" />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             <Link to="/practice-areas" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Practice Areas</Link>
             <Link to="/how-it-works" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">How It Works</Link>
+            <Link to="/templates" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Templates</Link>
             <Link to="/about" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">About</Link>
             <Link to="/partners" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">For Lawyers</Link>
             <Link to="/contact" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Contact</Link>
@@ -50,7 +51,7 @@ const Header = () => {
               </Link>
             ) : (
               <>
-                <Link to="/auth" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Sign in</Link>
+                <Link to="/auth" className="text-[1.5rem] font-medium text-foreground hover:text-muted-foreground transition-colors">Sign Up / Login</Link>
                 <Link
                   to="/pricing"
                   className="text-[1.5rem] font-medium px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity"
@@ -93,6 +94,7 @@ const Header = () => {
                       { to: "/", label: "Home" },
                       { to: "/practice-areas", label: "Practice Areas" },
                       { to: "/how-it-works", label: "How It Works" },
+                      { to: "/templates", label: "Templates" },
                       { to: "/pricing", label: "Pricing" },
                       { to: "/about", label: "About" },
                       { to: "/partners", label: "For Lawyers" },
