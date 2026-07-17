@@ -46,6 +46,14 @@ const SEO = ({
       <meta name="geo.region" content="ZA" />
       <meta name="geo.placename" content="South Africa" />
       <meta name="content-language" content="en-ZA" />
+      {/* Additional regional targeting */}
+      <meta name="geo.region" content="KE" />
+      <meta name="geo.region" content="NG" />
+      {/* Search keywords for target markets */}
+      <meta name="keywords" content="online legal services South Africa, affordable legal contracts Kenya, legal advice online Nigeria, prenuptial agreement online, lawyer consultation South Africa, legal document review Kenya, contract lawyer Nigeria, AI legal services Africa" />
+      {/* Additional mobile optimization */}
+      <meta name="format-detection" content="telephone=no" />
+      <meta name="mobile-web-app-capable" content="yes" />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}

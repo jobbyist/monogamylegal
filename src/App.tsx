@@ -32,6 +32,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import AttorneyPortal from "./pages/AttorneyPortal";
 
+import Templates from "./pages/Templates";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -53,6 +54,7 @@ const App = () => (
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/privacy" element={<Privacy />} />
+                <Route path="/templates" element={<Templates />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/partners" element={<Partners />} />
                 <Route path="/case-study/redemption" element={<CaseStudyRedemption />} />

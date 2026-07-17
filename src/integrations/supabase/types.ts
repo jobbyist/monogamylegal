@@ -26,8 +26,10 @@ export type Database = {
           id: string
           is_verified: boolean
           jurisdictions: string[]
+          paystack_payout_details: Json
           practice_areas: string[]
           updated_at: string
+          verified: boolean
           years_experience: number | null
         }
         Insert: {
@@ -40,8 +42,10 @@ export type Database = {
           hourly_rate?: number | null
           id: string
           is_verified?: boolean
+          paystack_payout_details?: Json
           jurisdictions?: string[]
           practice_areas?: string[]
+          verified?: boolean
           updated_at?: string
           years_experience?: number | null
         }
@@ -55,8 +59,10 @@ export type Database = {
           hourly_rate?: number | null
           id?: string
           is_verified?: boolean
+          paystack_payout_details?: Json
           jurisdictions?: string[]
           practice_areas?: string[]
+          verified?: boolean
           updated_at?: string
           years_experience?: number | null
         }
@@ -138,6 +144,153 @@ export type Database = {
           urgency?: Database["public"]["Enums"]["case_urgency"]
         }
         Relationships: []
+      consultations: {
+        Row: {
+          attorney_id: string
+          client_id: string
+          created_at: string
+          document_id: string | null
+          duration_minutes: number | null
+          id: string
+          meeting_url: string | null
+          notes: string | null
+          scheduled_at: string
+          status: Database["public"]["Enums"]["consultation_status"]
+          updated_at: string
+        }
+        Insert: {
+          attorney_id: string
+          client_id: string
+          created_at?: string
+          document_id?: string | null
+          duration_minutes?: number | null
+          id?: string
+          meeting_url?: string | null
+          notes?: string | null
+          scheduled_at: string
+          status?: Database["public"]["Enums"]["consultation_status"]
+          updated_at?: string
+        }
+        Update: {
+          attorney_id?: string
+          client_id?: string
+          created_at?: string
+          document_id?: string | null
+          duration_minutes?: number | null
+          id?: string
+          meeting_url?: string | null
+          notes?: string | null
+          scheduled_at?: string
+          status?: Database["public"]["Enums"]["consultation_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "consultations_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      document_chunks: {
+        Row: {
+          chunk_index: number
+          content: string
+          created_at: string
+          document_id: string
+          embedding: string | null
+          id: string
+          metadata: Json
+        }
+        Insert: {
+          chunk_index: number
+          content: string
+          created_at?: string
+          document_id: string
+          embedding?: string | null
+          id?: string
+          metadata?: Json
+        }
+        Update: {
+          chunk_index?: number
+          content?: string
+          created_at?: string
+          document_id?: string
+          embedding?: string | null
+          id?: string
+          metadata?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "document_chunks_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          ai_analysis: Json
+          attorney_id: string | null
+          client_id: string
+          created_at: string
+          file_path: string | null
+          id: string
+          jurisdiction: Database["public"]["Enums"]["country_code"] | null
+          practice_area: string | null
+          raw_text: string | null
+          status: Database["public"]["Enums"]["document_status"]
+          template_id: string | null
+          title: string
+          updated_at: string
+          variables: Json
+        }
+        Insert: {
+          ai_analysis?: Json
+          attorney_id?: string | null
+          client_id: string
+          created_at?: string
+          file_path?: string | null
+          id?: string
+          jurisdiction?: Database["public"]["Enums"]["country_code"] | null
+          practice_area?: string | null
+          raw_text?: string | null
+          status?: Database["public"]["Enums"]["document_status"]
+          template_id?: string | null
+          title: string
+          updated_at?: string
+          variables?: Json
+        }
+        Update: {
+          ai_analysis?: Json
+          attorney_id?: string | null
+          client_id?: string
+          created_at?: string
+          file_path?: string | null
+          id?: string
+          jurisdiction?: Database["public"]["Enums"]["country_code"] | null
+          practice_area?: string | null
+          raw_text?: string | null
+          status?: Database["public"]["Enums"]["document_status"]
+          template_id?: string | null
+          title?: string
+          updated_at?: string
+          variables?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       }
       earnings: {
         Row: {
@@ -212,26 +365,38 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          country: Database["public"]["Enums"]["country_code"] | null
           created_at: string
           full_name: string | null
           id: string
+          onboarding_completed: boolean
+          onboarding_metadata: Json
           phone: string | null
+          role: Database["public"]["Enums"]["app_role"]
           updated_at: string
         }
         Insert: {
           avatar_url?: string | null
+          country?: Database["public"]["Enums"]["country_code"] | null
           created_at?: string
           full_name?: string | null
           id: string
+          onboarding_completed?: boolean
+          onboarding_metadata?: Json
           phone?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
           updated_at?: string
         }
         Update: {
           avatar_url?: string | null
+          country?: Database["public"]["Enums"]["country_code"] | null
           created_at?: string
           full_name?: string | null
           id?: string
+          onboarding_completed?: boolean
+          onboarding_metadata?: Json
           phone?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
           updated_at?: string
         }
         Relationships: []
@@ -270,6 +435,48 @@ export type Database = {
         Relationships: []
       }
       user_roles: {
+      templates: {
+        Row: {
+          category: string
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          is_active: boolean
+          jurisdiction: Database["public"]["Enums"]["country_code"]
+          practice_area: string | null
+          raw_markdown_content: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          jurisdiction: Database["public"]["Enums"]["country_code"]
+          practice_area?: string | null
+          raw_markdown_content: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          jurisdiction?: Database["public"]["Enums"]["country_code"]
+          practice_area?: string | null
+          raw_markdown_content?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
         Row: {
           created_at: string
           id: string
@@ -303,6 +510,21 @@ export type Database = {
         Returns: boolean
       }
     }
+      match_document_chunks: {
+        Args: {
+          query_embedding: string
+          match_threshold?: number
+          match_count?: number
+          filter_document_id?: string
+        }
+        Returns: {
+          id: string
+          document_id: string
+          content: string
+          similarity: number
+          metadata: Json
+        }[]
+      }
     Enums: {
       app_role: "client" | "attorney" | "admin"
       case_status:
@@ -312,6 +534,13 @@ export type Database = {
         | "closed"
         | "cancelled"
       case_urgency: "low" | "normal" | "high" | "urgent"
+      consultation_status: "scheduled" | "completed" | "canceled"
+      country_code: "ZA" | "KE" | "NG"
+      document_status:
+        | "drafted"
+        | "pending_review"
+        | "attorney_approved"
+        | "sent_to_client"
       match_status: "proposed" | "accepted" | "declined" | "completed"
       subscription_provider: "paypal" | "paystack"
       subscription_status:
@@ -456,6 +685,14 @@ export const Constants = {
         "cancelled",
       ],
       case_urgency: ["low", "normal", "high", "urgent"],
+      consultation_status: ["scheduled", "completed", "canceled"],
+      country_code: ["ZA", "KE", "NG"],
+      document_status: [
+        "drafted",
+        "pending_review",
+        "attorney_approved",
+        "sent_to_client",
+      ],
       match_status: ["proposed", "accepted", "declined", "completed"],
       subscription_provider: ["paypal", "paystack"],
       subscription_status: [

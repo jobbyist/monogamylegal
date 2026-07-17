@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
+import { Upload, FileCheck, MessageSquare } from "lucide-react";
 type Case = {
   id: string;
   title: string;
@@ -16,6 +17,15 @@ type Case = {
   assigned_attorney_id: string | null;
 };
 
+
+type SubscriptionPlan = "essential" | "professional" | "enterprise" | null;
+
+interface PlanFeatures {
+  maxUploadsPerMonth: number;
+  aiContractChecker: boolean;
+  diagnosticChatMinutes: number;
+  consultationsPerMonth: number;
+}
 type Message = { id: string; body: string; sender_id: string; created_at: string };
 
 const PRACTICE_AREAS = [
@@ -32,13 +42,67 @@ const Dashboard = () => {
   const [showNew, setShowNew] = useState(false);
   const [form, setForm] = useState({ title: "", practice_area: PRACTICE_AREAS[0], jurisdiction: "", urgency: "normal", description: "" });
 
+  const [subscriptionPlan, setSubscriptionPlan] = useState<SubscriptionPlan>(null);
+  const [uploadsThisMonth, setUploadsThisMonth] = useState(0);
+  
+  // Define plan features
+  const planFeatures: Record<string, PlanFeatures> = {
+    essential: {
+      maxUploadsPerMonth: -1, // unlimited template downloads
+      aiContractChecker: true,
+      diagnosticChatMinutes: 15,
+      consultationsPerMonth: 1,
+    },
+    professional: {
+      maxUploadsPerMonth: -1,
+      aiContractChecker: true,
+      diagnosticChatMinutes: 20,
+      consultationsPerMonth: 2,
+    },
+    enterprise: {
+      maxUploadsPerMonth: -1,
+      aiContractChecker: true,
+      diagnosticChatMinutes: -1, // unlimited
+      consultationsPerMonth: 3,
+    },
+  };
+  
+  const currentPlanFeatures = useMemo(() => {
+    return subscriptionPlan ? planFeatures[subscriptionPlan] : null;
+  }, [subscriptionPlan]);
   const loadCases = async () => {
     const { data } = await supabase.from("cases").select("*").order("created_at", { ascending: false });
     setCases((data ?? []) as Case[]);
   };
 
   useEffect(() => { loadCases(); }, []);
+  const loadSubscription = async () => {
+    if (!user) return;
+    
+    // Fetch user's subscription plan from profile
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("subscription_tier")
+      .eq("id", user.id)
+      .single();
+    
+    if (profile?.subscription_tier) {
+      setSubscriptionPlan(profile.subscription_tier.toLowerCase() as SubscriptionPlan);
+    }
+    
+    // Count uploads this month
+    const startOfMonth = new Date();
+    startOfMonth.setDate(1);
+    startOfMonth.setHours(0, 0, 0, 0);
+    
+    const { count } = await supabase.from("cases").select("*", { count: "exact", head: true }).eq("client_id", user.id).gte("created_at", startOfMonth.toISOString());
+    setUploadsThisMonth(count || 0);
+  };
 
+  useEffect(() => { 
+    loadCases();
+    loadSubscription();
+  }, [user]);
   useEffect(() => {
     if (!activeCase) return;
     supabase.from("messages").select("*").eq("case_id", activeCase.id).order("created_at").then(({ data }) => setMessages((data ?? []) as Message[]));
@@ -76,14 +140,59 @@ const Dashboard = () => {
       <main className="flex-1 px-6 md:px-[calc(18vw-10rem)] py-10 max-w-[138rem] mx-auto w-full">
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div>
-            <h1 className="text-[3.2rem] font-bold">My Dashboard</h1>
-            <p className="text-[1.5rem] text-muted-foreground">Manage your cases and message your attorney.</p>
+            <h1 className="text-[3.2rem] font-bold">Client Dashboard</h1>
+            <p className="text-[1.5rem] text-muted-foreground">
+              {subscriptionPlan ? (
+                <>Plan: <span className="capitalize font-semibold">{subscriptionPlan}</span> • Manage your cases and documents</>
+              ) : (
+                "Manage your cases and message your attorney."
+              )}
+            </p>
           </div>
           <div className="flex gap-3">
+            <Link to="/templates" className="px-5 h-12 rounded-lg bg-primary text-primary-foreground text-[1.5rem] font-semibold flex items-center gap-2">
+              <FileCheck className="w-5 h-5" />
+              Templates
+            </Link>
             <button onClick={() => setShowNew(true)} className="px-5 h-12 rounded-lg bg-primary text-primary-foreground text-[1.5rem] font-semibold">+ New case</button>
             <button onClick={signOut} className="px-5 h-12 rounded-lg border border-border text-[1.5rem]">Sign out</button>
           </div>
         </div>
+
+        {/* Plan Features Overview */}
+        {currentPlanFeatures && (
+          <div className="mb-8 rounded-2xl border border-border bg-card p-6">
+            <h2 className="text-[1.8rem] font-semibold mb-4">Your Plan Benefits</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="flex items-start gap-3">
+                <Upload className="w-6 h-6 text-primary mt-1" />
+                <div>
+                  <p className="text-[1.5rem] font-semibold">Template Library</p>
+                  <p className="text-[1.3rem] text-muted-foreground">Unlimited downloads</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <FileCheck className="w-6 h-6 text-primary mt-1" />
+                <div>
+                  <p className="text-[1.5rem] font-semibold">AI Contract Checker</p>
+                  <p className="text-[1.3rem] text-muted-foreground">Instant feedback on docs</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MessageSquare className="w-6 h-6 text-primary mt-1" />
+                <div>
+                  <p className="text-[1.5rem] font-semibold">Attorney Consultations</p>
+                  <p className="text-[1.3rem] text-muted-foreground">
+                    {currentPlanFeatures.consultationsPerMonth} consult{currentPlanFeatures.consultationsPerMonth > 1 ? "s" : ""}/month
+                  </p>
+                </div>
+              </div>
+            </div>
+            <Link to="/pricing" className="inline-block mt-4 text-[1.4rem] text-primary hover:underline">
+              Upgrade plan →
+            </Link>
+          </div>
+        )}
 
         {showNew && (
           <form onSubmit={submitCase} className="mb-8 rounded-2xl border border-border bg-card p-6 grid gap-4">

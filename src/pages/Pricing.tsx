@@ -20,56 +20,51 @@ const currencies = [
 const plans = [
   {
     name: "Essential",
-    priceUSD: 19.99,
+    priceUSD: 18.77,
     tagline: "Affordable legal clarity, on demand.",
     badge: null as string | null,
-    perfectFor: "Individuals, freelancers, early-stage founders",
+    perfectFor: "Individuals seeking basic legal protection",
     features: [
-      "Access to vetted lawyer network (all practice areas)",
-      "2 legal consultations per month (20–30 mins each, chat or call)",
-      "Basic document review (1 document/month, up to 5 pages)",
-      "Standard response time (24–48 hours)",
-      "Access to legal templates library (contracts, NDAs, etc.)",
-      "In-app messaging with matched lawyers",
+      "Unlimited Template Library Downloads",
+      "In-App AI Contract Checker (Instant AI feedback on uploaded docs)",
+      "1 Short Diagnostic Chat (15 mins max) with a lawyer",
+      "AI-powered legal document analysis",
+      "Access to legal knowledge base",
     ],
   },
   {
     name: "Professional",
-    priceUSD: 49.99,
-    tagline: null as string | null,
+    priceUSD: 48.33,
+    tagline: "SMEs, growing startups, serious operators.",
     badge: "Popular" as string | null,
-    perfectFor: "SMEs, growing startups, serious operators",
+    perfectFor: "Growing businesses needing regular legal support",
     features: [
       "Everything in Essential, plus:",
-      "5 legal consultations per month (priority booking)",
-      "Faster response time (within 12–24 hours)",
-      "Document review (up to 3 documents/month, 10 pages each)",
-      "1 custom document draft per month (e.g., contract, agreement)",
-      "Dedicated legal concierge (smart matching to best-fit lawyers)",
-      "Discounted hourly rates (10–15% off) for extended work",
-      "Multi-country legal access (cross-border advisory within Africa)",
+      "2 Attorney Consults per month (20 mins each)",
+      "1 Attorney-Verified Template Customization per month",
+      "AI drafts, partner lawyer reviews and signs off within 24 hours",
+      "Priority legal support",
+      "Document version control",
     ],
   },
   {
     name: "Enterprise",
-    priceUSD: 129.99,
-    tagline: null as string | null,
+    priceUSD: 128.95,
+    tagline: "Established businesses & high-growth startups.",
     badge: null as string | null,
-    perfectFor: "Established businesses, high-growth startups, agencies",
+    perfectFor: "Organizations requiring comprehensive legal protection",
     features: [
       "Everything in Professional, plus:",
-      "Unlimited consultations (fair use policy)",
-      "Same-day response time (priority queue)",
-      "Unlimited document reviews",
-      "3 custom legal documents per month",
-      "Dedicated account manager (human, not just concierge)",
-      "Legal risk monitoring + proactive alerts (compliance, deadlines, etc.)",
-      "20% discounted rates for complex legal work",
-      "Team access (up to 5 users)",
-      "Quarterly legal strategy session (deep-dive with senior lawyer)",
+      "Multi-user access (up to 5 team members)",
+      "3 Custom Attorney-Approved Drafts/Reviews per month",
+      "Priority response queue (within 12 hours)",
+      "Dedicated account manager",
+      "Legal compliance monitoring",
     ],
   },
 ];
+
+const enterpriseDisclaimer = "* Requires a minimum 3-month commitment to prevent abuse.";
 
 const formatPrice = (usd: number, rate: number, symbol: string) => {
   const converted = usd * rate;
@@ -177,6 +172,11 @@ const Pricing = () => {
                         <span className={plan.badge ? "text-primary-foreground/90" : ""}>{feat}</span>
                       </li>
                     ))}
+                    {plan.name === "Enterprise" && (
+                      <li className={`text-[1.3rem] italic mt-4 ${plan.badge ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                        {enterpriseDisclaimer}
+                      </li>
+                    )}
                   </ul>
 
                   {plan.priceUSD === 19.99 ? (
