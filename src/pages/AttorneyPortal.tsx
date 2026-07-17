@@ -127,7 +127,7 @@ const AttorneyPortal = () => {
                   ))}
                 </ul>
               )}
-            <section className="rounded-2xl border border-border bg-card p-5 min-h-[60rem] flex flex-col">
+            </section>
             <section className="rounded-2xl border border-border bg-card p-5 min-h-[40rem] flex flex-col">
               {!activeCase ? (
                 <div className="flex-1 flex items-center justify-center text-[1.5rem] text-muted-foreground">Select a case to view details and chat</div>
@@ -183,7 +183,7 @@ const AttorneyPortal = () => {
                         </div>
                       </div>
                     </div>
-                    ))}
+                  </div>
                   
                   {/* Action buttons */}
                   <div className="flex gap-3 pt-4 border-t border-border">
@@ -225,13 +225,13 @@ const AttorneyPortal = () => {
             <textarea rows={5} placeholder="Bio" value={profile?.bio ?? ""} onChange={(e) => setProfile({ ...(profile as AttorneyProfile), bio: e.target.value })} className="p-4 rounded-lg border border-border bg-background text-[1.5rem]" />
             <label className="flex items-center gap-2 text-[1.5rem]">
               <input type="checkbox" checked={profile?.accepting_clients ?? true} onChange={(e) => setProfile({ ...(profile as AttorneyProfile), accepting_clients: e.target.checked })} />
+              Currently accepting new clients
+            </label>
             <div className="grid grid-cols-2 gap-4">
               <input placeholder="Bank Name" className="h-12 px-4 rounded-lg border border-border bg-background text-[1.5rem]" />
               <input placeholder="Account Number" className="h-12 px-4 rounded-lg border border-border bg-background text-[1.5rem]" />
             </div>
             <input placeholder="Paystack Recipient Code (for payouts)" className="h-12 px-4 rounded-lg border border-border bg-background text-[1.5rem]" />
-              Currently accepting new clients
-            </label>
             <button className="h-12 px-6 rounded-lg bg-primary text-primary-foreground font-semibold text-[1.5rem] w-fit">Save profile</button>
           </form>
         )}
