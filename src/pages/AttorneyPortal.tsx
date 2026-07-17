@@ -135,8 +135,8 @@ const AttorneyPortal = () => {
                 <>
                     <div className="flex items-center justify-between mb-2">
                       <h3 className="text-[1.8rem] font-semibold">{activeCase.title}</h3>
-                      <span className={`px-3 py-1 rounded-full text-[1.2rem] font-medium ${
-                        activeCase.status === "pending_review" ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" :
+                      <span className={`px-3 py-1 rounded-full text-[1.2rem] font-medium 
+                        ${activeCase.status === "pending_review" ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" :
                         activeCase.status === "attorney_approved" ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" :
                         "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
                       }`}>
@@ -204,14 +204,14 @@ const AttorneyPortal = () => {
         {tab === "profile" && (
           <form onSubmit={saveProfile} className="rounded-2xl border border-border bg-card p-6 grid gap-4 max-w-[80rem]">
             <h2 className="text-[2rem] font-semibold">Attorney profile</h2>
-        {tab === "profile" && !profile && (
-          <div className="rounded-2xl border border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800 p-6 mb-6">
-            <h3 className="text-[1.8rem] font-semibold mb-2">⏳ Pending Verification</h3>
-            <p className="text-[1.5rem] text-muted-foreground">
-              Your attorney profile is under review. You'll receive an email once verification is complete and you can start accepting clients.
-            </p>
-          </div>
-        )}
+            {tab === "profile" && !profile && (
+              <div className="rounded-2xl border border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800 p-6 mb-6">
+                <h3 className="text-[1.8rem] font-semibold mb-2">⏳ Pending Verification</h3>
+                <p className="text-[1.5rem] text-muted-foreground">
+                  Your attorney profile is under review. You'll receive an email once verification is complete and you can start accepting clients.
+                </p>
+              </div>
+            )}
 
             <input placeholder="Firm name" value={profile?.firm_name ?? ""} onChange={(e) => setProfile({ ...(profile as AttorneyProfile), firm_name: e.target.value })} className="h-12 px-4 rounded-lg border border-border bg-background text-[1.5rem]" />
             <input placeholder="Bar number" value={profile?.bar_number ?? ""} onChange={(e) => setProfile({ ...(profile as AttorneyProfile), bar_number: e.target.value })} className="h-12 px-4 rounded-lg border border-border bg-background text-[1.5rem]" />
