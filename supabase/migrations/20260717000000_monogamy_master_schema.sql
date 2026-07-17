@@ -108,3 +108,8 @@ create policy "Read public templates" on public.templates for select using (true
 create policy "Clients/Attorneys manage own profile" on public.profiles for all using (auth.uid() = id);
 create policy "Clients manage own docs" on public.documents for all using (auth.uid() = client_id);
 create policy "Attorneys read assigned docs" on public.documents for select using (auth.uid() = attorney_id);
+
+-- Additional RLS for attorney_profiles
+create policy "Attorneys manage own profile" on public.attorney_profiles for all using (auth.uid() = id);
+create policy "Admins manage attorney profiles" on public.attorney_profiles for all using (exists (select 1 from public.profiles where id = auth.uid() and role = 'admin'));
+create policy "Public read verified attorneys" on public.attorney_profiles for select using (verified = true);
