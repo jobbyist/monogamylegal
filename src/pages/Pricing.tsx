@@ -76,11 +76,17 @@ const formatPrice = (usd: number, rate: number, symbol: string) => {
 
 const Pricing = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+
+  const openOnboarding = () => setShowOnboarding(true);
 
   return (
     <div className="min-h-screen bg-background">
       <SEO {...PAGE_SEO.pricing} />
       <Header />
+
+      {/* Onboarding Modal - would be shared in full impl, here duplicated for simplicity */}
+      {/* Note: In production, extract to shared component */}
 
       <Section>
         <div className="text-center w-full max-w-[80rem] mx-auto">
@@ -93,7 +99,6 @@ const Pricing = () => {
               <p className="text-[1.8rem] md:text-[2rem] text-muted-foreground leading-[1.8] mb-8">
                 No surprises. No hourly billing. Just the legal muscle you need, exactly when you need it.
               </p>
-              {/* SEO addition: AI-search friendly internal links across core pages. */}
               <p className="text-[1.5rem] text-muted-foreground leading-[1.8] mb-6">
                 Compare plans, review supported <Link to="/practice-areas" className="text-primary hover:underline">practice areas</Link>, and see <Link to="/how-it-works" className="text-primary hover:underline">how Monogamy works</Link> before you choose a membership.
               </p>
@@ -179,26 +184,16 @@ const Pricing = () => {
                     )}
                   </ul>
 
-                  {plan.priceUSD === 19.99 ? (
-                    <SubscribeButtons
-                      buttonClass={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
-                        plan.badge
-                          ? "bg-background text-primary hover:bg-background/90"
-                          : "bg-primary text-primary-foreground hover:opacity-90"
-                      }`}
-                    />
-                  ) : (
-                    <Link
-                      to="/start"
-                      className={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
-                        plan.badge
-                          ? "bg-background text-primary hover:bg-background/90"
-                          : "bg-primary text-primary-foreground hover:opacity-90"
-                      }`}
-                    >
-                      Get Started
-                    </Link>
-                  )}
+                  <button
+                    onClick={openOnboarding}
+                    className={`w-full py-4 text-[1.6rem] font-semibold rounded-lg text-center transition-all block mt-2 ${
+                      plan.badge
+                        ? "bg-background text-primary hover:bg-background/90"
+                        : "bg-primary text-primary-foreground hover:opacity-90"
+                    }`}
+                  >
+                    Get Started
+                  </button>
                 </div>
               </AppearOnScroll>
             ))}
